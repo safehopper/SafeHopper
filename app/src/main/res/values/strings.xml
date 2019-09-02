@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">SafeHopper</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Create Account</string>
+    <string name="menu_gallery">Contacts</string>
+    <string name="menu_slideshow">Routes</string>
+    <string name="menu_tools">Login</string>
+    <string name="menu_share">Settings</string>
+    <string name="menu_send">Home Page</string>
+    <string name="menu_add_contact">Add Contact</string>
+    <string name="menu_create_route">Create Route</string>
+</resources>
