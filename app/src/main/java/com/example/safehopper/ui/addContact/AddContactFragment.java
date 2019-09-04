@@ -23,13 +23,13 @@ public class AddContactFragment extends Fragment {
         addContactViewModel =
                 ViewModelProviders.of(this).get(AddContactViewModel.class);
         View root = inflater.inflate(R.layout.fragment_add_contact, container, false);
-        final TextView textView = root.findViewById(R.id.text_add_contact);
-        addContactViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+//        final TextView textView = root.findViewById(R.id.textView2);
+//        addContactViewModel.getText().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
         return root;
     }
 }
