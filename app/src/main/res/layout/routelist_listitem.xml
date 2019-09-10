@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingBottom="0dp"
+    android:id="@+id/routeparent_layout"
+    tools:ignore="InvalidId">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/route_image"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/route_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/route_miles"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="25dp"
+        android:layout_toRightOf="@+id/route_image"
+        android:layout_marginVertical="18dp"
+        android:text="El Dorado Park"
+        android:textColor="#000"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/route_miles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@+id/route_image"
+        android:layout_marginVertical="42dp"
+        android:text="3.2 miles"
+        android:textColor="#000"
+        android:textSize="15sp"/>
+</RelativeLayout>
