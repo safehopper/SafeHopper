@@ -34,18 +34,11 @@ dependencies {
 
     //recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta04'
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
     //glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     //circle imageview
     implementation 'de.hdodenhof:circleimageview:3.0.1'
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 }
