@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
@@ -14,10 +14,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
 
     <ImageView
-        android:id="@+id/CreateAccount"
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity=""
@@ -55,9 +56,11 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
+                android:autofillHints=""
                 android:background="#ffffff"
-                android:hint="User Name"
-                android:padding="10dp" />
+                android:hint="@string/sign_up_username"
+                android:inputType="textPersonName"
+                android:padding="10dp" tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/Password"
@@ -68,8 +71,10 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
                 android:background="#ffffff"
-                android:hint="Password"
-                android:padding="10dp" />
+                android:hint="@string/sign_up_password"
+                android:inputType="textPassword|numberPassword"
+                android:padding="10dp"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/FirstName"
@@ -80,7 +85,9 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
                 android:background="#ffffff"
-                android:hint="First Name"
+                android:hint="@string/sign_up_firstname"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
                 android:padding="10dp" />
 
             <EditText
@@ -91,9 +98,11 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
+                android:autofillHints=""
                 android:background="#ffffff"
-                android:hint="Last Name "
-                android:padding="10dp" />
+                android:hint="@string/sign_up_lastname"
+                android:inputType="textPersonName"
+                android:padding="10dp" tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/Email"
@@ -104,7 +113,9 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
                 android:background="#ffffff"
-                android:hint="Email"
+                android:hint="@string/sign_up_email"
+                android:importantForAutofill="no"
+                android:inputType="textWebEmailAddress"
                 android:padding="10dp" />
 
             <EditText
@@ -116,8 +127,10 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
                 android:background="#ffffff"
-                android:hint="Phone"
-                android:padding="10dp" />
+                android:hint="@string/sign_up_phone"
+                android:inputType="phone"
+                android:padding="10dp"
+                android:importantForAutofill="no" />
 
             <Button
                 android:id="@+id/button"
@@ -128,10 +141,11 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/colorAccent"
-                android:text="Button"
+                android:text="@string/sign_up_button"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

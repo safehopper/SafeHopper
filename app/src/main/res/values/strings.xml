@@ -23,4 +23,22 @@
     <string name="add_contact_text_alert">Text Alerts</string>
     <string name="add_contact_email_alert">Email Alerts</string>
     <string name="add_contact_how_to_contact">How should we contact them?</string>
+
+
+    <string name="sign_up_username">User Name</string>
+    <string name="sign_up_password">Password</string>
+    <string name="sign_up_firstname">First Name</string>
+    <string name="sign_up_lastname">Last Name</string>
+    <string name="sign_up_email">Email</string>
+    <string name="sign_up_phone">Phone Number</string>
+    <string name="sign_up_button">Sign Up</string>
+    
+    <string name="settings_security_level_low">Low Security</string>
+    <string name="settings_security_level_medium">Medium Security</string>
+    <string name="settings_security_level_high">High Security</string>
+    <string name="settings_route_buffer">Route Buffer Zone</string>
+    <stringer-array name="units">
+        <item>Miles/Feet</item>
+        <item>Kilometers/Meters</item>
+    </stringer-array>
 </resources>
