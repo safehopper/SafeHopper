@@ -24,10 +24,11 @@
         android:id="@+id/logoImageView"
         android:layout_width="wrap_content"
         android:layout_height="169dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logo"
-        tools:layout_editor_absoluteY="35dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
     <EditText
         android:id="@+id/usernameEditText"
@@ -35,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:background="#FFF"
+        android:background="@drawable/edittext_background"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
@@ -52,7 +53,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
-        android:background="#FFF"
+        android:background="@drawable/edittext_background"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -66,26 +67,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
-        android:backgroundTint="#101B55"
+        android:background="@drawable/button_standard"
         android:text="Login"
         android:textColor="#F8F1F1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
-
-    <TextView
-        android:id="@+id/signInTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
-        android:text="@string/signIn"
-        android:textColor="#FF5722"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@+id/usernameEditText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/questionTextView"

@@ -5,24 +5,24 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/nav_create_account"
             android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:title="@string/menu_create_account" />
 
         <item
-            android:id="@+id/nav_tools"
+            android:id="@+id/nav_login"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:title="@string/menu_login" />
 
         <item
-            android:id="@+id/nav_send"
+            android:id="@+id/nav_homepage"
             android:icon="@drawable/ic_menu_send"
-            android:title="@string/menu_send" />
+            android:title="@string/menu_homepage" />
 
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_routes"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/menu_routes" />
 
         <item
             android:id="@+id/nav_create_route"
@@ -30,9 +30,9 @@
             android:title="@string/menu_create_route" />
 
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_contacts"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:title="@string/menu_contacts" />
 
         <item
             android:id="@+id/nav_add_contact"
@@ -40,9 +40,9 @@
             android:title="@string/menu_add_contact" />
 
         <item
-            android:id="@+id/nav_share"
+            android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_share"
-            android:title="@string/menu_share" />
+            android:title="@string/menu_settings" />
 
 
     </group>
