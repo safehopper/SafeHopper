@@ -28,7 +28,8 @@ public class SettingsFragment extends Fragment {
                 ViewModelProviders.of(this).get(SettingsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        Spinner spinner = 
+        Spinner spinner = getView().findViewById(R.id.spinner);
+
 
 
         return root;
