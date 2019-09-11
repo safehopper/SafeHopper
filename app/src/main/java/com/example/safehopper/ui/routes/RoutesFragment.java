@@ -5,16 +5,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.safehopper.R;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,13 +31,6 @@ public class RoutesFragment extends Fragment {
         routesViewModel =
                 ViewModelProviders.of(this).get(RoutesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_routes, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        routesViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         Log.d(TAG, "onCreateView: started");
 
