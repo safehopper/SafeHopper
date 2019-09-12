@@ -1,31 +1,30 @@
 package com.example.safehopper.ui.contacts;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.safehopper.R;
-import com.example.safehopper.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 
 public class ContactsFragment extends Fragment {
 
+    public static final String TAG = "ContactsFragment";
+
     private ContactsViewModel contactsViewModel;
 
-    private RecyclerView recyclerView;
-    private RecyclerViewAdapter recyclerViewAdapter;
-    ArrayList<EmergencyContact>
+    private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mPhoneNumbers = new ArrayList<>();
+    private ArrayList<String> mEmails = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -33,19 +32,39 @@ public class ContactsFragment extends Fragment {
                 ViewModelProviders.of(this).get(ContactsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_contacts, container, false);
 
-        //initRecyclerView()
-        recyclerView = root.findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        Log.d(TAG, "onCreateView started.");
 
-        /*final TextView textView = root.findViewById(R.id.text_gallery);
-        contactsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
+        initImageBitMaps();
+
+        RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, mPhoneNumbers, mEmails, this.getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         return root;
+    }
+
+    private void initImageBitMaps(){
+        Log.d(TAG, "initImageBitmaps: preparing bitmaps");
+
+        mNames.add("Guillermo Barron");
+        mPhoneNumbers.add("(999)999-9999");
+        mEmails.add("gbarron@gmail.com");
+
+        mNames.add("Rojin Shahbazian");
+        mPhoneNumbers.add("(888)888-8888");
+        mEmails.add("rshahbazian@gmail.com");
+
+        mNames.add("Mariel Trajano");
+        mPhoneNumbers.add("(777)777-7777");
+        mEmails.add("mtrajano@gmail.com");
+
+        mNames.add("Andrew Delgado");
+        mPhoneNumbers.add("(666)666-6666");
+        mEmails.add("adelgado@gmail.com");
+
+        mNames.add("Justin Terry");
+        mPhoneNumbers.add("(555)555-5555");
+        mEmails.add("jterry@gmail.com");
     }
 }
