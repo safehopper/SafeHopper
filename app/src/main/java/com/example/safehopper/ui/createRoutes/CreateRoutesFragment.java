@@ -22,8 +22,8 @@ public class CreateRoutesFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         createRoutesViewModel =
                 ViewModelProviders.of(this).get(CreateRoutesViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_contacts, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
+        View root = inflater.inflate(R.layout.fragment_create_route, container, false);
+        final TextView textView = root.findViewById(R.id.text_create_route);
         createRoutesViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
