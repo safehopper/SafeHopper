@@ -13,6 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/action_settings"
         app:srcCompat="@color/colorPrimaryDark" />
 
     <LinearLayout
@@ -40,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:clickable="false"
+                android:contentDescription="@string/action_settings"
                 android:text="@string/settings_route_buffer"
                 android:textColor="#ffffff"
                 android:textSize="24sp"
@@ -58,10 +60,10 @@
         </LinearLayout>
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/spinner1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:backgroundTint="#ffff" />
 
     </LinearLayout>
 
@@ -69,8 +71,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="70dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

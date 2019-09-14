@@ -38,8 +38,9 @@
     <string name="settings_security_level_medium">Medium Security</string>
     <string name="settings_security_level_high">High Security</string>
     <string name="settings_route_buffer">Route Buffer Zone</string>
-    <stringer-array name="units">
+    <string name="settings_units_spinner">Units</string>
+    <string-array name="units">
         <item>Miles/Feet</item>
         <item>Kilometers/Meters</item>
-    </stringer-array>
+    </string-array>
 </resources>

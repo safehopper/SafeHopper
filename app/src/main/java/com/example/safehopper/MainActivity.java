@@ -7,6 +7,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -15,8 +16,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+//import com.example.safehopper.ui.settings.SettingsFragment;
+//import android.view.View;
+//import android.widget.AdapterView;
+//import android.widget.ArrayAdapter;
+//import android.widget.Spinner;
+
 
 public class MainActivity extends AppCompatActivity {
+    //Spinner object
+//    Spinner spinner;
+//    SettingsFragment settingsFragment;
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -46,6 +56,23 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //Spinner for the setting's page
+//        spinner = findViewById(R.id.spinner1);
+//        settingsFragment = new SettingsFragment();
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.fragment_settings,
+//                getResources().getStringArray(R.array.units));
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        spinner.setAdapter(adapter);
+//        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//
+//            }
+//        });
+
+
     }
 
     @Override
