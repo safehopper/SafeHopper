@@ -7,8 +7,9 @@
     android:padding="15dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight=".7"
         android:id="@+id/text_linear_layout"
         android:orientation="vertical">
 
@@ -38,15 +39,15 @@
 
     <LinearLayout
         android:id="@+id/checkbox_linear_layout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight=".3"
         android:orientation="vertical">
 
         <CheckBox
             android:id="@+id/email_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:buttonTint="#FFF"
             android:text="Email"
             android:textColor="#FFF" />
@@ -55,7 +56,6 @@
             android:id="@+id/text_message_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:buttonTint="#FFF"
             android:text="Text Message"
             android:textColor="#FFF" />
