@@ -23,4 +23,9 @@
     <string name="add_contact_text_alert">Text Alerts</string>
     <string name="add_contact_email_alert">Email Alerts</string>
     <string name="add_contact_how_to_contact">How should we contact them?</string>
+
+    <string name="contacts_email">Email</string>
+    <string name="contacts_text_message">Text Message</string>
+
+    <string name="signIn">Sign in</string>
 </resources>

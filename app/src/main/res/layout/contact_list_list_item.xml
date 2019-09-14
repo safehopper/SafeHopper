@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_list_parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".7"
+        android:id="@+id/text_linear_layout"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/contact_name_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guillermo Barron"
+            android:textColor="#FFF"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/phone_number_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone: (999)999-9999"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/email_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: thisemail@google.com"
+            android:textColor="#FFF" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/checkbox_linear_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".3"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/email_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#FFF"
+            android:text="@string/contacts_email"
+            android:textColor="#FFF" />
+
+        <CheckBox
+            android:id="@+id/text_message_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#FFF"
+            android:text="@string/contacts_text_message"
+            android:textColor="#FFF" />
+
+    </LinearLayout>
+
+</LinearLayout>
