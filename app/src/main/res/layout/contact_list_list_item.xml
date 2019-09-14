@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="#FFF"
-            android:text="Email"
+            android:text="@string/contacts_email"
             android:textColor="#FFF" />
 
         <CheckBox
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="#FFF"
-            android:text="Text Message"
+            android:text="@string/contacts_text_message"
             android:textColor="#FFF" />
 
     </LinearLayout>
