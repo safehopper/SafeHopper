@@ -9,19 +9,20 @@
         android:id="@+id/background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/sign_up_password"
         android:scaleType="centerCrop"
         android:src="@drawable/maingirl"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="TODO" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity=""
+        android:contentDescription="@string/app_name"
         android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +38,21 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.6"/>
+            android:layout_weight="0.6">
+
+            <EditText
+                android:id="@+id/CreateAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/sign_up_create_account"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/create_account_text_size"
+                android:importantForAutofill="no" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,10 +72,11 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
                 android:autofillHints=""
-                android:background="#ffffff"
+                android:background="@drawable/edittext_background"
                 android:hint="@string/sign_up_username"
                 android:inputType="textPersonName"
-                android:padding="10dp" tools:targetApi="o" />
+                android:padding="10dp"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/Password"
@@ -70,11 +86,11 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="#ffffff"
+                android:background="@drawable/edittext_background"
                 android:hint="@string/sign_up_password"
+                android:importantForAutofill="no"
                 android:inputType="textPassword|numberPassword"
-                android:padding="10dp"
-                android:importantForAutofill="no" />
+                android:padding="10dp" />
 
             <EditText
                 android:id="@+id/FirstName"
@@ -84,7 +100,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="#ffffff"
+                android:background="@drawable/edittext_background"
                 android:hint="@string/sign_up_firstname"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
@@ -99,10 +115,11 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
                 android:autofillHints=""
-                android:background="#ffffff"
+                android:background="@drawable/edittext_background"
                 android:hint="@string/sign_up_lastname"
                 android:inputType="textPersonName"
-                android:padding="10dp" tools:targetApi="o" />
+                android:padding="10dp"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/Email"
@@ -112,7 +129,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="#ffffff"
+                android:background="@drawable/edittext_background"
                 android:hint="@string/sign_up_email"
                 android:importantForAutofill="no"
                 android:inputType="textWebEmailAddress"
@@ -126,11 +143,11 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="#ffffff"
+                android:background="@drawable/edittext_background"
                 android:hint="@string/sign_up_phone"
+                android:importantForAutofill="no"
                 android:inputType="phone"
-                android:padding="10dp"
-                android:importantForAutofill="no" />
+                android:padding="10dp" />
 
             <Button
                 android:id="@+id/button"
@@ -140,7 +157,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/colorAccent"
+                android:background="@drawable/edittext_background_focused"
                 android:text="@string/sign_up_button"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
