@@ -34,7 +34,7 @@ public class ContactsFragment extends Fragment {
 
         Log.d(TAG, "onCreateView started.");
 
-        initImageBitMaps();
+        initContactListItems();
 
         RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, mPhoneNumbers, mEmails, this.getContext());
@@ -44,7 +44,7 @@ public class ContactsFragment extends Fragment {
         return root;
     }
 
-    private void initImageBitMaps(){
+    private void initContactListItems(){
         Log.d(TAG, "initImageBitmaps: preparing bitmaps");
 
         mNames.add("Guillermo Barron");
