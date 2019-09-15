@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Spinner;
+
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -16,20 +19,26 @@ import com.example.safehopper.R;
 
 public class SettingsFragment extends Fragment {
 
+
     private SettingsViewModel settingsViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View root = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        String[] values = {"@strings/settings_security_level_low","string/settings_security_level_medium"
+                            ,"settings_security_level_high"};
+        //Spinner spinner = getView().findViewById(R.id.spinner);
+        Spinner spinner = (Spinner) getView().findViewById(R.id.spinner1);
+        ArrayAdapter<String>adapter = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_spinner_item,values);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(adapter);
         settingsViewModel =
                 ViewModelProviders.of(this).get(SettingsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_settings, container, false);
-        final TextView textView = root.findViewById(R.id.text_share);
-        settingsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 }

@@ -3,4 +3,20 @@
     <color name="colorPrimary">#145ca8</color>
     <color name="colorPrimaryDark">#104986</color>
     <color name="colorAccent">#F26419</color>
+
+    <!-- res/drawable/rounded_edittext_states.xml -->
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:state_pressed="true"
+            android:state_enabled="true"
+            android:drawable="@drawable/edittext_background_focused" />
+        <item
+            android:state_focused="true"
+            android:state_enabled="true"
+            android:drawable="@drawable/edittext_background_focused" />
+        <item
+            android:state_enabled="true"
+            android:drawable="@drawable/edittext_background_unfocused" />
+    </selector>
+
 </resources>
