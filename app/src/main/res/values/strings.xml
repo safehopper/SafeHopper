@@ -27,5 +27,5 @@
     <string name="contacts_email">Email</string>
     <string name="contacts_text_message">Text Message</string>
 
-    <string name="signIn">Sign in</string>
+    <string name="homepage_start_session">Start Session</string>
 </resources>

@@ -23,13 +23,6 @@ public class HomepageFragment extends Fragment {
         homepageViewModel =
                 ViewModelProviders.of(this).get(HomepageViewModel.class);
         View root = inflater.inflate(R.layout.fragment_homepage, container, false);
-        final TextView textView = root.findViewById(R.id.text_send);
-        homepageViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 }
