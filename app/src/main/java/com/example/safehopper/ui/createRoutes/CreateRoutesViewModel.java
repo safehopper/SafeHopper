@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 public class CreateRoutesViewModel extends ViewModel {
 
+    // A comment
     private MutableLiveData<String> mText;
 
     // A comment
