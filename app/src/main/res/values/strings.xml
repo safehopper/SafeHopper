@@ -40,4 +40,6 @@
     <string name="route_buffer_zone">Route Buffer Zone</string>
     <string name="medium_security">Medium Security</string>
 
+    <string name="test">test string</string>
+
 </resources>
