@@ -21,7 +21,7 @@ import java.util.List;
 public class SettingsFragment extends Fragment {
 
     private SettingsViewModel settingsViewModel;
-    private Spinner unitsSpinner;
+    private Spinner unitsSpinner, bufferZoneSpinner;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,18 +30,39 @@ public class SettingsFragment extends Fragment {
 
         // Initialize Spinner
         unitsSpinner = (Spinner) root.findViewById(R.id.units_spinner);
+        bufferZoneSpinner = (Spinner) root.findViewById(R.id.buffer_zone_spinner);
+
         // Create the options
         List<String> unitOptions = new ArrayList<String>();
+        List<String> bufferZoneOptions = new ArrayList<String>();
         unitOptions.add("Kilometers/Meters");
         unitOptions.add("Miles/Feet");
+        bufferZoneOptions.add("Low Security");
+        bufferZoneOptions.add("Medium Security");
+        bufferZoneOptions.add("High Security");
 
-
+        // Define what the spinner items are and what they look like
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, unitOptions);
+        ArrayAdapter<String> bufferZoneAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, bufferZoneOptions);
         dataAdapter.setDropDownViewResource(R.layout.spinner_item);
+        bufferZoneAdapter.setDropDownViewResource(R.layout.spinner_item);
+
         unitsSpinner.setAdapter(dataAdapter);
+        bufferZoneSpinner.setAdapter(bufferZoneAdapter);
 
         // Define the OnItemSelectedListener
         unitsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                // Showing selected spinner item
+                Toast.makeText(parent.getContext(), parent.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
+                // In the future do stuff in the ViewModel
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        // Define the OnItemSelectedListener
+        bufferZoneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 // Showing selected spinner item
                 Toast.makeText(parent.getContext(), parent.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();

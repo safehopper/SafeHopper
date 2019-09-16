@@ -36,5 +36,8 @@
     <string name="create_new_account">Create one now</string>
     <string name="does_not_have_account">Don\'t have an account?</string>
     <string name="login">Login</string>
+    <string name="units">Units</string>
+    <string name="route_buffer_zone">Route Buffer Zone</string>
+    <string name="medium_security">Medium Security</string>
 
 </resources>
