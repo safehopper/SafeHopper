@@ -39,6 +39,4 @@
     <string name="units">Units</string>
     <string name="route_buffer_zone">Route Buffer Zone</string>
     <string name="medium_security">Medium Security</string>
-
-    <string name="hello">Hello</string>
 </resources>
