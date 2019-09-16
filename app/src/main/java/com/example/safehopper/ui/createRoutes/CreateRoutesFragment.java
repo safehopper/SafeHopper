@@ -23,13 +23,7 @@ public class CreateRoutesFragment extends Fragment {
         createRoutesViewModel =
                 ViewModelProviders.of(this).get(CreateRoutesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_create_route, container, false);
-        final TextView textView = root.findViewById(R.id.text_create_route);
-        createRoutesViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 }
