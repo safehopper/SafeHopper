@@ -8,6 +8,7 @@ public class CreateRoutesViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
+    // A comment
     public CreateRoutesViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is create route fragment");
