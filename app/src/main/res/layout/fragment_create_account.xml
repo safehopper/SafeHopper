@@ -22,42 +22,17 @@
         <ImageView
             android:id="@+id/logoImageView"
             android:layout_width="wrap_content"
-            android:layout_height="169dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="154dp"
+            android:layout_marginTop="0dp"
             app:srcCompat="@drawable/logo"
-            tools:visibility="visible"/>
-
-        <EditText
-            android:id="@+id/usernameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:hint="@string/user_name"
-            android:inputType="textPersonName"
-            android:padding="10dp" />
-
-        <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:padding="10dp" />
+            tools:visibility="visible" />
 
         <EditText
             android:id="@+id/firstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
@@ -79,6 +54,19 @@
             android:padding="10dp" />
 
         <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="@string/add_contact_email"
+            android:inputType="textEmailAddress"
+            android:padding="10dp" />
+
+        <EditText
             android:id="@+id/phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,23 +80,23 @@
             android:padding="10dp" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:hint="@string/add_contact_email"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:layout_marginTop="24dp"/>
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/button_standard"
             android:text="@string/create_account"
             android:textColor="#F8F1F1"
