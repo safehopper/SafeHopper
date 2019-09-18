@@ -97,17 +97,21 @@
 
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/button"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/button_standard"
-        android:text="@string/menu_add_contact"
-        android:textColor="#FFFFFF" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom|center">
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/button_standard"
+            android:text="@string/menu_add_contact"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
 
 </LinearLayout>
