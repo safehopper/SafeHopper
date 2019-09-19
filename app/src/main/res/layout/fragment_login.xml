@@ -9,6 +9,7 @@
         android:id="@+id/loginBackgroundImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/login_ll"
         android:scaleType="centerCrop"
         android:visibility="visible"
         app:srcCompat="@drawable/login_background"
@@ -22,72 +23,84 @@
         <ImageView
             android:id="@+id/logoImageView"
             android:layout_width="wrap_content"
-            android:layout_height="154dp"
-            android:layout_marginTop="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:contentDescription="@string/safehopper_logo"
             app:srcCompat="@drawable/logo"
             tools:visibility="visible" />
 
-        <EditText
-            android:id="@+id/email"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:hint="@string/contacts_email"
-            android:inputType="textEmailAddress"
-            android:padding="10dp" />
+            android:layout_weight=".25"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:padding="10dp" />
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:autoText="false"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:hint="@string/contacts_email"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:autofillHints="" />
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="60dp"
-            android:background="@drawable/button_standard"
-            android:text="@string/login"
-            android:textColor="#F8F1F1" />
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:autofillHints="" />
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="60dp"
+                android:background="@drawable/button_standard"
+                android:text="@string/login"
+                android:textColor="#F8F1F1" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="bottom|center">
-        <TextView
-            android:id="@+id/createProfileTextView"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center|bottom"
-            android:text="@string/create_new_account"
-            android:textColor="#101B55"
-            android:textStyle="bold" />
+            android:layout_weight=".25"
+            android:gravity="bottom|center"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/questionTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/does_not_have_account"
-            android:textColor="#000000"
-            android:gravity="center|bottom"
-            android:layout_marginBottom="20dp"/>
+            <TextView
+                android:id="@+id/questionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|bottom"
+                android:text="@string/does_not_have_account"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/createProfileTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center|bottom"
+                android:text="@string/create_new_account"
+                android:textColor="#101B55"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>
