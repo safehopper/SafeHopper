@@ -7,7 +7,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.safehopper.models.Contact;
+import com.example.safehopper.models.User;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -36,21 +36,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        JsonParser parser = new JsonParser();
-        JsonElement json = parser.parse("{\"firstName\":\"justin\"," +
-                                             "\"lastName\":\"terry\"," +
-                                             "\"phone\":\"+15555555555\"," +
-                                             "\"email\":\"z400jt618@gmail.com\"," +
-                                             "\"textAlert\":\"true\"," +
-                                             "\"emailAlert\":\"true\"}");
-
-        Gson gson = new Gson();
-        Contact c = gson.fromJson(json, Contact.class);
-
-        Log.i("firstName", c.getFirstName());
-        Log.i("lastName", c.getLastName());
 
 
 
