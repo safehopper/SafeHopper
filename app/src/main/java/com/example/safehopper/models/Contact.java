@@ -6,13 +6,8 @@ public class Contact {
     private String lastName;
     private String phoneNumber;
     private String email;
-
-    public Contact(String firstName, String lastName, String phoneNumber, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-    }
+    private boolean textAlert;
+    private boolean emailAlert;
 
     public String getFirstName() {
         return firstName;
@@ -44,5 +39,21 @@ public class Contact {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isTextAlert() {
+        return textAlert;
+    }
+
+    public void setTextAlert(boolean textAlert) {
+        this.textAlert = textAlert;
+    }
+
+    public boolean isEmailAlert() {
+        return emailAlert;
+    }
+
+    public void setEmailAlert(boolean emailAlert) {
+        this.emailAlert = emailAlert;
     }
 }
