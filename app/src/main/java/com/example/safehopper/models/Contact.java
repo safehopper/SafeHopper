@@ -56,4 +56,16 @@ public class Contact {
     public void setEmailAlert(boolean emailAlert) {
         this.emailAlert = emailAlert;
     }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", textAlert=" + textAlert +
+                ", emailAlert=" + emailAlert +
+                '}';
+    }
 }
