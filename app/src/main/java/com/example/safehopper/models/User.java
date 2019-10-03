@@ -4,6 +4,12 @@ public class User extends Person {
 
     private String password;
 
+    public User(String firstName, String lastName, String phoneNumber, String email, String password)
+    {
+        super(firstName, lastName, phoneNumber, email);
+        this.password = password;
+    }
+
     public String getPassword() {
         return password;
     }
