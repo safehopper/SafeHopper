@@ -38,16 +38,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Gson gson = new Gson();
-        String json =   "{\"firstName\":\"Guillermo\", " +
-                "\"lastName\":\"Barron\"," +
-                "\"phone\":\"8053543982\"," +
-                "\"email\":\"barronguillermo53@gmail.com\"," +
-                "\"textAlert\":\"true\"," +
-                "\"emailAlert\":\"true\"}";
-        Contact contact = gson.fromJson(json, Contact.class);
-        Log.d("Main Activity", contact.toString());
-
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -1,11 +1,15 @@
 package com.example.safehopper.models;
 
-import android.app.Person;
-
 public class Contact extends Person {
 
     private boolean textAlert;
     private boolean emailAlert;
+
+    public Contact(String firstName, String lastName, String phoneNumber, String email, boolean textAlert, boolean emailAlert) {
+        super(firstName, lastName, phoneNumber, email);
+        this.textAlert = textAlert;
+        this.emailAlert = emailAlert;
+    }
 
     public boolean isTextAlert() {
         return textAlert;
@@ -26,7 +30,11 @@ public class Contact extends Person {
     @Override
     public String toString() {
         return "Contact{" +
-                "textAlert=" + textAlert +
+                "firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", phoneNumber='" + getPhoneNumber() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", textAlert=" + textAlert +
                 ", emailAlert=" + emailAlert +
                 '}';
     }
