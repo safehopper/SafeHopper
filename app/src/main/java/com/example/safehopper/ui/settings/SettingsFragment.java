@@ -40,7 +40,7 @@ public class SettingsFragment extends Fragment {
     private String routeBufferItem, unitItem;
     //R.S:create a new mutableLiveData that holds data of type string.
     private MutableLiveData<String> mMutableLiveData;
-    final static String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/safeHopper/";
+    //final static String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/safeHopper/";
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -131,6 +131,7 @@ public class SettingsFragment extends Fragment {
 
     public static boolean saveToFile(String data) {
         try {
+
             new File(path).mkdir();
             File file = new File(path + UUID.randomUUID().toString() + ".txt");
             if (!file.exists()) {
