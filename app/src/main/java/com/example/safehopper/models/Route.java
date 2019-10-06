@@ -6,12 +6,6 @@ public class Route {
     private String distance;    //in miles
     private String imageURL;
 
-    public Route(String name, String distance, String imageURL) {
-        this.name = name;
-        this.distance = distance;
-        this.imageURL = imageURL;
-    }
-
     public String getName() {
         return name;
     }

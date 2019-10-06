@@ -39,4 +39,6 @@
     <string name="units">Units</string>
     <string name="route_buffer_zone">Route Buffer Zone</string>
     <string name="medium_security">Medium Security</string>
+    <string name="safehopper_logo">SafeHopper Logo</string>
+    <string name="login_ll">login_LL</string>
 </resources>
