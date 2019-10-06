@@ -2,29 +2,29 @@ package com.example.safehopper.models;
 
 public class Contact extends Person {
 
-    private boolean textAlert;
-    private boolean emailAlert;
+    private boolean sendTextAlert;
+    private boolean sendEmailAlert;
 
-    public Contact(String firstName, String lastName, String phoneNumber, String email, boolean textAlert, boolean emailAlert) {
+    public Contact(String firstName, String lastName, String phoneNumber, String email, boolean sendTextAlert, boolean sendEmailAlert) {
         super(firstName, lastName, phoneNumber, email);
-        this.textAlert = textAlert;
-        this.emailAlert = emailAlert;
+        this.sendTextAlert = sendTextAlert;
+        this.sendEmailAlert = sendEmailAlert;
     }
 
-    public boolean isTextAlert() {
-        return textAlert;
+    public boolean sendTextAlert() {
+        return sendTextAlert;
     }
 
-    public void setTextAlert(boolean textAlert) {
-        this.textAlert = textAlert;
+    public void setSendTextAlert(boolean sendTextAlert) {
+        this.sendTextAlert = sendTextAlert;
     }
 
-    public boolean isEmailAlert() {
-        return emailAlert;
+    public boolean sendEmailAlert() {
+        return sendEmailAlert;
     }
 
-    public void setEmailAlert(boolean emailAlert) {
-        this.emailAlert = emailAlert;
+    public void setSendEmailAlert(boolean sendEmailAlert) {
+        this.sendEmailAlert = sendEmailAlert;
     }
 
     @Override
@@ -34,8 +34,8 @@ public class Contact extends Person {
                 ", lastName='" + getLastName() + '\'' +
                 ", phoneNumber='" + getPhoneNumber() + '\'' +
                 ", email='" + getEmail() + '\'' +
-                ", textAlert=" + textAlert +
-                ", emailAlert=" + emailAlert +
+                ", sendTextAlert=" + sendTextAlert +
+                ", sendEmailAlert=" + sendEmailAlert +
                 '}';
     }
 }
