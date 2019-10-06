@@ -25,9 +25,15 @@
             android:title="@string/menu_routes" />
 
         <item
-            android:id="@+id/nav_create_route"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_create_route" />
+            android:id="@+id/nav_activity_create_route"
+            android:title="@string/menu_activity_create_route"
+            android:icon="@drawable/ic_menu_send"
+
+            />
+<!--        <item-->
+<!--            android:id="@+id/nav_create_route"-->
+<!--            android:icon="@drawable/ic_menu_manage"-->
+<!--            android:title="@string/menu_create_route" />-->
 
         <item
             android:id="@+id/nav_contacts"
@@ -43,12 +49,6 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_share"
             android:title="@string/menu_settings" />
-
-        <item
-            android:id="@+id/nav_activity_create_route"
-            android:title="@string/menu_activity_create_route"
-            />
-
     </group>
 
 </menu>

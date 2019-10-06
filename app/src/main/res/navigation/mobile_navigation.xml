@@ -35,11 +35,18 @@
         android:label="@string/menu_add_contact"
         tools:layout="@layout/fragment_add_contact" />
 
-    <fragment
-        android:id="@+id/nav_create_route"
-        android:name="com.example.safehopper.ui.createRoutes.CreateRoutesFragment"
-        android:label="@string/menu_create_route"
-        tools:layout="@layout/fragment_create_route" />
+    <activity
+        android:id="@+id/nav_activity_create_route"
+        android:name="com.example.safehopper.CreateRouteActivity"
+        android:label="@string/menu_activity_create_route"
+        tools:layout="@layout/activity_create_route"
+        />
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_create_route"-->
+<!--        android:name="com.example.safehopper.ui.createRoutes.CreateRoutesFragment"-->
+<!--        android:label="@string/menu_create_route"-->
+<!--        tools:layout="@layout/fragment_create_route" />-->
 
     <fragment
         android:id="@+id/nav_settings"
@@ -52,11 +59,4 @@
         android:name="com.example.safehopper.ui.homepage.HomepageFragment"
         android:label="@string/menu_homepage"
         tools:layout="@layout/fragment_homepage" />
-
-    <activity
-        android:id="@+id/nav_activity_create_route"
-        android:name="com.example.safehopper.CreateRouteActivity"
-        android:label="@string/menu_activity_create_route"
-        tools:layout="@layout/activity_create_route"
-        />
 </navigation>

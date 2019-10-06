@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_standard"
             android:includeFontPadding="false"
-            android:text="Undo Point"
+            android:text="@string/undo_waypoint"
             android:textColor="#FFFFFF" />
 
         <Button
@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_standard"
             android:includeFontPadding="false"
-            android:text="Add Route"
+            android:text="@string/save_and_finish"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
