@@ -1,19 +1,13 @@
 package com.example.safehopper.models;
 
-public class User {
+public class User extends Person {
 
     private String password;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private String email;
 
-    public User(String password, String firstName, String lastName, String phoneNumber, String email) {
+    public User(String firstName, String lastName, String phoneNumber, String email, String password)
+    {
+        super(firstName, lastName, phoneNumber, email);
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
     }
 
     public String getPassword() {
@@ -24,6 +18,16 @@ public class User {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", phoneNumber='" + getPhoneNumber() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", password=" + password +
+                '}';
+    }
     public String getFirstName() {
         return firstName;
     }
