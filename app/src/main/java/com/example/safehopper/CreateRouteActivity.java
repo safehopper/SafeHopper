@@ -49,6 +49,15 @@ public class CreateRouteActivity extends AppCompatActivity implements
                 .clickable(true)
                 .addAll(route.getRoute()));//Getting the points from the Route Class
 
+        // I want to add a marker so the user knows where they initially pressed.
+        // This code only shows a marker after two points.
+        // Fix this in the future.
+        // No justin, I will not remove this unused code. WE NEED IT IN THE FUTURE.
+
+        //        polyline1.setStartCap(
+        //                new CustomCap(
+        //                        BitmapDescriptorFactory.defaultMarker(), 10));
+
         polyline1.setTag("Set the tag of the polyline to what the user names the polyline in the future?");
 
         polyline1.setColor(Color.RED);
@@ -66,6 +75,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
     @Override
     public void onMapClick(LatLng latLng) {
         route.addPoint(latLng);
+
         refreshPolyline();
     }
 

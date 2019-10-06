@@ -10,7 +10,7 @@ public class Route {
     private String name;
     private String distance;    //in miles
     private String imageURL;
-    private List<LatLng> route = new ArrayList<LatLng>();
+    private List<LatLng> route = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -40,7 +40,9 @@ public class Route {
         return route;
     }
 
-    public void addPoint(LatLng point){route.add(point);}
+    public void addPoint(LatLng point){
+        route.add(point);
+    }
 
     public void removeLastPoint(){
         if(route.size() != 0)
