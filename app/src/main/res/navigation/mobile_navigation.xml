@@ -52,4 +52,11 @@
         android:name="com.example.safehopper.ui.homepage.HomepageFragment"
         android:label="@string/menu_homepage"
         tools:layout="@layout/fragment_homepage" />
+
+    <activity
+        android:id="@+id/nav_activity_create_route"
+        android:name="com.example.safehopper.CreateRouteActivity"
+        android:label="@string/menu_activity_create_route"
+        tools:layout="@layout/activity_create_route"
+        />
 </navigation>

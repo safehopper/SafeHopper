@@ -22,10 +22,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".CreateRouteActivity">
+
+        </activity>
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBfOOcQHMseAdqXyVyJtYpSOe-g0ERZP9k"/>
+            android:value="AIzaSyAXACHp9NEvrZibIRa4q0-zt7NtVjSct1A"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
