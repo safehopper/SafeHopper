@@ -41,4 +41,8 @@
     <string name="medium_security">Medium Security</string>
     <string name="safehopper_logo">SafeHopper Logo</string>
     <string name="login_ll">login_LL</string>
+
+    <string name="menu_activity_create_route">Create Route Activity</string>
+    <string name="undo_waypoint">Undo Waypoint</string>
+    <string name="save_and_finish">Save and Finish</string>
 </resources>
