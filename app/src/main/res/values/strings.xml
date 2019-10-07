@@ -45,4 +45,5 @@
     <string name="menu_activity_create_route">Create Route Activity</string>
     <string name="undo_waypoint">Undo Waypoint</string>
     <string name="save_and_finish">Save and Finish</string>
+    <string name="api_key">AIzaSyClQFcSA_rdcIEVvvoZ8__Zc73_AnyvxWk</string>
 </resources>
