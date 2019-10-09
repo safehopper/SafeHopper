@@ -1,5 +1,6 @@
 package com.example.safehopper.api_package;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Requests extends AppCompatActivity {
 
+    public static API api;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,40 +32,40 @@ public class Requests extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        API api = retrofit.create(API.class);
+        api = retrofit.create(API.class);
 
     }
 
-    protected void createUser(API api, User user)
+    public static void createUser(API api, User user, final Context context)
     {
         Call<ResponseBody> call = api.createUser(user);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(getApplicationContext(), "Create User Successful.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Create User Successful.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error: Could not create user.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error: Could not create user.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    protected void createUser(API api, String password, String firstname, String lastname, String phone, String email, String key)
+    public static void createUser(API api, final Context context, String password, String firstname, String lastname, String phone, String email, String key)
     {
         Call<ResponseBody> call = api.createUser(password, firstname, lastname, phone, email, key);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(getApplicationContext(), "Create User Successful.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Create User Successful.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error: Could not create user.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error: Could not create user.", Toast.LENGTH_SHORT).show();
             }
         });
     }
