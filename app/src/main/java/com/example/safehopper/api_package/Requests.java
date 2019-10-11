@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.safehopper.R;
+import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.models.User;
-
-import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.ResponseBody;
@@ -20,19 +19,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Requests extends AppCompatActivity {
 
-    public static API api;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+    }
+
+    public static API getAPI() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        api = retrofit.create(API.class);
-
+        return retrofit.create(API.class);
     }
 
     public static void createUser(API api, final Context context, String password, String firstname, String lastname, String phone, String email)
@@ -128,17 +128,16 @@ public class Requests extends AppCompatActivity {
 
     public static void getRoutes(API api, final Context context, String email)
     {
-        Call<List<Route>> call = api.getRoutes(context.getString(R.string.server_api_key), email);
+        Call<Route> call = api.getRoutes(context.getString(R.string.server_api_key), email);
 
-        call.enqueue(new Callback<List<Route>>() {
+        call.enqueue(new Callback<Route>() {
             @Override
-            public void onResponse(Call<List<Route>> call, Response<List<Route>> response) {
-                List<Route> routes = response.body();
+            public void onResponse(Call<Route> call, Response<Route> response) {
                 Toast.makeText(context, "Get Routes: " + response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<List<Route>> call, Throwable t) {
+            public void onFailure(Call<Route> call, Throwable t) {
                 Toast.makeText(context, "Error: Could not retrieve routes.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -147,16 +146,16 @@ public class Requests extends AppCompatActivity {
 
     public static void createRoute(API api, final Context context, String email, String routeId)
     {
-        Call<ResponseBody> call = api.createRoute(context.getString(R.string.server_api_key), email, routeId);
+        Call<Route> call = api.createRoute(context.getString(R.string.server_api_key), email, routeId);
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<Route>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<Route> call, Response<Route> response) {
                 Toast.makeText(context, "Create Route: " + response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<Route> call, Throwable t) {
                 Toast.makeText(context, "Error: Could not create route.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -197,45 +196,44 @@ public class Requests extends AppCompatActivity {
         });
     }
 
-    /*
+
     public static void getContacts(API api, final Context context, String email)
     {
-        Call<List<Contact>> call = api.getContacts(email, context.getString(R.string.server-api-key));
+        Call<Contact> call = api.getContacts(context.getString(R.string.server_api_key), email);
 
-        call.enqueue(new Callback<List<Contact>>() {
+        call.enqueue(new Callback<Contact>() {
             @Override
-            public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
-                List<Contact> contacts = response.body();
+            public void onResponse(Call<Contact> call, Response<Contact> response) {
                 Toast.makeText(context, "Get Contacts: " + response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<List<Contact>> call, Throwable t) {
-                Toast.makeText(context, "Error: Could not get contacts.", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<Contact> call, Throwable t) {
+                Toast.makeText(context, "Could not get contacts. Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public static void createContact(API api, final Context context, String first, String last, String phone, String email, boolean text, boolean emailalert)
+    public static void createContact(API api, final Context context, String first, String last, String phone, String email, boolean text, boolean emailalert, String contactOf)
     {
-        Call<ResponseBody> call = api.createContact(context.getString(R.string.server_api_key), first, last, phone, email, text, emailalert);
+        Call<Contact> call = api.createContact(context.getString(R.string.server_api_key), first, last, phone, email, text, emailalert, contactOf);
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<Contact>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<Contact> call, Response<Contact> response) {
                 Toast.makeText(context, "Create Contact: " + response.message(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<Contact> call, Throwable t) {
                 Toast.makeText(context, "Error: Could not create contact.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public static void modifyContact(API api, final Context context, String id, String first, String last, String phone, String email, boolean text, boolean emailalert)
+    public static void modifyContact(API api, final Context context, String first, String last, String phone, String email, boolean text, boolean emailalert, String contactOf)
     {
-        Call<ResponseBody> call = api.modifyContact(context.getString(R.string.server_api_key), first, last, phone, email, text, emailalert);
+        Call<ResponseBody> call = api.modifyContact(context.getString(R.string.server_api_key), first, last, phone, email, text, emailalert, contactOf);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -250,9 +248,9 @@ public class Requests extends AppCompatActivity {
         });
     }
 
-    public static void deleteContact(API api, final Context context, String id)
+    public static void deleteContact(API api, final Context context, String email, String contactOf)
     {
-        Call<ResponseBody> call = api.deleteContact(id, context.getString(R.string.server_api_key));
+        Call<ResponseBody> call = api.deleteContact(context.getString(R.string.server_api_key), email, contactOf);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -265,5 +263,5 @@ public class Requests extends AppCompatActivity {
             }
         });
     }
-    */
+
 }
