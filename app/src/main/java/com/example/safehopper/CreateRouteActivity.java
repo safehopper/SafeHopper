@@ -2,6 +2,7 @@ package com.example.safehopper;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safehopper.models.Route;
+import com.example.safehopper.models.RouteDeserializer;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -75,7 +77,10 @@ public class CreateRouteActivity extends AppCompatActivity implements
     @Override
     public void onMapClick(LatLng latLng) {
         route.addPoint(latLng);
-
+        /////////////////////////////////// for testing
+        route.turnToJson();
+        Log.d("JSON",route.toString());
+        ///////////////////////////////////
         refreshPolyline();
     }
 
