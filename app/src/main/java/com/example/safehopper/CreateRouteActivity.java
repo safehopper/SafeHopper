@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safehopper.models.Route;
-import com.example.safehopper.models.RouteDeserializer;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -18,6 +17,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.SphericalUtil;
+
+import java.util.List;
 
 import static com.example.safehopper.R.id.map;
 
@@ -49,7 +51,8 @@ public class CreateRouteActivity extends AppCompatActivity implements
         //adds polyline to the map
         polyline1 = googleMap.addPolyline(new PolylineOptions()
                 .clickable(true)
-                .addAll(route.getRoute()));//Getting the points from the Route Class
+                .addAll(route.getRouteWaypoints()));//Getting the points from the Route Class
+
 
         // I want to add a marker so the user knows where they initially pressed.
         // This code only shows a marker after two points.
@@ -79,13 +82,16 @@ public class CreateRouteActivity extends AppCompatActivity implements
         route.addPoint(latLng);
         /////////////////////////////////// for testing
         route.turnToJson();
-        Log.d("JSON",route.toString());
-        ///////////////////////////////////
+        route.setName("First Route");
+        route.setDistance(findDistace(route.getRouteWaypoints()));
+        route.setImageURL("VeryCool.jpeg");
+        Log.d("JSON-CreateRouteActivity",route.toString());
+        /////////////////////////////////// Can delete when done.
         refreshPolyline();
     }
 
     private void refreshPolyline() {
-        polyline1.setPoints(route.getRoute());
+        polyline1.setPoints(route.getRouteWaypoints());
     }
 
     private void undoButtonListener() {
@@ -96,5 +102,10 @@ public class CreateRouteActivity extends AppCompatActivity implements
                 refreshPolyline();
             }
         });
+    }
+
+    private String findDistace(List<LatLng> path){
+        // gets the length of the path in meters and converts to feet.
+       return String.valueOf(SphericalUtil.computeLength(path) * 3.28084);
     }
 }
