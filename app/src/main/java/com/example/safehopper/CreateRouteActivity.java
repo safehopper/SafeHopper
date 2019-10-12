@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +43,8 @@ public class CreateRouteActivity extends AppCompatActivity implements
         mapFragment.getMapAsync(this);
 
         undoButtonListener();
+
+
     }
 
     @Override
@@ -100,6 +104,17 @@ public class CreateRouteActivity extends AppCompatActivity implements
             public void onClick(View v) {
                 route.removeLastPoint();
                 refreshPolyline();
+            }
+        });
+    }
+
+    private void routeModeToggle(){
+        final Switch s = findViewById(R.id.switch2);
+        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                //make the route snap to roads
+                //make the routes not snap to roads
             }
         });
     }
