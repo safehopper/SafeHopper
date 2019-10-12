@@ -5,7 +5,6 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +67,7 @@ public class Route {
             routeWaypoints.remove(routeWaypoints.size()-1);
     }
 
-    public JsonObject turnToJson(){
+    public String turnToJson(){
 
         Gson routeObj = new Gson();
         String json = routeObj.toJson(new Route(name, distance, imageURL, routeWaypoints));
@@ -87,7 +86,7 @@ public class Route {
         }catch(Exception e){
             Log.e("error",e.toString());
         }
-        return null;
+        return json;
     }
 
     @Override
