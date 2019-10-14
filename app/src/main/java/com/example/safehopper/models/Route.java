@@ -12,6 +12,7 @@ import java.util.List;
 public class Route {
 
     private String name;
+    private String email;
     private String distance;    //in feet
     private String imageURL;
     private List<LatLng> routeWaypoints = new ArrayList<>();
@@ -19,10 +20,11 @@ public class Route {
     public Route(){
     }
 
-    public Route(String newName, String newDistace,
+    public Route(String newName, String newEmail, String newDistace,
                  String newImage, List<LatLng> waypoints){
 
         name = newName;
+        email = newEmail;
         distance = newDistace;
         imageURL = newImage;
         routeWaypoints = waypoints;
@@ -70,7 +72,7 @@ public class Route {
     public String turnToJson(){
 
         Gson routeObj = new Gson();
-        String json = routeObj.toJson(new Route(name, distance, imageURL, routeWaypoints));
+        String json = routeObj.toJson(new Route(name, email, distance, imageURL, routeWaypoints));
         Log.d("method: turnToJson-->Json of object",json);
 
         try {
@@ -93,5 +95,13 @@ public class Route {
     public String toString(){
         return "name: " + name + " distance: " + distance + " imageURL: "
                 + imageURL + " routeWaypoints: " + routeWaypoints.toString();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String newEmail) {
+        email = newEmail;
     }
 }

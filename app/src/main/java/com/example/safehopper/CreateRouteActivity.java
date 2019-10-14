@@ -126,6 +126,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
         route.setName("First Route");
         route.setDistance(findDistace(route.getRouteWaypoints()));
         route.setImageURL("VeryCool.jpeg");
+        route.setEmail("andrewdelgado017@gmail.com");
         Log.d("JSON-CreateRouteActivity",route.toString());
         /////////////////////////////////// Can delete when done.
         refreshPolyline();
