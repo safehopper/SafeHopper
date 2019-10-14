@@ -28,6 +28,46 @@ public class Contact extends Person {
     }
 
     @Override
+    public String getFirstName() {
+        return getFirstName();
+    }
+
+    @Override
+    public void setFirstName(String firstName) {
+        setFirstName(firstName);
+    }
+
+    @Override
+    public String getLastName() {
+        return getLastName();
+    }
+
+    @Override
+    public void setLastName(String lastName) {
+        setLastName(lastName);
+    }
+
+    @Override
+    public String getPhoneNumber() {
+        return getPhoneNumber();
+    }
+
+    @Override
+    public void setPhoneNumber(String phoneNumber) {
+        setPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public String getEmail() {
+        return getEmail();
+    }
+
+    @Override
+    public void setEmail(String email) {
+        setEmail(email);
+    }
+
+    @Override
     public String toString() {
         return "Contact{" +
                 "firstName='" + getFirstName() + '\'' +
