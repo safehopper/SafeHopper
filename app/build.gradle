@@ -37,11 +37,11 @@ dependencies {
     //recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta04'
 
-    //glide
+    //glide (used on routes list fragment)
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
-    //circle imageview
+    //circle imageview (used on routes list fragment)
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 
     //google maps
@@ -51,4 +51,8 @@ dependencies {
 
     //GSON
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    //retrofit & gson converter (api package)
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
 }

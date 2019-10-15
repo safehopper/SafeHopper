@@ -20,7 +20,7 @@ public class User extends Person {
 
     @Override
     public String getFirstName() {
-        return getFirstName();
+        return super.getFirstName();
     }
 
     @Override
@@ -30,7 +30,7 @@ public class User extends Person {
 
     @Override
     public String getLastName() {
-        return getLastName();
+        return super.getLastName();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class User extends Person {
 
     @Override
     public String getPhoneNumber() {
-        return getPhoneNumber();
+        return super.getPhoneNumber();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class User extends Person {
 
     @Override
     public String getEmail() {
-        return getEmail();
+        return super.getEmail();
     }
 
     @Override
