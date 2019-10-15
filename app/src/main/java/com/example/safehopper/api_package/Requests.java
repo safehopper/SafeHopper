@@ -150,7 +150,6 @@ public class Requests extends AppCompatActivity {
         });
     }
 
-
     public static void createRoute(API api, final Context context, String email, String name, String distance, String imageURL, List<LatLng> wayPoints,String routeId)
     {
         Call<ResponseBody> call = api.createRoute(context.getString(R.string.server_api_key), email,

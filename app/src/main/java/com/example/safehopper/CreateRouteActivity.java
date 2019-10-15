@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.safehopper.api_package.API;
+import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Route;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -58,7 +60,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
 
         undoButtonListener();
 
-
+        saveAndFinishListener();
     }
 
     @Override
@@ -127,6 +129,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
         route.setDistance(findDistace(route.getRouteWaypoints()));
         route.setImageURL("VeryCool.jpeg");
         route.setEmail("andrewdelgado017@gmail.com");
+        route.setRouteID();
         Log.d("JSON-CreateRouteActivity",route.toString());
         /////////////////////////////////// Can delete when done.
         refreshPolyline();
@@ -160,6 +163,17 @@ public class CreateRouteActivity extends AppCompatActivity implements
     private String findDistace(List<LatLng> path){
         // gets the length of the path in meters and converts to feet.
        return String.valueOf(SphericalUtil.computeLength(path) * 3.28084);
+    }
+
+    private void saveAndFinishListener(){
+        final Button saveFinish = findViewById(R.id.add_route);
+        saveFinish.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                API api = Requests.getAPI();
+                Requests.createRoute(api,v.getContext(),route.getEmail(),route.getName(),route.getDistance()
+                        ,route.getImageURL(),route.getRouteWaypoints(),route.getRouteID());
+            }
+        });
     }
 
     @Override

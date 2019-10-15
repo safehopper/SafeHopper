@@ -34,7 +34,8 @@ public class RouteDeserializer implements JsonDeserializer<Route> {
                 jsonObject.get("email").toString(),
                 jsonObject.get("distance").toString(),
                 jsonObject.get("imageURL").toString(),
-                wayPoints);
+                wayPoints,
+                jsonObject.get("routeID").toString());
         return r;
     }
 }

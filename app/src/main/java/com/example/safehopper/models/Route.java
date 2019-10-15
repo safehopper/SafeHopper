@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Route {
 
@@ -16,18 +17,20 @@ public class Route {
     private String distance;    //in feet
     private String imageURL;
     private List<LatLng> routeWaypoints = new ArrayList<>();
+    private String routeID;
 
     public Route(){
     }
 
     public Route(String newName, String newEmail, String newDistace,
-                 String newImage, List<LatLng> waypoints){
+                 String newImage, List<LatLng> waypoints, String newRouteID){
 
         name = newName;
         email = newEmail;
         distance = newDistace;
         imageURL = newImage;
         routeWaypoints = waypoints;
+        routeID = newRouteID;
     }
 
     public String getName() {
@@ -72,7 +75,7 @@ public class Route {
     public String turnToJson(){
 
         Gson routeObj = new Gson();
-        String json = routeObj.toJson(new Route(name, email, distance, imageURL, routeWaypoints));
+        String json = routeObj.toJson(new Route(name, email, distance, imageURL, routeWaypoints, routeID));
         Log.d("method: turnToJson-->Json of object",json);
 
         try {
@@ -94,7 +97,7 @@ public class Route {
     @Override
     public String toString(){
         return "name: " + name + " distance: " + distance + " imageURL: "
-                + imageURL + " routeWaypoints: " + routeWaypoints.toString();
+                + imageURL + " routeWaypoints: " + routeWaypoints.toString() + " routeID: " + routeID;
     }
 
     public String getEmail() {
@@ -103,5 +106,17 @@ public class Route {
 
     public void setEmail(String newEmail) {
         email = newEmail;
+    }
+
+    public void setRouteID(){
+        routeID = UUID.randomUUID().toString();
+    }
+
+    public String getRouteID(){
+        return routeID;
+    }
+
+    public void saveRoute(){
+
     }
 }
