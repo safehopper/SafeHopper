@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.safehopper.R;
 import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
-import com.example.safehopper.models.User;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
