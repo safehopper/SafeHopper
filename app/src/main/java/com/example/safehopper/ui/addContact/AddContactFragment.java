@@ -4,8 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 import com.example.safehopper.R;
+import com.example.safehopper.api_package.API;
+import com.example.safehopper.api_package.Requests;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +19,15 @@ import androidx.lifecycle.ViewModelProviders;
 public class AddContactFragment extends Fragment {
 
     private AddContactViewModel addContactViewModel;
+    private Button createContact;
+    private EditText mfirstName;
+    private EditText mlastName;
+    private EditText memail;
+    private EditText mphoneNum;
+    private CheckBox mtextAlerts;
+    private CheckBox memailAlerts;
+
+    private API api;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -27,6 +41,30 @@ public class AddContactFragment extends Fragment {
 //                textView.setText(s);
 //            }
 //        });
+
+        createContact = root.findViewById(R.id.button);
+        mfirstName = root.findViewById(R.id.firstname);
+        mlastName = root.findViewById(R.id.lastName);
+        memail = root.findViewById(R.id.email);
+        mphoneNum = root.findViewById(R.id.phoneNumber);
+        mtextAlerts = root.findViewById(R.id.checkBox);
+        memailAlerts = root.findViewById(R.id.checkBox2);
+
+        api = Requests.getAPI();
+
+        createContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String firstName = mfirstName.getText().toString();
+                String lastName = mlastName.getText().toString();
+                String email = memail.getText().toString();
+                String phoneNum = mphoneNum.getText().toString();
+                boolean textAlerts = mtextAlerts.isChecked();
+                boolean emailAlerts = memailAlerts.isChecked();
+
+                Requests.createContact(api, getContext(), firstName, lastName, phoneNum, email, textAlerts, emailAlerts, "");
+            }
+        });
 
         return root;
     }
