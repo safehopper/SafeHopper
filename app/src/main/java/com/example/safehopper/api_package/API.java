@@ -21,7 +21,7 @@ public interface API {
 
     @FormUrlEncoded
     @POST("/user/")
-    Call<User> createUser(@Field("password") String password,
+    Call<ResponseBody> createUser(@Field("password") String password,
                           @Field("firstName") String firstName,
                           @Field("lastName") String lastName,
                           @Field("phone") String phone,

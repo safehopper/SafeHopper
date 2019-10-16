@@ -13,8 +13,10 @@ import com.example.safehopper.models.Route;
 import com.example.safehopper.models.User;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -44,17 +46,33 @@ public class Requests extends AppCompatActivity {
 
     public static void createUser(API api, final Context context, String password, String firstname, String lastname, String phone, String email)
     {
-        Call<User> call = api.createUser(password, firstname, lastname, phone, email, context.getString(R.string.server_api_key));
+        Call<ResponseBody> call = api.createUser(password, firstname, lastname, phone, email, context.getString(R.string.server_api_key));
 
 
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Toast.makeText(context, "Create user: " + response.message(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(!response.isSuccessful()) {
+                    try {
+                        JSONObject json = new JSONObject(response.errorBody().string());
+                        JSONObject json2 = new JSONObject(json.get("content").toString());
+                        Toast.makeText(context, json2.get("message").toString(), Toast.LENGTH_LONG).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    try {
+                        Log.d("NOT ERROR", response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(context, "Error: Could not create user.", Toast.LENGTH_SHORT).show();
             }
         });

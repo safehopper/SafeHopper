@@ -30,7 +30,7 @@
             tools:visibility="visible" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/createAccountEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -43,7 +43,7 @@
             android:padding="10dp" />
 
         <EditText
-            android:id="@+id/passwordEditText"
+            android:id="@+id/createAccountPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -56,7 +56,7 @@
             android:padding="10dp" />
 
         <EditText
-            android:id="@+id/firstname"
+            android:id="@+id/createAccountFirst"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -69,7 +69,7 @@
             android:padding="10dp" />
 
         <EditText
-            android:id="@+id/lastName"
+            android:id="@+id/createAccountLast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -82,7 +82,7 @@
             android:padding="10dp" />
 
         <EditText
-            android:id="@+id/phoneNumber"
+            android:id="@+id/createAccountPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -95,7 +95,7 @@
             android:padding="10dp" />
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/createAccountButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
