@@ -7,27 +7,33 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.safehopper.R;
+import com.example.safehopper.models.Contact;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class ContactsFragment extends Fragment {
 
     public static final String TAG = "ContactsFragment";
 
     private ContactsViewModel contactsViewModel;
-
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mPhoneNumbers = new ArrayList<>();
     private ArrayList<String> mEmails = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         contactsViewModel =
                 ViewModelProviders.of(this).get(ContactsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_contacts, container, false);
@@ -40,6 +46,7 @@ public class ContactsFragment extends Fragment {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, mPhoneNumbers, mEmails, this.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
         return root;
     }
