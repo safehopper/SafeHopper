@@ -2,14 +2,22 @@ package com.example.safehopper.api_package;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safehopper.R;
 import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
-import com.example.safehopper.models.User;
+import com.google.android.gms.maps.model.LatLng;
 
-import androidx.appcompat.app.AppCompatActivity;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,17 +45,33 @@ public class Requests extends AppCompatActivity {
 
     public static void createUser(API api, final Context context, String password, String firstname, String lastname, String phone, String email)
     {
-        Call<User> call = api.createUser(password, firstname, lastname, phone, email, context.getString(R.string.server_api_key));
+        Call<ResponseBody> call = api.createUser(password, firstname, lastname, phone, email, context.getString(R.string.server_api_key));
 
 
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Toast.makeText(context, "Create user: " + response.message(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(!response.isSuccessful()) {
+                    try {
+                        JSONObject json = new JSONObject(response.errorBody().string());
+                        JSONObject json2 = new JSONObject(json.get("content").toString());
+                        Toast.makeText(context, json2.get("message").toString(), Toast.LENGTH_LONG).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    try {
+                        Log.d("NOT ERROR", response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(context, "Error: Could not create user.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -143,19 +167,27 @@ public class Requests extends AppCompatActivity {
         });
     }
 
-
-    public static void createRoute(API api, final Context context, String email, String routeId)
+    public static void createRoute(API api, final Context context, String email, String name, String distance, String imageURL, List<LatLng> wayPoints,String routeId)
     {
-        Call<Route> call = api.createRoute(context.getString(R.string.server_api_key), email, routeId);
+        Call<ResponseBody> call = api.createRoute(context.getString(R.string.server_api_key), email,
+                name, distance, imageURL, wayPoints, routeId);
 
-        call.enqueue(new Callback<Route>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<Route> call, Response<Route> response) {
-                Toast.makeText(context, "Create Route: " + response.message(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Log.d("RESPONSE", response.message());
+                    JSONObject json = new JSONObject(response.body().string());
+                    JSONObject json2 = new JSONObject(json.get("content").toString());
+                    Log.d("JSON", json2.get("routeId").toString());
+                }catch (Exception e){
+                    Log.e("REQUEST ERROR",e.toString());
+                }
+                Toast.makeText(context, "Create Route: " + response.toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<Route> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(context, "Error: Could not create route.", Toast.LENGTH_SHORT).show();
             }
         });

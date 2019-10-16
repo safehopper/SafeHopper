@@ -3,6 +3,9 @@ package com.example.safehopper.api_package;
 import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.models.User;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -18,7 +21,7 @@ public interface API {
 
     @FormUrlEncoded
     @POST("/user/")
-    Call<User> createUser(@Field("password") String password,
+    Call<ResponseBody> createUser(@Field("password") String password,
                           @Field("firstName") String firstName,
                           @Field("lastName") String lastName,
                           @Field("phone") String phone,
@@ -60,9 +63,14 @@ public interface API {
 
     @FormUrlEncoded
     @POST("/routes/")
-    Call<Route> createRoute(@Field("key") String key,
+    Call<ResponseBody> createRoute(@Field("key") String key,
                                    @Field("userEmail") String userEmail,
+                                   @Field("name") String name,
+                                   @Field("distance") String distance,
+                                   @Field("imageURL") String imageURL,
+                                   @Field("routeWaypoints") List<LatLng> routeWaypoints,
                                    @Field("routeId") String routeId);
+
 
     @FormUrlEncoded
     @PUT("/routes/")
