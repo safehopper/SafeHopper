@@ -6,14 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.safehopper.R;
+import com.example.safehopper.models.Contact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +21,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<String> mNames;
-    private ArrayList<String> mPhoneNumbers;
-    private ArrayList<String> mEmails;
+    private List<Contact> mContacts = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> mNames, ArrayList<String> mPhoneNumbers, ArrayList<String> mEmails, Context mContext) {
-        this.mNames = mNames;
-        this.mPhoneNumbers = mPhoneNumbers;
-        this.mEmails = mEmails;
-        this.mContext = mContext;
+    public RecyclerViewAdapter(Context context, List<Contact> contacts) {
+        mContacts = contacts;
+        mContext = context;
     }
 
     @NonNull
@@ -43,25 +38,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
-
-        holder.textContactName.setText(mNames.get(position));
-        holder.textPhoneNumber.setText(mPhoneNumbers.get(position));
-        holder.textEmail.setText(mEmails.get(position));
-
-
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
-            }
-        });
+//
+//        holder.textContactName.setText(mNames.get(position));
+//        holder.textPhoneNumber.setText(mPhoneNumbers.get(position));
+//        holder.textEmail.setText(mEmails.get(position));
+//
+//
+//        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+        ((ViewHolder)holder).textContactName.setText(mContacts.get(position).getFirstName()+ " " + mContacts.get(position).getLastName());
+        ((ViewHolder)holder).textPhoneNumber.setText(mContacts.get(position).getPhoneNumber());
+        ((ViewHolder)holder).textEmail.setText(mContacts.get(position).getEmail());
     }
 
     @Override
     public int getItemCount() {
-        return mNames.size();
+        return mContacts.size();
     }
 
 
