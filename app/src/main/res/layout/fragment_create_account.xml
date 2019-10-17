@@ -78,7 +78,7 @@
             android:background="@drawable/edittext_background"
             android:ems="10"
             android:hint="@string/add_contact_lastname"
-            android:inputType="textPassword"
+            android:inputType="textPersonName"
             android:padding="10dp" />
 
         <EditText
