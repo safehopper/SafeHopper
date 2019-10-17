@@ -39,8 +39,6 @@ public class LoginFragment extends Fragment {
 
         apiTester = root.findViewById(R.id.loginButton);
 
-        api = Requests.getAPI();
-
         apiTester.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,8 +65,6 @@ public class LoginFragment extends Fragment {
                 List<LatLng> test = new ArrayList<>();
                 test.add(new LatLng(33.7719616191341,-118.12443405389787));
                 test.add(new LatLng(33.77717622536079,-118.12429357320069));
-
-                Requests.createRoute(api, getContext(), "andrewdelgado017@gmail.com", "Andrews Route 2", "100", "andrew.com",test,"a83468c0-2630-488f-8db0-c2e3b6358340");
 
                 // testing get routes
                 //Requests.getRoutes(api, getContext(), "z400jt618@gmail.com");

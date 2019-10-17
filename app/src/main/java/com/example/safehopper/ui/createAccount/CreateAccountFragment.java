@@ -6,12 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.safehopper.R;
@@ -48,9 +46,15 @@ public class CreateAccountFragment extends Fragment {
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                API api = Requests.getAPI();
-                Requests.createUser(api, getActivity(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString(), email.getText().toString());
+                // signUpUser(Context context, String email, String password, String firstName, String lastName, String phone)
+                Requests.signUpUser(getContext(), email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString());
             }
         });
+    }
+
+    public void displayConfirmation() {
+        String text = email.getText().toString();
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+
     }
 }

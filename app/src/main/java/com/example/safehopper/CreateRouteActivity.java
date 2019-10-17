@@ -167,13 +167,6 @@ public class CreateRouteActivity extends AppCompatActivity implements
 
     private void saveAndFinishListener(){
         final Button saveFinish = findViewById(R.id.add_route);
-        saveFinish.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                API api = Requests.getAPI();
-                Requests.createRoute(api,v.getContext(),route.getEmail(),route.getName(),route.getDistance()
-                        ,route.getImageURL(),route.getRouteWaypoints(),route.getRouteID());
-            }
-        });
     }
 
     @Override

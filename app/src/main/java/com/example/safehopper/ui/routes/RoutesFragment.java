@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.safehopper.R;
+import com.example.safehopper.api_package.Requests;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,8 @@ public class RoutesFragment extends Fragment {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(rNames, rImageURLs, rMiles, this.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        Requests.getRoutes(getContext(), "andrewdelgado017@gmail.com");
 
         return root;
     }

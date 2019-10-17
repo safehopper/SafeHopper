@@ -1,6 +1,8 @@
 package com.example.safehopper;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_create_account, R.id.nav_contacts, R.id.nav_routes,
-                R.id.nav_login, R.id.nav_settings, R.id.nav_homepage, R.id.nav_add_contact, R.id.nav_activity_create_route)
+                R.id.nav_login, R.id.nav_settings, R.id.nav_homepage, R.id.nav_add_contact, R.id.nav_activity_create_route, R.id.nav_confirmation_fragment)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -50,4 +52,5 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }

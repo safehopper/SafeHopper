@@ -53,4 +53,9 @@
         android:name="com.example.safehopper.ui.homepage.HomepageFragment"
         android:label="@string/menu_homepage"
         tools:layout="@layout/fragment_homepage" />
+    <fragment
+        android:id="@+id/nav_confirmation_fragment"
+        android:name="com.example.safehopper.ui.confirmation.ConfirmationFragment"
+        android:label="fragment_confirmation"
+        tools:layout="@layout/fragment_confirmation" />
 </navigation>

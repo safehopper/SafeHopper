@@ -66,5 +66,45 @@ public class ContactsFragment extends Fragment {
         mNames.add("Justin Terry");
         mPhoneNumbers.add("(555)555-5555");
         mEmails.add("jterry@gmail.com");
+
+        mNames.add("Guillermo Barron");
+        mPhoneNumbers.add("(999)999-9999");
+        mEmails.add("gbarron@gmail.com");
+
+        mNames.add("Rojin Shahbazian");
+        mPhoneNumbers.add("(888)888-8888");
+        mEmails.add("rshahbazian@gmail.com");
+
+        mNames.add("Mariel Trajano");
+        mPhoneNumbers.add("(777)777-7777");
+        mEmails.add("mtrajano@gmail.com");
+
+        mNames.add("Andrew Delgado");
+        mPhoneNumbers.add("(666)666-6666");
+        mEmails.add("adelgado@gmail.com");
+
+        mNames.add("Justin Terry");
+        mPhoneNumbers.add("(555)555-5555");
+        mEmails.add("jterry@gmail.com");
+
+        mNames.add("Guillermo Barron");
+        mPhoneNumbers.add("(999)999-9999");
+        mEmails.add("gbarron@gmail.com");
+
+        mNames.add("Rojin Shahbazian");
+        mPhoneNumbers.add("(888)888-8888");
+        mEmails.add("rshahbazian@gmail.com");
+
+        mNames.add("Mariel Trajano");
+        mPhoneNumbers.add("(777)777-7777");
+        mEmails.add("mtrajano@gmail.com");
+
+        mNames.add("Andrew Delgado");
+        mPhoneNumbers.add("(666)666-6666");
+        mEmails.add("adelgado@gmail.com");
+
+        mNames.add("Justin Terry");
+        mPhoneNumbers.add("(555)555-5555");
+        mEmails.add("jterry@gmail.com");
     }
 }
