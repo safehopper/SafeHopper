@@ -2,6 +2,7 @@ package com.example.safehopper.repositories;
 
 import androidx.lifecycle.MutableLiveData;
 import com.example.safehopper.models.Contact;
+
 import java.util.ArrayList;
 import java.util.List;
 

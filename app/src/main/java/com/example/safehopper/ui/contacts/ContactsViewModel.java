@@ -1,32 +1,31 @@
 package com.example.safehopper.ui.contacts;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
-import java.util.List;
-import com.example.safehopper.models.Contact;
+import com.example.safehopper.repositories.ContactsRepository;
 
 public class ContactsViewModel extends ViewModel
 {
-    private MutableLiveData<String> mText;
-    private MutableLiveData<List<Contact>> currentContacts; // LiveData
+    private ContactsRepository contactsRepository;
 
-    public MutableLiveData<List<Contact>> getCurrentContacts()
+
+    public ContactsViewModel(@Nullable ContactsRepository contactsRepository)
     {
-        if (currentContacts == null)
+        if(this.contactsRepository != null)
         {
-            currentContacts = new MutableLiveData<List<Contact>>();
+            // Viewmodel is created per Activity, so instantiate once
+            // we know the userId won't change
+            return;
         }
-        return currentContacts;
+
+        if(contactsRepository != null)
+        {
+            this.contactsRepository = contactsRepository;
+        }
     }
 
-    public ContactsViewModel()
+    public void onPullRequested()
     {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is contacts fragment");
-    }
-
-    public LiveData<String> getText() {
-        return mText;
+        contactsRepository.loadListNewData();
     }
 }
