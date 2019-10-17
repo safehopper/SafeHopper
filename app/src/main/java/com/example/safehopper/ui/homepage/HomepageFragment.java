@@ -13,16 +13,21 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.safehopper.R;
+import com.example.safehopper.api_package.API;
+import com.example.safehopper.api_package.Requests;
 
 public class HomepageFragment extends Fragment {
 
     private HomepageViewModel homepageViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        homepageViewModel =
-                ViewModelProviders.of(this).get(HomepageViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        homepageViewModel = ViewModelProviders.of(this).get(HomepageViewModel.class);
         View root = inflater.inflate(R.layout.fragment_homepage, container, false);
+        makeAPICall();
         return root;
+    }
+
+    public void makeAPICall(){
+        Requests.getContacts(Requests.getAPI(), getContext(), "z400jt618@gmail.com");
     }
 }
