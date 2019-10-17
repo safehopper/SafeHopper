@@ -23,21 +23,6 @@ public class ContactsViewModel extends ViewModel
         mContacts = contactsRepository.getContacts();
     }
 
-//    public ContactsViewModel(@Nullable ContactsRepository contactsRepository)
-//    {
-//        if(this.contactsRepository != null)
-//        {
-//            // Viewmodel is created per Activity, so instantiate once
-//            // we know the userId won't change
-//            return;
-//        }
-//
-//        if(contactsRepository != null)
-//        {
-//            this.contactsRepository = contactsRepository;
-//        }
-//    }
-
     public LiveData<List<Contact>> getContacts(){
         return mContacts;
     }

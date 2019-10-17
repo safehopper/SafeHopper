@@ -1,8 +1,5 @@
 package com.example.safehopper.models;
 
-import android.util.Log;
-
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class Contact extends Person {
@@ -22,7 +19,7 @@ public class Contact extends Person {
         this.sendEmailAlert = jsonObj.get("email_alerts").getAsBoolean();
     }
 
-    public boolean sendTextAlert() {
+    public boolean getSendTextAlert() {
         return sendTextAlert;
     }
 
@@ -30,7 +27,7 @@ public class Contact extends Person {
         this.sendTextAlert = sendTextAlert;
     }
 
-    public boolean sendEmailAlert() {
+    public boolean getSendEmailAlert() {
         return sendEmailAlert;
     }
 

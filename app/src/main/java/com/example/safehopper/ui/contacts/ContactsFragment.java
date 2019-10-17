@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.safehopper.R;
 import com.example.safehopper.models.Contact;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsFragment extends Fragment {
@@ -24,15 +23,13 @@ public class ContactsFragment extends Fragment {
     public static final String TAG = "ContactsFragment";
 
     private ContactsViewModel contactsViewModel;
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mPhoneNumbers = new ArrayList<>();
-    private ArrayList<String> mEmails = new ArrayList<>();
     private RecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         View root = inflater.inflate(R.layout.fragment_contacts, container, false);
         mRecyclerView = root.findViewById(R.id.recycler_view);
 
@@ -63,27 +60,5 @@ public class ContactsFragment extends Fragment {
         RecyclerView.LayoutManager linearLayerManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(linearLayerManager);
         mRecyclerView.setAdapter(mAdapter);
-
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-//        mNames.add("Guillermo Barron");
-//        mPhoneNumbers.add("(999)999-9999");
-//        mEmails.add("gbarron@gmail.com");
-//
-//        mNames.add("Rojin Shahbazian");
-//        mPhoneNumbers.add("(888)888-8888");
-//        mEmails.add("rshahbazian@gmail.com");
-//
-//        mNames.add("Mariel Trajano");
-//        mPhoneNumbers.add("(777)777-7777");
-//        mEmails.add("mtrajano@gmail.com");
-//
-//        mNames.add("Andrew Delgado");
-//        mPhoneNumbers.add("(666)666-6666");
-//        mEmails.add("adelgado@gmail.com");
-//
-//        mNames.add("Justin Terry");
-//        mPhoneNumbers.add("(555)555-5555");
-//        mEmails.add("jterry@gmail.com");
     }
 }

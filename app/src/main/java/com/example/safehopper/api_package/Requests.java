@@ -11,6 +11,7 @@ import com.example.safehopper.R;
 import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
 
+import com.example.safehopper.repositories.ContactsRepository;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -253,7 +254,8 @@ public class Requests extends AppCompatActivity {
                         for(int i = 0; i < contacts.size(); i++){
                             contactsList.add(new Contact(contacts.get(i).getAsJsonObject()));
                         }
-
+                        Log.d("CONTACTS",contactsList.toString());
+                        ContactsRepository.getInstance().setContacts(contactsList);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
