@@ -86,7 +86,7 @@ public interface API {
 
     @FormUrlEncoded
     @POST("/contacts/getcontacts/")
-    Call<Contact> getContacts(@Field("key") String key,
+    Call<ResponseBody> getContacts(@Field("key") String key,
                                     @Field("userEmail") String userEmail);
 
 
