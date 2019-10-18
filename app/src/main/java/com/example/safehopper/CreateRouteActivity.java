@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.maps.android.PolyUtil;
 import com.google.maps.android.SphericalUtil;
 
 import java.util.List;
@@ -178,9 +179,10 @@ public class CreateRouteActivity extends AppCompatActivity implements
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
+        getCurrentLocation();
         return false;
     }
 
@@ -228,8 +230,11 @@ public class CreateRouteActivity extends AppCompatActivity implements
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
-                        Log.d("CURRENT-LOCATION", location.toString());
                         if (location != null) {
+                            Log.d("CURRENT-LOCATION", Double.toString(location.getLatitude()) + " : " + Double.toString(location.getLongitude()));
+
+                            boolean isOnpath = PolyUtil.isLocationOnPath( new LatLng(location.getLatitude(),location.getLongitude()), polyline1.getPoints(), true,10);
+                            Log.d("CURRENT-LOCATION", Boolean.toString(isOnpath));
                             // Logic to handle location object
                         }
                     }
