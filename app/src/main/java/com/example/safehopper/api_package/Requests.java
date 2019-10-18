@@ -131,17 +131,15 @@ public abstract class Requests {
                         JsonObject json = parser.parse(response.body().string()).getAsJsonObject();
                         JsonObject content = json.getAsJsonObject("content");
                         JsonArray routes = content.getAsJsonArray("routes");
-                        List<Route> routeList = new ArrayList<Route>();
 
                         GsonBuilder gbuilder = new GsonBuilder();
                         gbuilder.registerTypeAdapter(Route.class, new RouteDeserializer());
                         Gson customGson = gbuilder.create();
 
+                        List<Route> routeList = new ArrayList<Route>();
                         for (int i = 0; i < routes.size(); i++) {
                             routeList.add(customGson.fromJson(routes.get(i),Route.class));
                         }
-
-                        System.out.println(routeList);
 //
 //                        // MAKE CALL TO SETUP REPO HERE
 
