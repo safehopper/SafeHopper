@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +51,9 @@ public class CreateRouteActivity extends AppCompatActivity implements
     private boolean mPermissionDenied = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient;
+    private Location currentLocation;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,10 @@ public class CreateRouteActivity extends AppCompatActivity implements
         undoButtonListener();
 
         saveAndFinishListener();
+
+       // createLocationRequest();
+
+        locationManagerStuff();
     }
 
     @Override
@@ -110,8 +119,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
             // Permission to access the location is missing.
             PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
-        }
-        else if(mMap != null){
+        } else if (mMap != null) {
             mMap.setMyLocationEnabled(true);
         }
     }
@@ -131,7 +139,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
         route.setImageURL("VeryCool.jpeg");
         route.setEmail("andrewdelgado017@gmail.com");
         route.setRouteID();
-        Log.d("JSON-CreateRouteActivity",route.toString());
+        Log.d("JSON-CreateRouteActivity", route.toString());
         /////////////////////////////////// Can delete when done.
         refreshPolyline();
     }
@@ -150,7 +158,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
         });
     }
 
-    private void routeModeToggle(){
+    private void routeModeToggle() {
         final Switch s = findViewById(R.id.switch2);
         s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -161,25 +169,25 @@ public class CreateRouteActivity extends AppCompatActivity implements
         });
     }
 
-    private String findDistace(List<LatLng> path){
+    private String findDistace(List<LatLng> path) {
         // gets the length of the path in meters and converts to feet.
-       return String.valueOf(SphericalUtil.computeLength(path) * 3.28084);
+        return String.valueOf(SphericalUtil.computeLength(path) * 3.28084);
     }
 
-    private void saveAndFinishListener(){
+    private void saveAndFinishListener() {
         final Button saveFinish = findViewById(R.id.add_route);
         saveFinish.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 API api = Requests.getAPI();
-                Requests.createRoute(api,v.getContext(),route.getEmail(),route.getName(),route.getDistance()
-                        ,route.getImageURL(),route.getRouteWaypoints(),route.getRouteID());
+                Requests.createRoute(api, v.getContext(), route.getEmail(), route.getName(), route.getDistance()
+                        , route.getImageURL(), route.getRouteWaypoints(), route.getRouteID());
             }
         });
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
-       // Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         getCurrentLocation();
@@ -216,6 +224,8 @@ public class CreateRouteActivity extends AppCompatActivity implements
             showMissingPermissionError();
             mPermissionDenied = false;
         }
+
+
     }
 
     private void showMissingPermissionError() {
@@ -223,7 +233,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 
-    private void getCurrentLocation(){
+    private void getCurrentLocation() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -231,14 +241,62 @@ public class CreateRouteActivity extends AppCompatActivity implements
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
-                            Log.d("CURRENT-LOCATION", Double.toString(location.getLatitude()) + " : " + Double.toString(location.getLongitude()));
-
-                            boolean isOnpath = PolyUtil.isLocationOnPath( new LatLng(location.getLatitude(),location.getLongitude()), polyline1.getPoints(), true,10);
-                            Log.d("CURRENT-LOCATION", Boolean.toString(isOnpath));
                             // Logic to handle location object
+                            Log.d("CURRENT-LOCATION", location.getLatitude() + " : " + location.getLongitude());
+
+                            boolean isOnpath = PolyUtil.isLocationOnPath(new LatLng(location.getLatitude(), location.getLongitude()), polyline1.getPoints(), true, 10);
+                            Log.d("CURRENT-LOCATION", Boolean.toString(isOnpath));
+
+                            currentLocation = location;
                         }
                     }
                 });
     }
 
+//    private void createLocationRequest() {
+//        LocationRequest locationRequest = LocationRequest.create();
+//        locationRequest.setInterval(1000);
+//        locationRequest.setFastestInterval(500);
+//        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//    }
+
+    private void locationManagerStuff() {
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+
+                Log.d("CURRENT-LOCATION", location.getLatitude() + " : " + location.getLongitude());
+                boolean isOnpath = PolyUtil.isLocationOnPath(new LatLng(location.getLatitude(), location.getLongitude()), polyline1.getPoints(), true, 10);
+                Log.d("CURRENT-LOCATION", Boolean.toString(isOnpath));
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.INTERNET
+            }, 10);
+            return;
+        }
+        locationManager.requestLocationUpdates("gps", 2000, 0, locationListener);
+    }
 }
+
+
+
+
