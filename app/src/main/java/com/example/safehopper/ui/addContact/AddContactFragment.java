@@ -62,7 +62,7 @@ public class AddContactFragment extends Fragment {
                 boolean textAlerts = mtextAlerts.isChecked();
                 boolean emailAlerts = memailAlerts.isChecked();
 
-                Requests.createContact(api, getContext(), firstName, lastName, phoneNum, email, textAlerts, emailAlerts, "");
+                Requests.createContact(api, getContext(), firstName, lastName, phoneNum, email, textAlerts, emailAlerts, "marieltraj@gmail.com");
             }
         });
 
