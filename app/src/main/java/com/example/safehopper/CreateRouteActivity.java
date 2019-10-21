@@ -19,8 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.safehopper.api_package.API;
-import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Route;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -178,9 +176,9 @@ public class CreateRouteActivity extends AppCompatActivity implements
         final Button saveFinish = findViewById(R.id.add_route);
         saveFinish.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                API api = Requests.getAPI();
-                Requests.createRoute(api, v.getContext(), route.getEmail(), route.getName(), route.getDistance()
-                        , route.getImageURL(), route.getRouteWaypoints(), route.getRouteID());
+//                API api = Requests.getAPI();
+//                Requests.createRoute(api, v.getContext(), route.getEmail(), route.getName(), route.getDistance()
+//                        , route.getImageURL(), route.getRouteWaypoints(), route.getRouteID());
             }
         });
     }

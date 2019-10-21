@@ -6,45 +6,46 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_create_account"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_create_account"
             android:title="@string/menu_create_account" />
 
         <item
             android:id="@+id/nav_login"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_login"
             android:title="@string/menu_login" />
 
         <item
             android:id="@+id/nav_homepage"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_home"
             android:title="@string/menu_homepage" />
 
         <item
             android:id="@+id/nav_routes"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_routes"
             android:title="@string/menu_routes" />
 
         <item
             android:id="@+id/nav_activity_create_route"
             android:title="@string/menu_activity_create_route"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_create_route"
 
             />
 
         <item
             android:id="@+id/nav_contacts"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_contacts"
             android:title="@string/menu_contacts" />
 
         <item
             android:id="@+id/nav_add_contact"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_add_contact"
             android:title="@string/menu_add_contact" />
 
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/ic_settings"
             android:title="@string/menu_settings" />
+
     </group>
 
 </menu>

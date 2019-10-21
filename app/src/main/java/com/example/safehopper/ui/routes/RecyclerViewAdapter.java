@@ -7,31 +7,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.example.safehopper.R;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.safehopper.R;
+import com.example.safehopper.models.Route;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<String> rImageNames;
-    private ArrayList<String> rImages;
-    private ArrayList<String> rMiles;
-    private Context rContext;
+    private List<Route> mRoutes = new ArrayList<>();
+    private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> rImageNames, ArrayList<String> rImages, ArrayList<String> rMiles, Context rContext) {
-        this.rImageNames = rImageNames;
-        this.rImages = rImages;
-        this.rMiles = rMiles;
-        this.rContext = rContext;
+    public RecyclerViewAdapter(Context context, List<Route> routes)
+    {
+        mRoutes = routes;
+        mContext = context;
     }
 
     @NonNull
@@ -43,30 +43,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        Glide.with(rContext)
-                .asBitmap()
-                .load(rImages.get(position))
-                .into(holder.routeImage);
+        RequestOptions defaultOptions = new RequestOptions()
+                .error(R.drawable.ic_launcher_background);
+        Glide.with(mContext)
+                .setDefaultRequestOptions(defaultOptions)
+                .load(mRoutes.get(position).getImageURL())
+                .into(((ViewHolder)holder).routeImage);
 
-        holder.routeName.setText(rImageNames.get(position));
-        holder.routeMiles.setText(rMiles.get(position));
-
-        holder.routeParentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on: " + rImageNames.get(position));
-
-                Toast.makeText(rContext, rImageNames.get(position), Toast.LENGTH_SHORT).show();
-            }
-        });
+        ((ViewHolder)holder).routeName.setText(mRoutes.get(position).getName());
+        ((ViewHolder)holder).routeMiles.setText(mRoutes.get(position).getDistance());
     }
 
     @Override
     public int getItemCount() {
-        return rImageNames.size();
+        return mRoutes.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

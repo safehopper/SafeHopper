@@ -1,5 +1,7 @@
 package com.example.safehopper.models;
 
+import com.google.gson.JsonObject;
+
 public class Contact extends Person {
 
     private boolean sendTextAlert;
@@ -11,7 +13,13 @@ public class Contact extends Person {
         this.sendEmailAlert = sendEmailAlert;
     }
 
-    public boolean sendTextAlert() {
+    public Contact(JsonObject jsonObj){
+        super(jsonObj.get("first_name").toString(), jsonObj.get("last_name").toString(), jsonObj.get("phone").toString(), jsonObj.get("email").toString());
+        this.sendTextAlert = jsonObj.get("text_alerts").getAsBoolean();
+        this.sendEmailAlert = jsonObj.get("email_alerts").getAsBoolean();
+    }
+
+    public boolean getSendTextAlert() {
         return sendTextAlert;
     }
 
@@ -19,7 +27,7 @@ public class Contact extends Person {
         this.sendTextAlert = sendTextAlert;
     }
 
-    public boolean sendEmailAlert() {
+    public boolean getSendEmailAlert() {
         return sendEmailAlert;
     }
 
@@ -29,7 +37,7 @@ public class Contact extends Person {
 
     @Override
     public String getFirstName() {
-        return getFirstName();
+        return super.getFirstName();
     }
 
     @Override
@@ -39,7 +47,7 @@ public class Contact extends Person {
 
     @Override
     public String getLastName() {
-        return getLastName();
+        return super.getLastName();
     }
 
     @Override
@@ -49,7 +57,7 @@ public class Contact extends Person {
 
     @Override
     public String getPhoneNumber() {
-        return getPhoneNumber();
+        return super.getPhoneNumber();
     }
 
     @Override
@@ -59,7 +67,7 @@ public class Contact extends Person {
 
     @Override
     public String getEmail() {
-        return getEmail();
+        return super.getEmail();
     }
 
     @Override

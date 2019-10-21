@@ -4,16 +4,26 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ContactsViewModel extends ViewModel {
+import com.example.safehopper.models.Contact;
+import com.example.safehopper.repositories.ContactsRepository;
 
-    private MutableLiveData<String> mText;
+import java.util.List;
 
-    public ContactsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is contacts fragment");
+public class ContactsViewModel extends ViewModel
+{
+    private ContactsRepository contactsRepository;
+    private MutableLiveData<List<Contact>> mContacts;
+
+
+    public void init(){
+        if(mContacts != null){
+            return;
+        }
+        contactsRepository = ContactsRepository.getInstance();
+        mContacts = contactsRepository.getContacts();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<Contact>> getContacts(){
+        return mContacts;
     }
 }
