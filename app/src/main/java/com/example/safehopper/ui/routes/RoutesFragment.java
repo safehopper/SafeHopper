@@ -42,7 +42,7 @@ public class RoutesFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Requests.getRoutes(getContext(), "andrewdelgado017@gmail.com");
+        Requests.getRoutes("andrewdelgado017@gmail.com");
 
         return root;
     }

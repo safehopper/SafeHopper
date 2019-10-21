@@ -28,6 +28,6 @@ public class HomepageFragment extends Fragment {
     }
 
     public void makeAPICall(){
-        Requests.getContacts(getContext(), "z400jt618@gmail.com");
+        Requests.getContacts("z400jt618@gmail.com");
     }
 }
