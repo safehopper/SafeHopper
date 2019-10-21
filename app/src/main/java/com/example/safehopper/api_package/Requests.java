@@ -3,6 +3,7 @@ package com.example.safehopper.api_package;
 import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.models.RouteDeserializer;
+import com.example.safehopper.repositories.ContactsRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -53,6 +54,7 @@ public abstract class Requests {
                         }
 
                         // MAKE CALL TO SETUP REPO HERE
+                        ContactsRepository.getInstance().setContacts(contactsList);
 
                     } else {
                     }

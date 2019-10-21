@@ -21,7 +21,7 @@
         android:id="@+id/nav_contacts"
         android:name="com.example.safehopper.ui.contacts.ContactsFragment"
         android:label="@string/menu_contacts"
-        tools:layout="@layout/fragment_contacts" />
+        tools:layout="@layout/contact_list_list_item" />
 
     <fragment
         android:id="@+id/nav_routes"
