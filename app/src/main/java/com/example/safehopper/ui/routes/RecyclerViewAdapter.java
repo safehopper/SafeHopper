@@ -7,17 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.safehopper.R;
 import com.example.safehopper.models.Route;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
@@ -45,21 +46,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        //setting the image
-        Glide.with(mContext).asBitmap().load(mRoutes.get(position)).into(holder.routeImage);
+        RequestOptions defaultOptions = new RequestOptions()
+                .error(R.drawable.ic_launcher_background);
+        Glide.with(mContext)
+                .setDefaultRequestOptions(defaultOptions)
+                .load(mRoutes.get(position).getImageURL())
+                .into(((ViewHolder)holder).routeImage);
 
         ((ViewHolder)holder).routeName.setText(mRoutes.get(position).getName());
         ((ViewHolder)holder).routeMiles.setText(mRoutes.get(position).getDistance());
-
-        /*
-        holder.routeParentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on: " + rImageNames.get(position));
-
-                Toast.makeText(rContext, rImageNames.get(position), Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     @Override
