@@ -1,9 +1,11 @@
 package com.example.safehopper.ui.createAccount;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -19,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreateAccountViewModel extends ViewModel {
+public class CreateAccountViewModel extends ViewModel{
     private MutableLiveData<Boolean> userCreated;
 
     private MutableLiveData<String> mText;
@@ -42,7 +44,6 @@ public class CreateAccountViewModel extends ViewModel {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
                 try {
                     if (response.isSuccessful()) {
                         JsonParser parser = new JsonParser();
@@ -66,4 +67,5 @@ public class CreateAccountViewModel extends ViewModel {
     public LiveData<String> getText() {
         return mText;
     }
+
 }

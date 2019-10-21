@@ -85,6 +85,20 @@ public abstract class Requests {
         return call;
     }
 
+    public static Call<ResponseBody> confirmUser(String email, String mfaCode) {
+        setupAPI();
+
+        // Build body of request
+        Map<String, String> body = new HashMap<String, String>();
+        body.put("key", serverKey);
+        body.put("email", email);
+        body.put("mfaCode", mfaCode);
+
+        Call<ResponseBody> call = api.confirmUser(body);
+
+        return call;
+    }
+
     public static void getRoutes(String email) {
         setupAPI();
 
