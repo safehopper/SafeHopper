@@ -4,16 +4,27 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class RoutesViewModel extends ViewModel {
+import com.example.safehopper.models.Route;
+import com.example.safehopper.repositories.RoutesRepository;
 
-    private MutableLiveData<String> mText;
+import java.util.List;
 
-    public RoutesViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is routes fragment");
+public class RoutesViewModel extends ViewModel
+{
+    private RoutesRepository routesRepository;
+    private MutableLiveData<List<Route>> mRoutes;
+
+    public void init()
+    {
+        if(mRoutes != null){
+            return;
+        }
+        routesRepository = RoutesRepository.getInstance();
+        mRoutes = routesRepository.getRoutes();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<Route>> getRoutes()
+    {
+        return mRoutes;
     }
 }

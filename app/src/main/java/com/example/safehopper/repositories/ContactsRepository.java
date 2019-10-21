@@ -21,16 +21,16 @@ public class ContactsRepository
     }
 
     public MutableLiveData<List<Contact>> getContacts()
-    {   //setContacts();
+    {
         MutableLiveData<List<Contact>> data = new MutableLiveData<>();
         data.setValue(dataSet);
         return data;
     }
 
-    public void setContacts(List<Contact> listOfContacts) {
-       // dataSet.add(new Contact("andrew","delgado", "760-555-5555", "dog@yahoo.com", true,true));
+    public void setContacts(List<Contact> contactList) {
+       dataSet.add(new Contact("andrew","delgado", "760-555-5555", "dog@yahoo.com", true,true));
 
-        for (Contact contact : listOfContacts) {
+        for (Contact contact : contactList) {
             dataSet.add(contact);
         }
         size = dataSet.size();

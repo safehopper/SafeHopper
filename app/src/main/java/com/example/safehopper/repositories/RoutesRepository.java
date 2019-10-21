@@ -8,7 +8,8 @@ import java.util.List;
 public class RoutesRepository
 {
     private static RoutesRepository instance;
-    private ArrayList<Route> dataSet = new ArrayList<>();
+    private List<Route> dataSet = new ArrayList<>();
+    private int size = dataSet.size();
 
     public static RoutesRepository getInstance()
     {
@@ -24,5 +25,17 @@ public class RoutesRepository
         MutableLiveData<List<Route>> data = new MutableLiveData<>();
         data.setValue(dataSet);
         return data;
+    }
+
+    public void setRoutes(List<Route> routeList) {
+        for (Route route : routeList) {
+            dataSet.add(route);
+        }
+        size = dataSet.size();
+    }
+
+    public int getRepoSize()
+    {
+        return size;
     }
 }

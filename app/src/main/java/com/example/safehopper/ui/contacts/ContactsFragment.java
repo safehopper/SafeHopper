@@ -39,7 +39,6 @@ public class ContactsFragment extends Fragment {
 
         Log.d(TAG, "onCreateView started.");
 
-
         contactsViewModel.getContacts().observe(this, new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
@@ -53,9 +52,6 @@ public class ContactsFragment extends Fragment {
     }
 
     private void initContactListItems(){
-        Log.d(TAG, "initImageBitmaps: preparing bitmaps");
-
-
         mAdapter = new RecyclerViewAdapter(getContext(),contactsViewModel.getContacts().getValue());
         RecyclerView.LayoutManager linearLayerManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(linearLayerManager);
