@@ -20,22 +20,25 @@ public class RouteDeserializer implements JsonDeserializer<Route> {
         JsonObject jsonObject = json.getAsJsonObject();
         List<LatLng> wayPoints = new ArrayList<>();
 
-        JsonElement jsonElement = jsonObject.get("routeWaypoints");
+        JsonElement jsonElement = jsonObject.get("waypoints");
         JsonArray jsonArrayOfWaypoints = jsonElement.getAsJsonArray();
 
         for(int i = 0; i < jsonArrayOfWaypoints.size();i++){
-            double lat = Double.parseDouble(jsonArrayOfWaypoints.get(i).toString().substring(12,21));
-            double lng = Double.parseDouble(jsonArrayOfWaypoints.get(i).toString().substring(43,50));
-            wayPoints.add(new LatLng(lat,lng));
+            JsonElement jsonEle = jsonArrayOfWaypoints.get(i);
+            String str = jsonEle.getAsString();
+            int indexOfPara = str.indexOf('(');
+            int indexOfComma = str.indexOf(',');
+            int indexOfClose = str.indexOf(')');
+            wayPoints.add(new LatLng(Double.parseDouble(str.substring(indexOfPara+1, indexOfComma)), Double.parseDouble(str.substring(indexOfComma+1, indexOfClose))));
         }
 
         Route r = new Route(
-                jsonObject.get("name").toString(),
-                jsonObject.get("email").toString(),
+                jsonObject.get("route_name").toString(),
+                jsonObject.get("user_email").toString(),
                 jsonObject.get("distance").toString(),
-                jsonObject.get("imageURL").toString(),
+                jsonObject.get("image_url").toString(),
                 wayPoints,
-                jsonObject.get("routeID").toString());
+                jsonObject.get("route_id").toString());
         return r;
     }
 }

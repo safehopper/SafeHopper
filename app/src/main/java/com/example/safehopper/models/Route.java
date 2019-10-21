@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,33 +13,33 @@ import java.util.UUID;
 
 public class Route {
 
-    private String name;
+    private String route_name;
     private String email;
     private String distance;    //in feet
-    private String imageURL;
-    private List<LatLng> routeWaypoints = new ArrayList<>();
-    private String routeID;
+    private String image_url;
+    private List<LatLng> waypoints = new ArrayList<>();
+    private String route_id;
 
     public Route(){
     }
 
     public Route(String newName, String newEmail, String newDistace,
-                 String newImage, List<LatLng> waypoints, String newRouteID){
+                 String newImage, List<LatLng> routeWaypoints, String newRouteID){
 
-        name = newName;
+        route_name = newName;
         email = newEmail;
         distance = newDistace;
-        imageURL = newImage;
-        routeWaypoints = waypoints;
-        routeID = newRouteID;
+        image_url = newImage;
+        waypoints = routeWaypoints;
+        route_id = newRouteID;
     }
 
     public String getName() {
-        return name;
+        return route_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.route_name = name;
     }
 
     public String getDistance() {
@@ -50,32 +51,32 @@ public class Route {
     }
 
     public String getImageURL() {
-        return imageURL;
+        return image_url;
     }
 
     public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+        this.image_url = imageURL;
     }
 
     public List<LatLng> getRouteWaypoints(){
-        return routeWaypoints;
+        return waypoints;
     }
 
     public void addPoint(LatLng point){
 
-        routeWaypoints.add(point);
+        waypoints.add(point);
         turnToJson();
     }
 
     public void removeLastPoint(){
-        if(routeWaypoints.size() != 0)
-            routeWaypoints.remove(routeWaypoints.size()-1);
+        if(waypoints.size() != 0)
+            waypoints.remove(waypoints.size()-1);
     }
 
     public String turnToJson(){
 
         Gson routeObj = new Gson();
-        String json = routeObj.toJson(new Route(name, email, distance, imageURL, routeWaypoints, routeID));
+        String json = routeObj.toJson(new Route(route_name, email, distance, image_url, waypoints, route_id));
         Log.d("method: turnToJson-->Json of object",json);
 
         try {
@@ -96,8 +97,8 @@ public class Route {
 
     @Override
     public String toString(){
-        return "name: " + name + " distance: " + distance + " imageURL: "
-                + imageURL + " routeWaypoints: " + routeWaypoints.toString() + " routeID: " + routeID;
+        return "name: " + route_name + " distance: " + distance + " imageURL: "
+                + image_url + " routeWaypoints: " + waypoints.toString() + " routeID: " + route_id;
     }
 
     public String getEmail() {
@@ -109,11 +110,11 @@ public class Route {
     }
 
     public void setRouteID(){
-        routeID = UUID.randomUUID().toString();
+        route_id = UUID.randomUUID().toString();
     }
 
     public String getRouteID(){
-        return routeID;
+        return route_id;
     }
 
     public void saveRoute(){
