@@ -78,8 +78,6 @@ public class CreateRouteActivity extends AppCompatActivity implements
 
         mMap = googleMap;
 
-        //getCurrentLocation();
-
         // Default location and zoom level for the map
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.765925, -118.127058), 15));
 
