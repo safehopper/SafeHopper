@@ -42,6 +42,8 @@ public class CreateRouteActivity extends AppCompatActivity implements
         OnMapReadyCallback, GoogleMap.OnPolylineClickListener,
         GoogleMap.OnMapClickListener, GoogleMap.OnMyLocationButtonClickListener, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMyLocationClickListener {
 
+    private static final float MIN_DISTANCE = 0;
+    private static final long MIN_TIME = 2000;
     // Instance Variables
     private Route route = new Route();
     private Polyline polyline1;
@@ -66,24 +68,25 @@ public class CreateRouteActivity extends AppCompatActivity implements
 
         saveAndFinishListener();
 
-       // createLocationRequest();
-
         locationManagerStuff();
+
+        getCurrentLocation();
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
+
+        //getCurrentLocation();
+
         // Default location and zoom level for the map
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.771365, -118.120892), 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.765925, -118.127058), 15));
 
         //adds polyline to the map
         polyline1 = mMap.addPolyline(new PolylineOptions()
                 .clickable(true)
                 .addAll(route.getRouteWaypoints()));//Getting the points from the Route Class
-
-
         // I want to add a marker so the user knows where they initially pressed.
         // This code only shows a marker after two points.
         // Fix this in the future.
@@ -105,9 +108,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
-
-        getCurrentLocation();
-
+        // getCurrentLocation();
 
     }
 
@@ -222,8 +223,6 @@ public class CreateRouteActivity extends AppCompatActivity implements
             showMissingPermissionError();
             mPermissionDenied = false;
         }
-
-
     }
 
     private void showMissingPermissionError() {
@@ -246,6 +245,10 @@ public class CreateRouteActivity extends AppCompatActivity implements
                             Log.d("CURRENT-LOCATION", Boolean.toString(isOnpath));
 
                             currentLocation = location;
+
+                            if(currentLocation != null){
+                               mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()), 15));
+                            }
                         }
                     }
                 });
@@ -291,7 +294,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
             }, 10);
             return;
         }
-        locationManager.requestLocationUpdates("gps", 2000, 0, locationListener);
+        locationManager.requestLocationUpdates("gps", MIN_TIME, MIN_DISTANCE, locationListener);
     }
 }
 
