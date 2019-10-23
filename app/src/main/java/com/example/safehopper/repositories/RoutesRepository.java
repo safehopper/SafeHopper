@@ -5,7 +5,6 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.safehopper.models.Route;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +26,6 @@ public class RoutesRepository
 
     public MutableLiveData<List<Route>> getRoutes()
     {
-        List<LatLng> t = new ArrayList<>();
-        t.add(new LatLng(334,3434));
-
-        List<Route> routeList = new ArrayList<>();
-
-        routeList.add(new Route("Andrew", "andrewdelgado.email",
-                "56miles", "https://cdn-assets.alltrails.com/static-map/production/at-map/20792117/trail-us-california-el-dorado-east-regional-park-perimeter-loop-at-map-20792117-1534368141-414x200-1.png",t,"4747" ));
-
-        setRoutes(routeList);
-
         MutableLiveData<List<Route>> data = new MutableLiveData<>();
         data.setValue(dataSet);
         return data;

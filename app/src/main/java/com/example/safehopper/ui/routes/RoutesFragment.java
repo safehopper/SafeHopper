@@ -14,10 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.safehopper.R;
-import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Route;
-import com.example.safehopper.models.User;
-import com.example.safehopper.repositories.UserRepository;
 
 import java.util.List;
 
@@ -36,8 +33,6 @@ public class RoutesFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_routes, container, false);
         mRecyclerView = root.findViewById(R.id.recyclerv_view);
 
-        Log.d("EMAIL", UserRepository.getInstance().getUser().getValue().getEmail());
-        Requests.getRoutes(UserRepository.getInstance().getUser().getValue().getEmail());
 
         routesViewModel = ViewModelProviders.of(this).get(RoutesViewModel.class);
 
