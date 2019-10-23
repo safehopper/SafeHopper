@@ -4,6 +4,7 @@ import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.models.RouteDeserializer;
 import com.example.safehopper.repositories.ContactsRepository;
+import com.example.safehopper.repositories.RoutesRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -72,7 +73,7 @@ public abstract class Requests {
         setupAPI();
 
         // Build body of request
-        Map<String, String> body = new HashMap<String, String>();
+        Map<String, String> body = new HashMap<>();
         body.put("key", serverKey);
         body.put("firstName", firstName);
         body.put("lastName", lastName);
@@ -80,9 +81,18 @@ public abstract class Requests {
         body.put("password", password);
         body.put("phone", phone);
 
-        Call<ResponseBody> call = api.signUpUser(body);
+        return api.signUpUser(body);
+    }
 
-        return call;
+    public static Call<ResponseBody> loginUser(String email, String password) {
+        setupAPI();
+
+        Map<String, String> body = new HashMap<>();
+        body.put("key", serverKey);
+        body.put("email", email);
+        body.put("password", password);
+
+        return api.loginUser(body);
     }
 
     public static Call<ResponseBody> confirmUser(String email, String mfaCode) {
@@ -128,7 +138,7 @@ public abstract class Requests {
                             routeList.add(customGson.fromJson(routes.get(i),Route.class));
                         }
 
-//                      MAKE CALL TO SETUP REPO HERE
+                        RoutesRepository.getInstance().setRoutes(routeList);
 
                     } else {
                     }

@@ -19,4 +19,7 @@ public interface API {
 
     @POST("user/confirm")
     Call<ResponseBody> confirmUser(@Body Map<String, String> body);
+
+    @POST("user/authenticate")
+    Call<ResponseBody> loginUser(@Body Map<String, String> body);
 }

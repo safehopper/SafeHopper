@@ -1,5 +1,7 @@
 package com.example.safehopper.repositories;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.safehopper.models.Route;
@@ -41,10 +43,12 @@ public class RoutesRepository
     }
 
     public void setRoutes(List<Route> routeList) {
+        dataSet = new ArrayList<>();
         for (Route route : routeList) {
             dataSet.add(route);
         }
         size = dataSet.size();
+        Log.d("ROUTES", dataSet.toString());
     }
 
     public int getRepoSize()

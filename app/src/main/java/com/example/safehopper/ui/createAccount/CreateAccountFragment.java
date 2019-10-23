@@ -3,6 +3,7 @@ package com.example.safehopper.ui.createAccount;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.safehopper.MainActivity;
 import com.example.safehopper.R;
 import com.example.safehopper.ui.dialogs.SafeHopperDiags;
 import com.example.safehopper.ui.login.LoginFragment;
@@ -42,18 +45,15 @@ public class CreateAccountFragment extends Fragment {
                 ViewModelProviders.of(this).get(CreateAccountViewModel.class);
         View root = inflater.inflate(R.layout.fragment_create_account, container, false);
 
-        email = root.findViewById(R.id.createAccountEmail);
-        password = root.findViewById(R.id.createAccountPassword);
-        firstName = root.findViewById(R.id.createAccountFirst);
-        lastName = root.findViewById(R.id.createAccountLast);
-        phone = root.findViewById(R.id.createAccountPhone);
-
+        // Hide Action Bar
+        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         observeCreateUser();
-        createAccountButtonListener(root);
+        setUpEditTexts(root);
+        setButtonListeners(root);
         return root;
     }
 
-    public void createAccountButtonListener(View v){
+    public void setButtonListeners(View v){
         final Button createAccountButton = v.findViewById(R.id.createAccountButton);
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +63,25 @@ public class CreateAccountFragment extends Fragment {
                 confirmDialog.show();
             }
         });
+
+        final Button goToLoginButton = v.findViewById(R.id.createAccountGoToLoginButton);
+        goToLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, new LoginFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+    }
+
+    private void setUpEditTexts(View root) {
+        email = root.findViewById(R.id.createAccountEmail);
+        password = root.findViewById(R.id.createAccountPassword);
+        firstName = root.findViewById(R.id.createAccountFirst);
+        lastName = root.findViewById(R.id.createAccountLast);
+        phone = root.findViewById(R.id.createAccountPhone);
     }
 
     private void observeCreateUser() {
