@@ -5,30 +5,46 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.safehopper.R;
+import com.example.safehopper.api_package.Requests;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public abstract class SafeHopperDiags {
 
-    public static Dialog getConfirmationDialog(Context mContext){
-        LayoutInflater factory = LayoutInflater.from(mContext);
-        final View deleteDialogView = factory.inflate(R.layout.dialog_confirmation, null);
-        final AlertDialog deleteDialog = new AlertDialog.Builder(mContext).create();
-        deleteDialog.setView(deleteDialogView);
-        deleteDialogView.findViewById(R.id.confirmationDialogSubmitButton).setOnClickListener(new View.OnClickListener() {
+    private static LayoutInflater inflater;
+    private static View dialogView;
+    private static AlertDialog dialog;
+
+    public static Dialog getConfirmationDialog(final Context mContext, final String email, final Callback<ResponseBody> callback){
+
+        inflater = LayoutInflater.from(mContext);
+        dialogView = inflater.inflate(R.layout.dialog_confirmation, null);
+        dialog = new AlertDialog.Builder(mContext).create();
+        dialog.setView(dialogView);
+
+        dialogView.findViewById(R.id.confirmationDialogSubmitButton).setOnClickListener(new View.OnClickListener() {
+            EditText mfaCodeTextView = dialogView.findViewById(R.id.confirmationDialogET);
             @Override
             public void onClick(View v) {
-                //your business logic
-                deleteDialog.dismiss();
+                Call<ResponseBody> call = Requests.confirmUser(email, mfaCodeTextView.getText().toString());
+                call.enqueue(callback);
+                dialog.dismiss();
             }
         });
-        deleteDialogView.findViewById(R.id.confirmationDialogCancelButton).setOnClickListener(new View.OnClickListener() {
+        dialogView.findViewById(R.id.confirmationDialogCancelButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteDialog.dismiss();
+                dialog.dismiss();
             }
         });
 
-        return deleteDialog;
+        return dialog;
     }
 }

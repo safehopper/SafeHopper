@@ -33,6 +33,7 @@ public class RoutesFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_routes, container, false);
         mRecyclerView = root.findViewById(R.id.recyclerv_view);
 
+
         routesViewModel = ViewModelProviders.of(this).get(RoutesViewModel.class);
 
         routesViewModel.init();
