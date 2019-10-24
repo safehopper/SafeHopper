@@ -16,4 +16,10 @@ public interface API {
 
     @POST("routes/getroutes")
     Call<ResponseBody> getRoutes(@Body Map<String, String> body);
+
+    @POST("user/confirm")
+    Call<ResponseBody> confirmUser(@Body Map<String, String> body);
+
+    @POST("user/authenticate")
+    Call<ResponseBody> loginUser(@Body Map<String, String> body);
 }
