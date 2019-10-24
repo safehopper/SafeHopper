@@ -1,6 +1,9 @@
 package com.example.safehopper;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -20,6 +23,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.safehopper.models.Route;
+import com.example.safehopper.ui.dialogs.SaveRouteDialog;
+import com.example.safehopper.ui.routes.RoutesFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,6 +39,11 @@ import com.google.maps.android.PolyUtil;
 import com.google.maps.android.SphericalUtil;
 
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.example.safehopper.R.id.map;
 
@@ -54,6 +64,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
     private Location currentLocation;
     private LocationManager locationManager;
     private LocationListener locationListener;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,16 +182,6 @@ public class CreateRouteActivity extends AppCompatActivity implements
         return String.valueOf(SphericalUtil.computeLength(path) * 3.28084);
     }
 
-    private void saveAndFinishListener() {
-        final Button saveFinish = findViewById(R.id.add_route);
-        saveFinish.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-//                API api = Requests.getAPI();
-//                Requests.createRoute(api, v.getContext(), route.getEmail(), route.getName(), route.getDistance()
-//                        , route.getImageURL(), route.getRouteWaypoints(), route.getRouteID());
-            }
-        });
-    }
 
     @Override
     public boolean onMyLocationButtonClick() {
@@ -293,6 +294,50 @@ public class CreateRouteActivity extends AppCompatActivity implements
             return;
         }
         locationManager.requestLocationUpdates("gps", MIN_TIME, MIN_DISTANCE, locationListener);
+    }
+
+
+    private void saveAndFinishListener() {
+        final Button saveFinish = findViewById(R.id.add_route);
+        saveFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("CREATE ROUTE", "IS THIS EVEN RUNNING");
+                //createAccountViewModel.signUpUser(getContext(), email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString());
+                Dialog confirmDialog = SaveRouteDialog.getSaveRouteDialog(route,context, route.getEmail(), setUpDialogCallback());
+                confirmDialog.show();
+            }
+        });
+    }
+
+    // Confirmation callback, only used to change screens
+    private Callback<ResponseBody> setUpDialogCallback() {
+        Callback<ResponseBody> callback = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    // Still need to check for actual success here, right now just runs based on receiving a response
+                    Intent intent = new Intent(CreateRouteActivity.this, RoutesFragment.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(context, "Confirmation Failed", Toast.LENGTH_SHORT).show();
+                    displayConfirmation();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(context, "FAIL", Toast.LENGTH_SHORT).show();
+                displayConfirmation();
+            }
+        };
+        return callback;
+    }
+
+    public void displayConfirmation() {
+        String text = route.getEmail();
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+
     }
 }
 
