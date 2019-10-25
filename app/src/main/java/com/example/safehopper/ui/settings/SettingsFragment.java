@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.safehopper.R;
+import com.example.safehopper.api_package.Requests;
+import com.example.safehopper.models.Route;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,9 @@ public class SettingsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        Requests.getRoutes("TEST@EMAIL.COM");
+
 
         // Initialize Spinner
         unitsSpinner = (Spinner) root.findViewById(R.id.units_spinner);
