@@ -31,9 +31,6 @@ public class SettingsFragment extends Fragment {
         settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        Requests.getRoutes("TEST@EMAIL.COM");
-
-
         // Initialize Spinner
         unitsSpinner = (Spinner) root.findViewById(R.id.units_spinner);
         bufferZoneSpinner = (Spinner) root.findViewById(R.id.buffer_zone_spinner);

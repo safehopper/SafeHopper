@@ -159,7 +159,7 @@ public abstract class Requests {
         });
     }
 
-    public Call<ResponseBody> addRoute(Route r) {
+    public static Call<ResponseBody> addRoute(Route r) {
         setupAPI();
         String json = new Gson().toJson(r);
 
