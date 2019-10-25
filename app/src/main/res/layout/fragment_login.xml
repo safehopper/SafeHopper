@@ -33,36 +33,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
+            android:gravity="center"
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/loginEmailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:autoText="false"
+                android:autofillHints=""
                 android:background="@drawable/edittext_background"
                 android:ems="10"
                 android:hint="@string/contacts_email"
                 android:inputType="textEmailAddress"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <EditText
-                android:id="@+id/passwordEditText"
+                android:id="@+id/loginPasswordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
+                android:autofillHints=""
                 android:background="@drawable/edittext_background"
                 android:ems="10"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:padding="10dp"
-                android:autofillHints="" />
+                android:padding="10dp" />
 
             <Button
                 android:id="@+id/loginButton"
@@ -83,24 +83,15 @@
             android:gravity="bottom|center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/questionTextView"
+            <Button
+                android:id="@+id/loginCreateAccountButton"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|bottom"
+                android:background="#0000"
+                android:backgroundTint="#0000"
                 android:text="@string/does_not_have_account"
-                android:textColor="#000000" />
-
-            <TextView
-                android:id="@+id/createProfileTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center|bottom"
-                android:text="@string/create_new_account"
-                android:textColor="#101B55"
-                android:textStyle="bold" />
+                android:textColor="@color/regularTextColor" />
 
         </LinearLayout>
     </LinearLayout>

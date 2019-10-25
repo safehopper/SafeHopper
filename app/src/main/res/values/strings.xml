@@ -34,7 +34,7 @@
     <string name="password">Password</string>
 
     <string name="create_new_account">Create one now</string>
-    <string name="does_not_have_account">Don\'t have an account?</string>
+    <string name="does_not_have_account">Don\'t have an account? Click here to sign up</string>
     <string name="login">Login</string>
     <string name="units">Units</string>
     <string name="route_buffer_zone">Route Buffer Zone</string>
@@ -52,6 +52,11 @@
     <string name="permission_required_toast">Location permission is required for this demo.</string>
     <string name="location_permission_denied">This sample requires location permission to enable the \'my location\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Google Maps API Demos\'.</string>
     <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="runner_background_image">runner background image</string>
+    <string name="have_an_account_click_here_to_login">Have an account? Click here to login</string>
 
 
 </resources>

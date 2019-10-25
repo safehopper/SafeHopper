@@ -1,22 +1,34 @@
 package com.example.safehopper.ui.createAccount;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.safehopper.MainActivity;
 import com.example.safehopper.R;
-import com.example.safehopper.api_package.API;
-import com.example.safehopper.api_package.Requests;
+import com.example.safehopper.ui.dialogs.SafeHopperDiags;
+import com.example.safehopper.ui.login.LoginFragment;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class CreateAccountFragment extends Fragment {
 
@@ -33,24 +45,87 @@ public class CreateAccountFragment extends Fragment {
                 ViewModelProviders.of(this).get(CreateAccountViewModel.class);
         View root = inflater.inflate(R.layout.fragment_create_account, container, false);
 
+        // Hide Action Bar
+        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        observeCreateUser();
+        setUpEditTexts(root);
+        setButtonListeners(root);
+        return root;
+    }
+
+    public void setButtonListeners(View v){
+        final Button createAccountButton = v.findViewById(R.id.createAccountButton);
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createAccountViewModel.signUpUser(getContext(), email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString());
+                Dialog confirmDialog = SafeHopperDiags.getConfirmationDialog(getContext(), email.getText().toString(), setUpDialogCallback());
+                confirmDialog.show();
+            }
+        });
+
+        final Button goToLoginButton = v.findViewById(R.id.createAccountGoToLoginButton);
+        goToLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, new LoginFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+    }
+
+    private void setUpEditTexts(View root) {
         email = root.findViewById(R.id.createAccountEmail);
         password = root.findViewById(R.id.createAccountPassword);
         firstName = root.findViewById(R.id.createAccountFirst);
         lastName = root.findViewById(R.id.createAccountLast);
         phone = root.findViewById(R.id.createAccountPhone);
-
-        createAccountButtonListener(root);
-        return root;
     }
 
-    public void createAccountButtonListener(View v){
-        final Button createAccountButton = v.findViewById(R.id.createAccountButton);
-        createAccountButton.setOnClickListener(new View.OnClickListener() {
+    private void observeCreateUser() {
+        createAccountViewModel.getUserCreated().observe(this, new Observer<Boolean>() {
             @Override
-            public void onClick(View view) {
-                API api = Requests.getAPI();
-                Requests.createUser(api, getActivity(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString(), email.getText().toString());
+            public void onChanged(@Nullable Boolean created) {
+                if(created == true) {
+                    Toast.makeText(getContext(), "Check your email for the confimation code.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
+
+    public void displayConfirmation() {
+        String text = email.getText().toString();
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+
+    }
+
+    // Confirmation callback, only used to change screens
+    private Callback<ResponseBody> setUpDialogCallback() {
+        Callback<ResponseBody> callback = new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    // Still need to check for actual success here, right now just runs based on receiving a response
+                    Toast.makeText(getContext(), "Successfully Confirmed", Toast.LENGTH_SHORT).show();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.nav_host_fragment, new LoginFragment());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else {
+                    Toast.makeText(getContext(), "Confirmation Failed", Toast.LENGTH_SHORT).show();
+                    displayConfirmation();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getContext(), "FAIL", Toast.LENGTH_SHORT).show();
+                displayConfirmation();
+            }
+        };
+        return callback;
+    }
+
 }

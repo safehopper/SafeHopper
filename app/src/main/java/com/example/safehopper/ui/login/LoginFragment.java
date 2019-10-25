@@ -5,95 +5,107 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.safehopper.R;
-import com.example.safehopper.api_package.API;
-import com.example.safehopper.api_package.Requests;
-import com.google.android.gms.maps.model.LatLng;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.safehopper.ui.createAccount.CreateAccountFragment;
+import com.example.safehopper.ui.homepage.HomepageFragment;
 
 public class LoginFragment extends Fragment {
 
     private LoginViewModel loginViewModel;
-    private API api;
-    private Button apiTester;
+    private Button loginButton, createAccountButton;
+    private EditText loginEmail, loginPassword;
+    private MutableLiveData<Boolean> loggedIn, unsucessfulRequest, errorOnLogin;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        loginViewModel =
-                ViewModelProviders.of(this).get(LoginViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         View root = inflater.inflate(R.layout.fragment_login, container, false);
-        //final TextView textView = root.findViewById(R.id.text_tools);
-//        loginViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
-        apiTester = root.findViewById(R.id.loginButton);
+        // Hide Action Bar
+        // ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-        api = Requests.getAPI();
+        setLoginSubscriptions();
+        setEditTexts(root);
+        setCreateAccountOnClick(root);
+        setLoginButtonOnClick(root);
+        return root;
+    }
 
-        apiTester.setOnClickListener(new View.OnClickListener() {
+    private void setEditTexts(View root) {
+        loginEmail = root.findViewById(R.id.loginEmailEditText);
+        loginPassword = root.findViewById(R.id.loginPasswordEditText);
+    }
+
+    private void setLoginButtonOnClick(View root){
+        loginButton = root.findViewById(R.id.loginButton);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loginViewModel.loginUser(loginEmail.getText().toString(), loginPassword.getText().toString());
+            }
+        });
+    }
 
-                //--------USER---------
-                // testing create user
-                //Requests.createUser(api, getContext(), "Password1!", "Mariel", "Traj", "+15621231111", "marieltraj@gmail.com");
+    private void setCreateAccountOnClick(View root){
+        createAccountButton = root.findViewById(R.id.loginCreateAccountButton);
 
-                // testing confirm user
-                //Requests.confirmUser(api, getContext(), "marieltraj@gmail.com", "557365");
-
-                // testing modify user
-                //Requests.modifyUser(api, getContext(), "Mariel", "T", "+15551231234", "marieltraj@gmail.com", "Password1!");
-
-                // testing authenticate user
-                //Requests.authenticateUser(api, getContext(), "marieltraj@gmail.com", "Password1!");
-
-                // testing deleting user
-                //Requests.deleteUser(api, getContext(), "marieltraj@gmail.com", "Password1!");
-
-                //-------ROUTES--------
-                // testing create route
-
-                List<LatLng> test = new ArrayList<>();
-                test.add(new LatLng(33.7719616191341,-118.12443405389787));
-                test.add(new LatLng(33.77717622536079,-118.12429357320069));
-
-                Requests.createRoute(api, getContext(), "andrewdelgado017@gmail.com", "Andrews Route 2", "100", "andrew.com",test,"a83468c0-2630-488f-8db0-c2e3b6358340");
-
-                // testing get routes
-                //Requests.getRoutes(api, getContext(), "z400jt618@gmail.com");
-
-                // testing modify route
-                //Requests.modifyRoute(api, getContext(), "z400jt618@gmail.com", "1f82279e-b163-4998-bc39-c90f867ad9c4");
-
-                // testing delete route
-                //Requests.deleteRoute(api, getContext(), "z400jt618@gmail.com", "1f82279e-b163-4998-bc39-c90f867ad9c4");
-
-                //-------CONTACTS--------
-                // testing create contact
-                //Requests.createContact(api, getContext(), "John", "Smith", "+12341231234", "john@gmail.com", true, true, "z400jt618@gmail.com");
-
-                // testing get contacts
-                //Requests.getContacts(api, getContext(), "z400jt618@gmail.com");
-
-                // testing modify contacts
-                //Requests.modifyContact(api, getContext(), "John", "Smith", "+12341231234", "john@gmail.com", true, false, "z400jt618@gmail.com");
-
-                // testing delete contacts
-                //Requests.deleteContact(api, getContext(), "john@gmail.com", "z400jt618@gmail.com");
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO Add a navigation class to handle navigating between fragments better
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, new CreateAccountFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
-        return root;
+    }
+
+    private void setLoginSubscriptions() {
+        loggedIn = loginViewModel.getLoggedIn();
+        unsucessfulRequest = loginViewModel.getUnsuccessfulRequest();
+        errorOnLogin = loginViewModel.getErrorOnLogin();
+
+        loggedIn.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean == true){
+                    Toast.makeText(getContext(), "Logged In", Toast.LENGTH_SHORT).show();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.nav_host_fragment, new HomepageFragment());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+
+        unsucessfulRequest.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean == true){
+                    Toast.makeText(getContext(), "Incorrect Email or Password", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        errorOnLogin.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean == true){
+                    Toast.makeText(getContext(), "Error on login attempt", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
