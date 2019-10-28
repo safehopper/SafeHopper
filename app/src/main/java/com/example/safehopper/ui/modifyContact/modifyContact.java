@@ -32,7 +32,7 @@ public class modifyContact extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         modifyContactViewModel =
                 ViewModelProviders.of(this).get(ModifyContactViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_add_contact, container, false);
+        View root = inflater.inflate(R.layout.modify_contact_fragment, container, false);
 //        final TextView textView = root.findViewById(R.id.textView2);
 //        addContactViewModel.getText().observe(this, new Observer<String>() {
 //            @Override
