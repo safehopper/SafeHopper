@@ -201,7 +201,7 @@ public abstract class Requests {
         body.put("lastName", user.getLastName());
         body.put("phone", user.getPhoneNumber());
 
-        return api.signUpUser(body);
+        return api.modifyUser(body);
     }
 
     private static void setupAPI() {
