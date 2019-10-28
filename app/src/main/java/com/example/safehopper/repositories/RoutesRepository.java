@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.safehopper.models.Route;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +27,19 @@ public class RoutesRepository
 
     public MutableLiveData<List<Route>> getRoutes()
     {
+        List<LatLng> newRoute = new ArrayList<>();
+        newRoute.add(new LatLng(34,34));
+
+        dataSet.add(new Route("string","antoherString",
+                "thirdString", "dog", newRoute,"df"));
+
         MutableLiveData<List<Route>> data = new MutableLiveData<>();
         data.setValue(dataSet);
         return data;
     }
 
     public void setRoutes(List<Route> routeList) {
+
         dataSet = new ArrayList<>();
         for (Route route : routeList) {
             dataSet.add(route);

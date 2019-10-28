@@ -23,8 +23,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.safehopper.models.Route;
+import com.example.safehopper.ui.FragmentManager;
 import com.example.safehopper.ui.dialogs.SaveRouteDialog;
-import com.example.safehopper.ui.routes.RoutesFragment;
+import com.example.safehopper.ui.routes.RoutesViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -65,6 +66,8 @@ public class CreateRouteActivity extends AppCompatActivity implements
     private LocationManager locationManager;
     private LocationListener locationListener;
     private Context context = this;
+
+    private RoutesViewModel routesViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -316,13 +319,18 @@ public class CreateRouteActivity extends AppCompatActivity implements
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    // Still need to check for actual success here, right now just runs based on receiving a response
-                    Intent intent = new Intent(CreateRouteActivity.this, RoutesFragment.class);
-                    startActivity(intent);
+                    Log.d("CALLBACK MAIN", "SUCCESSFUL");
+
+
+
                 } else {
+                    Log.d("CALLBACK MAIN", "UN-SUCCESSFUL");
                     Toast.makeText(context, "Confirmation Failed", Toast.LENGTH_SHORT).show();
                     displayConfirmation();
                 }
+                Intent menuIntent = new Intent(CreateRouteActivity.this, MainActivity.class);
+                FragmentManager.getInstance().setGoToRoute(true);
+                startActivity(menuIntent);
             }
 
             @Override

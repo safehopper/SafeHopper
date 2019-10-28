@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.safehopper.R;
+import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Route;
 
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Callback;
 
 public abstract class SaveRouteDialog {
@@ -35,8 +37,8 @@ public abstract class SaveRouteDialog {
 
                 Log.d("DIALOG", routeToSave.turnToJson());
 
-                //Call<ResponseBody> call = Requests.createRoute(email, routeToSave.turnToJson());
-                //call.enqueue(callback);
+                Call<ResponseBody> call = Requests.loginUser(email, routeToSave.turnToJson());
+                call.enqueue(callback);
                 dialog.dismiss();
             }
         });

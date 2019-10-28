@@ -1,6 +1,7 @@
 package com.example.safehopper.ui.login;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.safehopper.R;
+import com.example.safehopper.ui.FragmentManager;
 import com.example.safehopper.ui.createAccount.CreateAccountFragment;
 import com.example.safehopper.ui.homepage.HomepageFragment;
+import com.example.safehopper.ui.routes.RoutesFragment;
 
 public class LoginFragment extends Fragment {
 
@@ -27,6 +30,7 @@ public class LoginFragment extends Fragment {
     private MutableLiveData<Boolean> loggedIn, unsucessfulRequest, errorOnLogin;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
@@ -37,7 +41,26 @@ public class LoginFragment extends Fragment {
         setEditTexts(root);
         setCreateAccountOnClick(root);
         setLoginButtonOnClick(root);
+
+        // This saves where we want to go
+        Log.d("MANAGER","This should be true: " + FragmentManager.getInstance().getGotToRoute());
+
+        swtichView();
+
         return root;
+    }
+
+    private void swtichView(){
+        Log.d("MANAGER-LOGIN","This should be true: " + FragmentManager.getInstance().getGotToRoute());
+        if(FragmentManager.getInstance().getGotToRoute()) {
+
+            FragmentManager.getInstance().setGoToRoute(false);
+
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment, new RoutesFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 
     private void setEditTexts(View root) {
