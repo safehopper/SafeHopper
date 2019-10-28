@@ -14,7 +14,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -66,9 +65,9 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
         Contact c = contactsViewModel.getContacts().getValue().get(position);
 //        Toast.makeText(getContext(), "Contact: " + c.getFirstName(), Toast.LENGTH_SHORT).show();
         Fragment modifyFragment = new modifyContact(c.getFirstName(), c.getLastName(), c.getEmail(), c.getPhoneNumber(),c.getSendTextAlert(), c.getSendEmailAlert());
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.contact_list_parent_layout, modifyFragment);
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, modifyFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

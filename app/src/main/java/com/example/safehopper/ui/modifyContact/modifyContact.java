@@ -58,7 +58,7 @@ public class modifyContact extends Fragment {
 //            }
 //        });
 
-        modifyContact = root.findViewById(R.id.button);
+        modifyContact = root.findViewById(R.id.modify_button);
         mfirstName = root.findViewById(R.id.firstname);
         mlastName = root.findViewById(R.id.lastName);
         memail = root.findViewById(R.id.email);
