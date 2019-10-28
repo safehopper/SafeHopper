@@ -9,32 +9,34 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.safehopper.R;
 import com.example.safehopper.models.Contact;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
     private static final String TAG = "RecyclerViewAdapter";
 
     private List<Contact> mContacts = new ArrayList<>();
+    private OnContactListener mOnContactListener;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, List<Contact> contacts) {
+    public RecyclerViewAdapter(Context context, List<Contact> contacts, OnContactListener onContactListener) {
         mContacts = contacts;
         mContext = context;
+        mOnContactListener = onContactListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_list_list_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view, mOnContactListener);
         return holder;
     }
 
@@ -54,8 +56,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mContacts.size();
     }
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView textContactName;
         TextView textPhoneNumber;
@@ -63,8 +64,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         CheckBox emailAlert;
         CheckBox textAlert;
         LinearLayout parentLayout;
+        OnContactListener onContactListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnContactListener onContactListener){
             super(itemView);
             textContactName = itemView.findViewById(R.id.contact_name_textview);
             textPhoneNumber = itemView.findViewById(R.id.phone_number_textview);
@@ -73,6 +75,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             textAlert = itemView.findViewById(R.id.text_message_checkbox);
 
             parentLayout = itemView.findViewById(R.id.contact_list_parent_layout);
+
+            this.onContactListener = onContactListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onContactListener.onContactClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnContactListener {
+        void onContactClick(int position);
     }
 }
