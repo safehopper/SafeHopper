@@ -9,6 +9,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -25,12 +28,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private static final String TAG = "RecyclerViewAdapter";
 
-    private List<Route> mRoutes = new ArrayList<>();
+    private LiveData<List<Route>> mRoutes;
     private Context mContext;
+    private LifecycleOwner owner;
 
-    public RecyclerViewAdapter(Context context, List<Route> routes)
+    public RecyclerViewAdapter(Context context, LifecycleOwner frag, LiveData<List<Route>> routes)
     {
         mRoutes = routes;
+        owner = frag;
+
         mContext = context;
     }
 
@@ -50,16 +56,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .error(R.drawable.ic_launcher_background);
         Glide.with(mContext)
                 .setDefaultRequestOptions(defaultOptions)
-                .load(mRoutes.get(position).getImageURL())
+                .load(mRoutes.getValue().get(position).getImageURL())
                 .into(((ViewHolder)holder).routeImage);
 
-        ((ViewHolder)holder).routeName.setText(mRoutes.get(position).getName());
-        ((ViewHolder)holder).routeMiles.setText(mRoutes.get(position).getDistance());
+        ((ViewHolder)holder).routeName.setText(mRoutes.getValue().get(position).getName());
+        ((ViewHolder)holder).routeMiles.setText(mRoutes.getValue().get(position).getDistance());
     }
 
     @Override
     public int getItemCount() {
-        return mRoutes.size();
+        return mRoutes.getValue().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

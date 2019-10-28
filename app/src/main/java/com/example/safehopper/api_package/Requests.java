@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.models.RouteDeserializer;
+import com.example.safehopper.models.User;
 import com.example.safehopper.repositories.ContactsRepository;
 import com.example.safehopper.repositories.RoutesRepository;
 import com.google.gson.Gson;
@@ -188,6 +189,19 @@ public abstract class Requests {
             return null;
         }
 
+    }
+
+    public static Call<ResponseBody> modifyUser(User user) {
+        setupAPI();
+
+        // Build body of request
+        Map<String, String> body = new HashMap<>();
+        body.put("key", serverKey);
+        body.put("firstName", user.getFirstName());
+        body.put("lastName", user.getLastName());
+        body.put("phone", user.getPhoneNumber());
+
+        return api.signUpUser(body);
     }
 
     private static void setupAPI() {
