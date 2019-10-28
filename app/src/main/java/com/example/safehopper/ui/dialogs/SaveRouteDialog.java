@@ -37,7 +37,7 @@ public abstract class SaveRouteDialog {
 
                 Log.d("DIALOG", routeToSave.turnToJson());
 
-                Call<ResponseBody> call = Requests.loginUser(email, routeToSave.turnToJson());
+                Call<ResponseBody> call = Requests.addRoute(routeToSave);
                 call.enqueue(callback);
                 dialog.dismiss();
             }

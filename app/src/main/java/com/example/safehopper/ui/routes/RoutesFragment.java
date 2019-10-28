@@ -44,6 +44,7 @@ public class RoutesFragment extends Fragment {
             @Override
             public void onChanged(List<Route> routes) {
                 mAdapter.notifyDataSetChanged();
+                initRouteListItems();
             }
         });
 

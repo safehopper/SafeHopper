@@ -321,16 +321,15 @@ public class CreateRouteActivity extends AppCompatActivity implements
                 if (response.isSuccessful()) {
                     Log.d("CALLBACK MAIN", "SUCCESSFUL");
 
-
+                    Intent menuIntent = new Intent(CreateRouteActivity.this, MainActivity.class);
+                    FragmentManager.getInstance().setGoToRoute(true);
+                    startActivity(menuIntent);
 
                 } else {
                     Log.d("CALLBACK MAIN", "UN-SUCCESSFUL");
                     Toast.makeText(context, "Confirmation Failed", Toast.LENGTH_SHORT).show();
                     displayConfirmation();
                 }
-                Intent menuIntent = new Intent(CreateRouteActivity.this, MainActivity.class);
-                FragmentManager.getInstance().setGoToRoute(true);
-                startActivity(menuIntent);
             }
 
             @Override
