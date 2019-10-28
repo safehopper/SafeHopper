@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.safehopper.R;
+import com.example.safehopper.api_package.Requests;
+import com.example.safehopper.models.Route;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
