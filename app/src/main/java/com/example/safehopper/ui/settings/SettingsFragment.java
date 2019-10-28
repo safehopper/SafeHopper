@@ -1,5 +1,6 @@
 package com.example.safehopper.ui.settings;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,9 @@ public class SettingsFragment extends Fragment {
         bufferZoneOptions.add("Low Security");
         bufferZoneOptions.add("Medium Security");
         bufferZoneOptions.add("High Security");
+
+        //Create Shared Preferences
+       // SharedPreferences sharedPreferences = getShared
 
         // Define what the spinner items are and what they look like
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, unitOptions);
