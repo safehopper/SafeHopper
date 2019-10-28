@@ -31,4 +31,10 @@ public interface API {
 
     @PUT("user")
     Call<ResponseBody> modifyUser(@Body Map<String, String> body);
+
+    @POST("contacts")
+    Call<ResponseBody> addContact(@Body Map<String, String> body);
+
+    @PUT("contacts")
+    Call<ResponseBody> modifyContact(@Body Map<String, String> body);
 }

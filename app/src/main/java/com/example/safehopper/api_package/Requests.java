@@ -9,6 +9,7 @@ import com.example.safehopper.models.RouteDeserializer;
 import com.example.safehopper.models.User;
 import com.example.safehopper.repositories.ContactsRepository;
 import com.example.safehopper.repositories.RoutesRepository;
+import com.example.safehopper.repositories.UserRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -159,6 +160,39 @@ public abstract class Requests {
             }
         });
     }
+
+    public static Call<ResponseBody> addContact(Contact contact){
+        setupAPI();
+
+        Map<String, String> body = new HashMap<>();
+        body.put("key", serverKey);
+        body.put("firstName", contact.getFirstName());
+        body.put("lastName", contact.getLastName());
+        body.put("phone", contact.getPhoneNumber());
+        body.put("email", contact.getEmail());
+        body.put("textAlert", Boolean.toString(contact.getSendTextAlert()));
+        body.put("emailAlert", Boolean.toString(contact.getSendEmailAlert()));
+        body.put("contactOf", UserRepository.getInstance().getUser().getValue().getEmail());
+
+        return api.addContact(body);
+    }
+
+    public static Call<ResponseBody> modifyContact(Contact contact){
+        setupAPI();
+
+        Map<String, String> body = new HashMap<>();
+        body.put("key", serverKey);
+        body.put("firstName", contact.getFirstName());
+        body.put("lastName", contact.getLastName());
+        body.put("phone", contact.getPhoneNumber());
+        body.put("email", contact.getEmail());
+        body.put("textAlert", Boolean.toString(contact.getSendTextAlert()));
+        body.put("emailAlert", Boolean.toString(contact.getSendEmailAlert()));
+        body.put("contactOf", UserRepository.getInstance().getUser().getValue().getEmail());
+
+        return api.modifyContact(body);
+    }
+
 
     public static Call<ResponseBody> addRoute(Route r) {
         setupAPI();
