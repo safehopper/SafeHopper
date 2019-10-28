@@ -26,7 +26,24 @@ public class modifyContact extends Fragment {
     private CheckBox mtextAlerts;
     private CheckBox memailAlerts;
 
+    private String first;
+    private String last;
+    private String email;
+    private String phone;
+    private boolean textal;
+    private boolean emailal;
+
     private API api;
+
+    public modifyContact(String first, String last, String email, String phone, boolean text, boolean emailal)
+    {
+        this.first = first;
+        this.last = last;
+        this.email = email;
+        this.phone = phone;
+        this.textal = text;
+        this.emailal = emailal;
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +65,13 @@ public class modifyContact extends Fragment {
         mphoneNum = root.findViewById(R.id.phoneNumber);
         mtextAlerts = root.findViewById(R.id.checkBox);
         memailAlerts = root.findViewById(R.id.checkBox2);
+
+        mfirstName.setText(first);
+        mlastName.setText(last);
+        memail.setText(email);
+        mphoneNum.setText(phone);
+        mtextAlerts.setChecked(textal);
+        memailAlerts.setChecked(emailal);
 
 //        api = Requests.getAPI();
 

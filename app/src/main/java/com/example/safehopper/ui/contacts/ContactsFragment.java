@@ -65,7 +65,7 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
     public void onContactClick(int position) {
         Contact c = contactsViewModel.getContacts().getValue().get(position);
 //        Toast.makeText(getContext(), "Contact: " + c.getFirstName(), Toast.LENGTH_SHORT).show();
-        Fragment modifyFragment = new modifyContact();
+        Fragment modifyFragment = new modifyContact(c.getFirstName(), c.getLastName(), c.getEmail(), c.getPhoneNumber(),c.getSendTextAlert(), c.getSendEmailAlert());
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.contact_list_parent_layout, modifyFragment);
