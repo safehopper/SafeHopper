@@ -1,20 +1,29 @@
 package com.example.safehopper.api_package;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.models.RouteDeserializer;
+import com.example.safehopper.models.User;
 import com.example.safehopper.repositories.ContactsRepository;
+import com.example.safehopper.repositories.RoutesRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -72,7 +81,7 @@ public abstract class Requests {
         setupAPI();
 
         // Build body of request
-        Map<String, String> body = new HashMap<String, String>();
+        Map<String, String> body = new HashMap<>();
         body.put("key", serverKey);
         body.put("firstName", firstName);
         body.put("lastName", lastName);
@@ -80,7 +89,30 @@ public abstract class Requests {
         body.put("password", password);
         body.put("phone", phone);
 
-        Call<ResponseBody> call = api.signUpUser(body);
+        return api.signUpUser(body);
+    }
+
+    public static Call<ResponseBody> loginUser(String email, String password) {
+        setupAPI();
+
+        Map<String, String> body = new HashMap<>();
+        body.put("key", serverKey);
+        body.put("email", email);
+        body.put("password", password);
+
+        return api.loginUser(body);
+    }
+
+    public static Call<ResponseBody> confirmUser(String email, String mfaCode) {
+        setupAPI();
+
+        // Build body of request
+        Map<String, String> body = new HashMap<String, String>();
+        body.put("key", serverKey);
+        body.put("email", email);
+        body.put("mfaCode", mfaCode);
+
+        Call<ResponseBody> call = api.confirmUser(body);
 
         return call;
     }
@@ -114,7 +146,7 @@ public abstract class Requests {
                             routeList.add(customGson.fromJson(routes.get(i),Route.class));
                         }
 
-//                      MAKE CALL TO SETUP REPO HERE
+                        RoutesRepository.getInstance().setRoutes(routeList);
 
                     } else {
                     }
@@ -126,6 +158,50 @@ public abstract class Requests {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
+    }
+
+    public static Call<ResponseBody> addRoute(Route r) {
+        setupAPI();
+        String json = new Gson().toJson(r);
+
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject(json);
+
+            jsonObj.put("key", serverKey);
+
+            Map<String, Object> map = new HashMap<>();
+
+            map.put("key", serverKey);
+            map.put("distance", jsonObj.get("distance"));
+            map.put("email", jsonObj.get("email"));
+            map.put("image_url", jsonObj.get("image_url"));
+            map.put("route_id", jsonObj.get("route_id"));
+            map.put("waypoints", jsonObj.get("waypoints"));
+            map.put("route_name", jsonObj.get("route_name"));
+
+            Log.d("REQUEST", map.toString());
+
+
+            return api.addRoute(map);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static Call<ResponseBody> modifyUser(User user) {
+        setupAPI();
+
+        // Build body of request
+        Map<String, String> body = new HashMap<>();
+        body.put("key", serverKey);
+        body.put("firstName", user.getFirstName());
+        body.put("lastName", user.getLastName());
+        body.put("phone", user.getPhoneNumber());
+
+        return api.modifyUser(body);
     }
 
     private static void setupAPI() {

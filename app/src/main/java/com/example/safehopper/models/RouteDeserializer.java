@@ -1,5 +1,7 @@
 package com.example.safehopper.models;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -7,6 +9,8 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -17,19 +21,19 @@ public class RouteDeserializer implements JsonDeserializer<Route> {
 
     @Override
     public Route deserialize(JsonElement json, Type Route, JsonDeserializationContext context) throws JsonParseException {
+        Log.d("JSONELEMENT", json.toString());
         JsonObject jsonObject = json.getAsJsonObject();
         List<LatLng> wayPoints = new ArrayList<>();
 
-        JsonElement jsonElement = jsonObject.get("waypoints");
-        JsonArray jsonArrayOfWaypoints = jsonElement.getAsJsonArray();
+        JsonObject jsonElement = jsonObject.get("waypoints").getAsJsonObject();
+        JsonArray jsonArrayOfWaypoints = jsonElement.get("values").getAsJsonArray();
 
         for(int i = 0; i < jsonArrayOfWaypoints.size();i++){
-            JsonElement jsonEle = jsonArrayOfWaypoints.get(i);
-            String str = jsonEle.getAsString();
-            int indexOfPara = str.indexOf('(');
-            int indexOfComma = str.indexOf(',');
-            int indexOfClose = str.indexOf(')');
-            wayPoints.add(new LatLng(Double.parseDouble(str.substring(indexOfPara+1, indexOfComma)), Double.parseDouble(str.substring(indexOfComma+1, indexOfClose))));
+            JsonObject values = jsonArrayOfWaypoints.get(i).getAsJsonObject();
+            JsonObject valuePairs = values.get("nameValuePairs").getAsJsonObject();
+            double lat = valuePairs.get("latitude").getAsDouble();
+            double lon = valuePairs.get("longitude").getAsDouble();
+            wayPoints.add(new LatLng(lat, lon));
         }
 
         Route r = new Route(
