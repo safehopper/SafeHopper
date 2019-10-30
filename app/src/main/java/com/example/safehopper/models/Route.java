@@ -31,7 +31,7 @@ public class Route {
         distance = newDistace;
         image_url = newImage;
         waypoints = routeWaypoints;
-        route_id = newRouteID;
+        route_id = UUID.randomUUID().toString();
     }
 
     public String getName() {

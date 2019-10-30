@@ -28,6 +28,6 @@ public class HomepageFragment extends Fragment {
     public void makeAPICall(){
         Log.d("EMAIL", UserRepository.getInstance().getUser().getValue().getEmail());
         Requests.getRoutes(UserRepository.getInstance().getUser().getValue().getEmail());
-        Requests.getContacts("z400jt618@gmail.com");
+        Requests.getContacts(UserRepository.getInstance().getUser().getValue().getEmail());
     }
 }

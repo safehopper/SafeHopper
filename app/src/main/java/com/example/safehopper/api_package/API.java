@@ -1,5 +1,7 @@
 package com.example.safehopper.api_package;
 
+import org.json.JSONObject;
+
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -22,4 +24,7 @@ public interface API {
 
     @POST("user/authenticate")
     Call<ResponseBody> loginUser(@Body Map<String, String> body);
+
+    @POST("routes")
+    Call<ResponseBody> addRoute(@Body Map<String, Object> body);
 }

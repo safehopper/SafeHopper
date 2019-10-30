@@ -58,5 +58,11 @@
     <string name="runner_background_image">runner background image</string>
     <string name="have_an_account_click_here_to_login">Have an account? Click here to login</string>
 
+    <string name="confirm_account_dialog">Confirm Your Account</string>
+
+    <!-- route_name_confirmation -->
+    <string name="name_your_route">Name Your Route</string>
+    <string name="route_name">Route Name</string>
+    <string name="save_route_name">Save</string>
 
 </resources>

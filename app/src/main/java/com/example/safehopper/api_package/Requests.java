@@ -1,5 +1,7 @@
 package com.example.safehopper.api_package;
 
+import android.util.Log;
+
 import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.models.RouteDeserializer;
@@ -10,6 +12,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -139,6 +144,7 @@ public abstract class Requests {
                         }
 
                         RoutesRepository.getInstance().setRoutes(routeList);
+                        //Requests.getRoutes(UserRepository.getInstance().getUser().getValue().getEmail());
 
                     } else {
                     }
@@ -150,6 +156,37 @@ public abstract class Requests {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
+    }
+
+    public static Call<ResponseBody> addRoute(Route r) {
+        setupAPI();
+        String json = new Gson().toJson(r);
+
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject(json);
+
+            jsonObj.put("key", serverKey);
+
+            Map<String, Object> map = new HashMap<>();
+
+            map.put("key", serverKey);
+            map.put("distance", jsonObj.get("distance"));
+            map.put("email", jsonObj.get("email"));
+            map.put("image_url", jsonObj.get("image_url"));
+            map.put("route_id", jsonObj.get("route_id"));
+            map.put("waypoints", jsonObj.get("waypoints"));
+            map.put("route_name", jsonObj.get("route_name"));
+
+            Log.d("REQUEST", map.toString());
+
+
+            return api.addRoute(map);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     private static void setupAPI() {
