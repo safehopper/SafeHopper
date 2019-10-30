@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.safehopper.R;
 import com.example.safehopper.models.Route;
+import com.example.safehopper.repositories.RoutesRepository;
 
 import java.util.List;
 
@@ -38,13 +39,11 @@ public class RoutesFragment extends Fragment {
 
         routesViewModel.init();
 
-        Log.d(TAG, "onCreateView: started");
-
         routesViewModel.getRoutes().observe(this, new Observer<List<Route>>() {
             @Override
             public void onChanged(List<Route> routes) {
                 mAdapter.notifyDataSetChanged();
-                initRouteListItems();
+                Log.d("ON CHANGED", RoutesRepository.getInstance().getRoutes().toString());
             }
         });
 

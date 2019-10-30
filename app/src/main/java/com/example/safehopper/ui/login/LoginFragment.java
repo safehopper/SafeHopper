@@ -34,7 +34,7 @@ public class LoginFragment extends Fragment {
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
-        // Hide Action Bar
+        //  Hide Action Bar
         // ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         setLoginSubscriptions();
@@ -55,7 +55,6 @@ public class LoginFragment extends Fragment {
         if(FragmentManager.getInstance().getGotToRoute()) {
 
             FragmentManager.getInstance().setGoToRoute(false);
-
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.nav_host_fragment, new RoutesFragment());
             transaction.addToBackStack(null);
