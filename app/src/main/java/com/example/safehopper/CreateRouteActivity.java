@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.safehopper.models.Route;
+import com.example.safehopper.repositories.UserRepository;
 import com.example.safehopper.ui.FragmentManager;
 import com.example.safehopper.ui.dialogs.SaveRouteDialog;
 import com.example.safehopper.ui.routes.RoutesViewModel;
@@ -143,15 +144,10 @@ public class CreateRouteActivity extends AppCompatActivity implements
     @Override
     public void onMapClick(LatLng latLng) {
         route.addPoint(latLng);
-        /////////////////////////////////// for testing
-        route.turnToJson();
-        route.setName("First Route");
         route.setDistance(findDistace(route.getRouteWaypoints()));
         route.setImageURL("VeryCool.jpeg");
-        route.setEmail("andrewdelgado017@gmail.com");
+        route.setEmail(UserRepository.getInstance().getUser().getValue().getEmail());
         route.setRouteID();
-        Log.d("JSON-CreateRouteActivity", route.toString());
-        /////////////////////////////////// Can delete when done.
         refreshPolyline();
     }
 
