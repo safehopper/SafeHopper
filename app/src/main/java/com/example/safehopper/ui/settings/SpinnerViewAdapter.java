@@ -36,12 +36,7 @@ public class SpinnerViewAdapter extends ArrayAdapter<String> {
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
     {
-        return createItemView(position, convertView, parent);
-    }
-
-    @Override
-    public @NonNull View getView( int position, @Nullable View convertView, @NonNull ViewGroup parent){
-        return createItemView(position, convertView, parent);
+        return cre
     }
 
     private View createItemView(int position, View convertView, ViewGroup parent)
@@ -53,16 +48,7 @@ public class SpinnerViewAdapter extends ArrayAdapter<String> {
 
         Settings settingsData = settings.get(position);
 
-
-        unitSpinner.setText(settingsData.getUnit());
-        bufferSpinner.setText(settingsData.getSecurityLevel());
-
-        unitSpinner.setPromptId();
-
-
-
         //unitSpinner.getResources().getS
-        return view;
     }
 
 }
