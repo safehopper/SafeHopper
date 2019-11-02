@@ -58,6 +58,7 @@ public class SpinnerViewAdapter extends ArrayAdapter<String> {
         bufferSpinner.setText(settingsData.getSecurityLevel());
 
         unitSpinner.setPromptId();
+        bufferSpinner.setPromptId();
 
 
 
