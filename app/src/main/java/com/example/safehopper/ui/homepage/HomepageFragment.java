@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.safehopper.R;
 import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.repositories.UserRepository;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 public class HomepageFragment extends Fragment {
 
@@ -28,6 +28,6 @@ public class HomepageFragment extends Fragment {
     public void makeAPICall(){
         Log.d("EMAIL", UserRepository.getInstance().getUser().getValue().getEmail());
         Requests.getRoutes(UserRepository.getInstance().getUser().getValue().getEmail());
-        Requests.getContacts("z400jt618@gmail.com");
+        Requests.getContacts(UserRepository.getInstance().getUser().getValue().getEmail());
     }
 }

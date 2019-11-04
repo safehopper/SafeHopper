@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="2dp"
+    android:background="#00000000"
+    >
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are you sure you want to delete this contact?"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:padding="25sp"
+        android:background="@color/cardview_light_background"
+        />
+
+    <Button
+        android:id="@+id/cancel_delete"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/confirm_delete"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_standard"
+        android:text="Cancel"
+        android:textColor="#FFF" />
+
+    <Button
+        android:id="@+id/confirm_delete"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_standard"
+        android:text="Yes"
+        android:layout_margin="20dp"
+        android:textColor="#FFF" />
+
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.safehopper.ui.addContact;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,16 @@ import android.widget.EditText;
 
 import com.example.safehopper.R;
 import com.example.safehopper.api_package.API;
+import com.example.safehopper.api_package.Requests;
+import com.example.safehopper.models.Contact;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddContactFragment extends Fragment {
 
@@ -61,7 +68,26 @@ public class AddContactFragment extends Fragment {
                 boolean textAlerts = mtextAlerts.isChecked();
                 boolean emailAlerts = memailAlerts.isChecked();
 
-//                Requests.createContact(api, getContext(), firstName, lastName, phoneNum, email, textAlerts, emailAlerts, "marieltraj@gmail.com");
+                Contact c = new Contact(firstName, lastName, phoneNum, email, textAlerts, emailAlerts);
+                Requests.addContact(c).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                Log.d("ADD CONTACT RESPONSE", response.body().string());
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+
             }
         });
 

@@ -1,7 +1,6 @@
 package com.example.safehopper.api_package;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -174,6 +172,7 @@ public abstract class Requests {
         body.put("emailAlert", Boolean.toString(contact.getSendEmailAlert()));
         body.put("contactOf", UserRepository.getInstance().getUser().getValue().getEmail());
 
+        Log.d("Add contact", body.toString());
         return api.addContact(body);
     }
 

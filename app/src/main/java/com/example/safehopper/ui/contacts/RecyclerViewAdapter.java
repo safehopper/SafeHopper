@@ -56,7 +56,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mContacts.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
         TextView textContactName;
         TextView textPhoneNumber;
@@ -79,15 +79,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.onContactListener = onContactListener;
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             onContactListener.onContactClick(getAdapterPosition());
         }
+
+        @Override
+        public boolean onLongClick(View view) {
+            onContactListener.onContactLongClick(getAdapterPosition());
+            return true;
+        }
     }
 
     public interface OnContactListener {
         void onContactClick(int position);
+        void onContactLongClick(int position);
     }
 }
