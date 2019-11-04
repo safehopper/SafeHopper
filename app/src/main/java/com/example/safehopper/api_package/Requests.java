@@ -116,6 +116,19 @@ public abstract class Requests {
         return call;
     }
 
+    public static Call<ResponseBody> deleteContact(String contactEmail, String userEmail) {
+        setupAPI();
+
+        // Build body of request
+        Map<String, String> body = new HashMap<String, String>();
+        body.put("key", serverKey);
+        body.put("email", contactEmail);
+        body.put("contactOf", userEmail);
+
+        return api.deleteContact(body);
+
+    }
+
     public static void getRoutes(String email) {
         setupAPI();
 
@@ -146,6 +159,7 @@ public abstract class Requests {
                         }
 
                         RoutesRepository.getInstance().setRoutes(routeList);
+                        //Requests.getRoutes(UserRepository.getInstance().getUser().getValue().getEmail());
 
                     } else {
                     }

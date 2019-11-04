@@ -36,6 +36,7 @@ public class RoutesRepository
         for (Route route : routeList) {
             dataSet.add(route);
         }
+
         size = dataSet.size();
         Log.d("ROUTES", dataSet.toString());
     }

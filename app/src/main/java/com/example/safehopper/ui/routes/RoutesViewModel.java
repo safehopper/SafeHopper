@@ -27,4 +27,10 @@ public class RoutesViewModel extends ViewModel
     {
         return mRoutes;
     }
+
+    public void addNewValue(final Route newRoute){
+        List<Route> currentRoutes = mRoutes.getValue();
+        currentRoutes.add(newRoute);
+        mRoutes.postValue(currentRoutes);
+    }
 }
