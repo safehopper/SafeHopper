@@ -14,7 +14,7 @@ public interface API {
     @POST("contacts/getcontacts")
     Call<ResponseBody> getContacts(@Body Map<String, String> body);
 
-    @DELETE("contacts")
+    @POST("contacts")
     Call<ResponseBody> deleteContact(@Body Map<String, String> body);
 
     @POST("user")
