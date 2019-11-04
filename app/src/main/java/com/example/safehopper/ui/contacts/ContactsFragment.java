@@ -11,10 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.safehopper.R;
+import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Contact;
+import com.example.safehopper.repositories.UserRepository;
 import com.example.safehopper.ui.modifyContact.modifyContact;
 
 import java.util.List;
@@ -26,6 +27,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ContactsFragment extends Fragment implements RecyclerViewAdapter.OnContactListener{
 
@@ -84,7 +89,7 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
 
     @Override
     public void onContactLongClick(int position) {
-        Contact c = contactsViewModel.getContacts().getValue().get(position);
+        final Contact c = contactsViewModel.getContacts().getValue().get(position);
 
         mRelativeLayout = (RelativeLayout) getActivity().findViewById(R.id.contacts_layout);
 //        Toast.makeText(getContext(), "Contact: " + c.getFirstName(), Toast.LENGTH_SHORT).show();
@@ -116,7 +121,24 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Confirm Delete",Toast.LENGTH_SHORT).show();
+                Requests.deleteContact(c.getEmail(), UserRepository.getInstance().getUser().getValue().getEmail()).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                Log.d("DELETE CONTACT RESPONSE", response.body().string());
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
             }
         });
     }
