@@ -14,6 +14,13 @@ import com.example.safehopper.R;
 import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.repositories.UserRepository;
 
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomepageFragment extends Fragment {
 
     private HomepageViewModel homepageViewModel;
@@ -29,5 +36,6 @@ public class HomepageFragment extends Fragment {
         Log.d("EMAIL", UserRepository.getInstance().getUser().getValue().getEmail());
         Requests.getRoutes(UserRepository.getInstance().getUser().getValue().getEmail());
         Requests.getContacts(UserRepository.getInstance().getUser().getValue().getEmail());
+
     }
 }

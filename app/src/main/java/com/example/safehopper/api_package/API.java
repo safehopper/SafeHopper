@@ -8,13 +8,14 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 
 public interface API {
     @POST("contacts/getcontacts")
     Call<ResponseBody> getContacts(@Body Map<String, String> body);
 
-    @POST("contacts")
+    @HTTP(method = "DELETE", path = "contacts", hasBody = true)
     Call<ResponseBody> deleteContact(@Body Map<String, String> body);
 
     @POST("user")
