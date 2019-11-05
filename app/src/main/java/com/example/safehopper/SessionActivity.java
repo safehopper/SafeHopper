@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.safehopper.models.Alert;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.repositories.UserRepository;
 import com.example.safehopper.ui.FragmentManager;
@@ -62,7 +63,7 @@ public class SessionActivity extends AppCompatActivity implements
 
     // Instance Variables
     private Route route = new Route();
-    private Route pathTaken = new Route();
+    private Alert pathTaken = new Alert(UserRepository.getInstance().getUser().getValue().getEmail());
 
 
     // Time outside of route
@@ -71,6 +72,9 @@ public class SessionActivity extends AppCompatActivity implements
 
     // Send Alerts
     private boolean startSendingAlerts = false;
+    private boolean firstTimeOutOfBoundry = true;
+    private boolean sendAlert = false;
+
 
     private Polyline polyline1;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -276,6 +280,7 @@ public class SessionActivity extends AppCompatActivity implements
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
+                            currentLocation = location;
                             // Logic to handle location object
                             Log.d("CURRENT-LOCATION", location.getLatitude() + " : " + location.getLongitude());
                             isOnpath = PolyUtil.isLocationOnPath(new LatLng(location.getLatitude(), location.getLongitude()), polyline1.getPoints(), true, 10);
@@ -283,8 +288,8 @@ public class SessionActivity extends AppCompatActivity implements
 
                             // Updates the actual path taken
                             pathTaken.addPoint(new LatLng(location.getLatitude(),location.getLongitude()));
+                            pathTaken.setDistance(findDistace(pathTaken.getRouteWaypoints()));
 
-                            currentLocation = location;
 
                             if(currentLocation != null){
                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()), 15));
@@ -309,10 +314,28 @@ public class SessionActivity extends AppCompatActivity implements
             public void onLocationChanged(Location location) {
 
                 isOnpath = PolyUtil.isLocationOnPath(new LatLng(location.getLatitude(), location.getLongitude()), polyline1.getPoints(), true, TOLERANCE);
+                pathTaken.addPoint(new LatLng(location.getLatitude(),location.getLongitude()));
+
+
                 setRouteColor();
 
-                if(!isOnpath){
-                    timeOutSideOfRouteInit = time.getTime();
+                if(sendAlert) {
+                        // TODO: Make send alert request
+                    Log.d("ALERT",pathTaken.turnToJson());
+
+                }else{
+                    // Checks if it's the users first time outside of the route
+                    if (!isOnpath && firstTimeOutOfBoundry) {
+                        timeOutSideOfRouteInit = System.currentTimeMillis();
+                        firstTimeOutOfBoundry = false;
+                        // Checks how long the user has been outside of the route.
+                    } else if (!isOnpath && !firstTimeOutOfBoundry) {
+                        long difference = System.currentTimeMillis()/1000L - timeOutSideOfRouteInit/1000L;
+                        Log.d("ALERT", String.valueOf(difference));
+                        if (difference > 10) sendAlert = true;
+                    } else {
+                        if (isOnpath) firstTimeOutOfBoundry = true;
+                    }
                 }
                 // TODO: figure out logic for deciding if an alert should go off.
 
