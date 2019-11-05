@@ -25,11 +25,14 @@
             android:title="@string/menu_routes" />
 
         <item
+            android:id="@+id/nav_activity_session"
+            android:title="@string/menu_session_activity"
+            android:icon="@drawable/ic_create_route" />
+
+        <item
             android:id="@+id/nav_activity_create_route"
             android:title="@string/menu_activity_create_route"
-            android:icon="@drawable/ic_create_route"
-
-            />
+            android:icon="@drawable/ic_create_route" />
 
         <item
             android:id="@+id/nav_contacts"

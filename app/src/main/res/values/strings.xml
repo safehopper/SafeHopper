@@ -65,4 +65,8 @@
     <string name="route_name">Route Name</string>
     <string name="save_route_name">Save</string>
 
+
+    <!--  session activity -->
+    <string name="menu_session_activity">Session Activity</string>
+
 </resources>
