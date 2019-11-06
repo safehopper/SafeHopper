@@ -68,5 +68,6 @@
 
     <!--  session activity -->
     <string name="menu_session_activity">Session Activity</string>
-
+    <string name="session_activity_WithOutRoute">Start Session</string>
+    <string name="session_activity_WithRoute">Start Session With Route</string>
 </resources>

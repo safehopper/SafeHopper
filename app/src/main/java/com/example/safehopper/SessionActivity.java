@@ -1,7 +1,6 @@
 package com.example.safehopper;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,8 +25,6 @@ import com.example.safehopper.models.Alert;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.repositories.UserRepository;
 import com.example.safehopper.ui.FragmentManager;
-import com.example.safehopper.ui.dialogs.SaveRouteDialog;
-import com.example.safehopper.ui.routes.RoutesViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -41,7 +38,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.maps.android.PolyUtil;
 import com.google.maps.android.SphericalUtil;
 
-import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -67,11 +63,9 @@ public class SessionActivity extends AppCompatActivity implements
 
 
     // Time outside of route
-    private Date time = new Date();
     private long timeOutSideOfRouteInit;
 
     // Send Alerts
-    private boolean startSendingAlerts = false;
     private boolean firstTimeOutOfBoundry = true;
     private boolean sendAlert = false;
 
@@ -87,8 +81,6 @@ public class SessionActivity extends AppCompatActivity implements
     private Context context = this;
     private boolean isOnpath = false;
 
-    private RoutesViewModel routesViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,9 +90,9 @@ public class SessionActivity extends AppCompatActivity implements
                 .findFragmentById(session_map);
         mapFragment.getMapAsync(this);
 
-        undoButtonListener();
+        startSessionButtonListener();
 
-        saveAndFinishListener();
+        sessionWithRouteButtonListener();
 
         locationManagerStuff();
 
@@ -115,11 +107,10 @@ public class SessionActivity extends AppCompatActivity implements
         // Default location and zoom level for the map
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.765925, -118.127058), 15));
 
-
-                route.addPoint(new LatLng(33.7721	, -118.12093));
-                route.addPoint(new LatLng(33.77087, -118.12093));
-                route.addPoint(new LatLng(33.77006, -118.12093));
-                route.addPoint(new LatLng(33.77, -118.12093));
+                route.addPoint(new LatLng(33.7721     , -118.12093));
+                route.addPoint(new LatLng(33.77087    , -118.12093));
+                route.addPoint(new LatLng(33.77006    , -118.12093));
+                route.addPoint(new LatLng(33.77      , -118.12093));
                 route.addPoint(new LatLng(33.76988	, -118.12094));
                 route.addPoint(new LatLng(33.76985	, -118.12094));
                 route.addPoint(new LatLng(33.76988	, -118.12094));
@@ -198,12 +189,11 @@ public class SessionActivity extends AppCompatActivity implements
         polyline1.setPoints(route.getRouteWaypoints());
     }
 
-    private void undoButtonListener() {
-        final Button undo = findViewById(R.id.undo_point);
+    private void startSessionButtonListener() {
+        final Button undo = findViewById(R.id.start_session);
         undo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                route.removeLastPoint();
-                refreshPolyline();
+                // Start Session without route
             }
         });
     }
@@ -369,15 +359,13 @@ public class SessionActivity extends AppCompatActivity implements
     }
 
 
-    private void saveAndFinishListener() {
-        final Button saveFinish = findViewById(R.id.add_route);
+    private void sessionWithRouteButtonListener() {
+        final Button saveFinish = findViewById(R.id.start_session_with_route);
         saveFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("CREATE ROUTE", "IS THIS EVEN RUNNING");
-                //createAccountViewModel.signUpUser(getContext(), email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phone.getText().toString());
-                Dialog confirmDialog = SaveRouteDialog.getSaveRouteDialog(route,context, route.getEmail(), setUpDialogCallback());
-                confirmDialog.show();
+                // Start Session With Route
             }
         });
     }
