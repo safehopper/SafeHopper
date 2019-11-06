@@ -68,6 +68,10 @@
 
     <!--  session activity -->
     <string name="menu_session_activity">Session Activity</string>
+    <string name="session_send_alert">Send Alert</string>
+    <string name="session_stop_tracking">Stop Tracking</string>
+
+    <!--  homepage  -->
     <string name="session_activity_WithOutRoute">Start Session</string>
     <string name="session_activity_WithRoute">Start Session With Route</string>
 </resources>

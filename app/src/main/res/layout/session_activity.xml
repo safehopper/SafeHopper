@@ -34,7 +34,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_standard"
             android:includeFontPadding="false"
-            android:text="@string/homepage_start_session"
+            android:text="@string/session_send_alert"
             android:textColor="#FFFFFF" />
 
         <Button
@@ -48,7 +48,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_standard"
             android:includeFontPadding="false"
-            android:text="@string/session_activity_WithRoute"
+            android:text="@string/session_stop_tracking"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
