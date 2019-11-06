@@ -1,6 +1,7 @@
 package com.example.safehopper.ui.settings;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +13,42 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.safehopper.R;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 public class SettingsFragment extends Fragment {
 
+    public static final String TAG = "SettingsFragment";
+
     private SettingsViewModel settingsViewModel;
     private Spinner unitsSpinner, bufferZoneSpinner;
+    private RecyclerView mRecyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
+        super.onCreate(savedInstanceState);
+
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
+        mRecyclerView = root.findViewById(R.id.recycler_view);
+
+        settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
+
+        settingsViewModel.init();
+
+        Log.d(TAG, "onCreateView started.");
+
+        /*
+        settingsViewModel.getSettings().observe(this, new Observer<List<Settings>>() {
+            @Override
+            public void onChanged(List<Settings> settings) {
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+        */
 
         // Initialize Spinner
         unitsSpinner = (Spinner) root.findViewById(R.id.units_spinner);
