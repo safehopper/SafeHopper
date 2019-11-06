@@ -1,17 +1,20 @@
 package com.example.safehopper.api_package;
 
-import org.json.JSONObject;
-
 import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface API {
     @POST("contacts/getcontacts")
     Call<ResponseBody> getContacts(@Body Map<String, String> body);
+
+    @HTTP(method = "DELETE", path = "contacts", hasBody = true)
+    Call<ResponseBody> deleteContact(@Body Map<String, String> body);
 
     @POST("user")
     Call<ResponseBody> signUpUser(@Body Map<String, String> body);
@@ -27,4 +30,13 @@ public interface API {
 
     @POST("routes")
     Call<ResponseBody> addRoute(@Body Map<String, Object> body);
+
+    @PUT("user")
+    Call<ResponseBody> modifyUser(@Body Map<String, String> body);
+
+    @POST("contacts")
+    Call<ResponseBody> addContact(@Body Map<String, String> body);
+
+    @PUT("contacts")
+    Call<ResponseBody> modifyContact(@Body Map<String, String> body);
 }

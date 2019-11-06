@@ -2,12 +2,12 @@ package com.example.safehopper.repositories;
 
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.safehopper.models.Route;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.lifecycle.MutableLiveData;
 
 public class RoutesRepository
 {
@@ -34,6 +34,8 @@ public class RoutesRepository
     public void setRoutes(List<Route> routeList) {
         dataSet = new ArrayList<>();
         for (Route route : routeList) {
+            route.setName(route.getName().replace("\"", ""));
+            route.setDistance(route.getDistance().replace("\"", ""));
             dataSet.add(route);
         }
 

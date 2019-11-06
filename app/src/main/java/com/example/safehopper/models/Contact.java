@@ -2,15 +2,20 @@ package com.example.safehopper.models;
 
 import com.google.gson.JsonObject;
 
+import java.util.UUID;
+
 public class Contact extends Person {
 
     private boolean sendTextAlert;
     private boolean sendEmailAlert;
+     private String contact_id;
 
     public Contact(String firstName, String lastName, String phoneNumber, String email, boolean sendTextAlert, boolean sendEmailAlert) {
         super(firstName, lastName, phoneNumber, email);
         this.sendTextAlert = sendTextAlert;
         this.sendEmailAlert = sendEmailAlert;
+        contact_id = UUID.randomUUID().toString();
+        // TODO Add contact ID to request @Justin
     }
 
     public Contact(JsonObject jsonObj){
@@ -42,7 +47,7 @@ public class Contact extends Person {
 
     @Override
     public void setFirstName(String firstName) {
-        setFirstName(firstName);
+        super.setFirstName(firstName);
     }
 
     @Override
@@ -52,7 +57,7 @@ public class Contact extends Person {
 
     @Override
     public void setLastName(String lastName) {
-        setLastName(lastName);
+        super.setLastName(lastName);
     }
 
     @Override
@@ -62,7 +67,7 @@ public class Contact extends Person {
 
     @Override
     public void setPhoneNumber(String phoneNumber) {
-        setPhoneNumber(phoneNumber);
+        super.setPhoneNumber(phoneNumber);
     }
 
     @Override
@@ -72,7 +77,7 @@ public class Contact extends Person {
 
     @Override
     public void setEmail(String email) {
-        setEmail(email);
+        super.setEmail(email);
     }
 
     @Override

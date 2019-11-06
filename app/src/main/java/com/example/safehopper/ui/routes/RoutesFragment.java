@@ -27,6 +27,12 @@ public class RoutesFragment extends Fragment {
     private RecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +48,7 @@ public class RoutesFragment extends Fragment {
         routesViewModel.getRoutes().observe(this, new Observer<List<Route>>() {
             @Override
             public void onChanged(List<Route> routes) {
+                Log.d("CHANGED", "ROUTES ONCHANGED");
                 mAdapter.notifyDataSetChanged();
                 Log.d("ON CHANGED", RoutesRepository.getInstance().getRoutes().toString());
             }
@@ -52,7 +59,8 @@ public class RoutesFragment extends Fragment {
     }
 
     private void initRouteListItems() {
-        mAdapter = new RecyclerViewAdapter(getContext(), routesViewModel.getRoutes().getValue());
+        Log.d("CHANGED", "ROUTES INITROUTELIST");
+        mAdapter = new RecyclerViewAdapter(getContext(), this, routesViewModel.getRoutes());
         RecyclerView.LayoutManager linearLayerManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(linearLayerManager);
         mRecyclerView.setAdapter(mAdapter);

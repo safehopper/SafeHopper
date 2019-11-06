@@ -1,4 +1,4 @@
-package com.example.safehopper.ui.addContact;
+package com.example.safehopper.ui.modifyContact;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -22,10 +22,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddContactFragment extends Fragment {
+public class modifyContact extends Fragment {
 
-    private AddContactViewModel addContactViewModel;
-    private Button createContact;
+    private ModifyContactViewModel modifyContactViewModel;
+    private Button modifyContact;
     private EditText mfirstName;
     private EditText mlastName;
     private EditText memail;
@@ -33,13 +33,30 @@ public class AddContactFragment extends Fragment {
     private CheckBox mtextAlerts;
     private CheckBox memailAlerts;
 
+    private String first;
+    private String last;
+    private String email;
+    private String phone;
+    private boolean textal;
+    private boolean emailal;
+
     private API api;
+
+    public modifyContact(String first, String last, String email, String phone, boolean text, boolean emailal)
+    {
+        this.first = first;
+        this.last = last;
+        this.email = email;
+        this.phone = phone;
+        this.textal = text;
+        this.emailal = emailal;
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        addContactViewModel =
-                ViewModelProviders.of(this).get(AddContactViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_add_contact, container, false);
+        modifyContactViewModel =
+                ViewModelProviders.of(this).get(ModifyContactViewModel.class);
+        View root = inflater.inflate(R.layout.modify_contact_fragment, container, false);
 //        final TextView textView = root.findViewById(R.id.textView2);
 //        addContactViewModel.getText().observe(this, new Observer<String>() {
 //            @Override
@@ -48,7 +65,7 @@ public class AddContactFragment extends Fragment {
 //            }
 //        });
 
-        createContact = root.findViewById(R.id.button);
+        modifyContact = root.findViewById(R.id.modify_button);
         mfirstName = root.findViewById(R.id.firstname);
         mlastName = root.findViewById(R.id.lastName);
         memail = root.findViewById(R.id.email);
@@ -56,9 +73,16 @@ public class AddContactFragment extends Fragment {
         mtextAlerts = root.findViewById(R.id.checkBox);
         memailAlerts = root.findViewById(R.id.checkBox2);
 
+        mfirstName.setText(first);
+        mlastName.setText(last);
+        memail.setText(email);
+        mphoneNum.setText(phone);
+        mtextAlerts.setChecked(textal);
+        memailAlerts.setChecked(emailal);
+
 //        api = Requests.getAPI();
 
-        createContact.setOnClickListener(new View.OnClickListener() {
+        modifyContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String firstName = mfirstName.getText().toString();
@@ -69,12 +93,12 @@ public class AddContactFragment extends Fragment {
                 boolean emailAlerts = memailAlerts.isChecked();
 
                 Contact c = new Contact(firstName, lastName, phoneNum, email, textAlerts, emailAlerts);
-                Requests.addContact(c).enqueue(new Callback<ResponseBody>() {
+                Requests.modifyContact(c).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             try {
-                                Log.d("ADD CONTACT RESPONSE", response.body().string());
+                                Log.d("MODIFY CONTACT RESPONSE", response.body().string());
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
@@ -87,7 +111,6 @@ public class AddContactFragment extends Fragment {
 
                     }
                 });
-
             }
         });
 

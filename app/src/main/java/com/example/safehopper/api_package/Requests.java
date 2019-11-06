@@ -5,8 +5,10 @@ import android.util.Log;
 import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.models.RouteDeserializer;
+import com.example.safehopper.models.User;
 import com.example.safehopper.repositories.ContactsRepository;
 import com.example.safehopper.repositories.RoutesRepository;
+import com.example.safehopper.repositories.UserRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -52,19 +54,23 @@ public abstract class Requests {
                     if (response.isSuccessful()) {
                         JsonParser parser = new JsonParser();
                         JsonObject json = parser.parse(response.body().string()).getAsJsonObject();
+
+                        Log.d("GET CONTACT RESPONSE", json.toString());
                         JsonObject content = json.getAsJsonObject("content");
                         JsonArray contacts = content.getAsJsonArray("contacts");
                         List<Contact> contactsList = new ArrayList<Contact>();
                         for (int i = 0; i < contacts.size(); i++) {
-                            contactsList.add(new Contact(contacts.get(i).getAsJsonObject()));
-                        }
 
+                            contactsList.add(new Contact(contacts.get(i).getAsJsonObject()));
+
+                        }
+                        Log.d("GET CONTACTS", contactsList.get(0).getFirstName());
                         // MAKE CALL TO SETUP REPO HERE
                         ContactsRepository.getInstance().setContacts(contactsList);
-
                     } else {
                     }
                 } catch (IOException e) {
+                    Log.e("ERROR",e.toString());
                 }
             }
 
@@ -114,6 +120,19 @@ public abstract class Requests {
         return call;
     }
 
+    public static Call<ResponseBody> deleteContact(String contactEmail, String userEmail) {
+        setupAPI();
+
+        // Build body of request
+        Map<String, String> body = new HashMap<String, String>();
+        body.put("key", serverKey);
+        body.put("email", contactEmail);
+        body.put("contactOf", userEmail);
+
+        return api.deleteContact(body);
+
+    }
+
     public static void getRoutes(String email) {
         setupAPI();
 
@@ -158,6 +177,40 @@ public abstract class Requests {
         });
     }
 
+    public static Call<ResponseBody> addContact(Contact contact){
+        setupAPI();
+
+        Map<String, String> body = new HashMap<>();
+        body.put("key", serverKey);
+        body.put("firstName", contact.getFirstName());
+        body.put("lastName", contact.getLastName());
+        body.put("phone", contact.getPhoneNumber());
+        body.put("email", contact.getEmail());
+        body.put("textAlert", Boolean.toString(contact.getSendTextAlert()));
+        body.put("emailAlert", Boolean.toString(contact.getSendEmailAlert()));
+        body.put("contactOf", UserRepository.getInstance().getUser().getValue().getEmail());
+
+        Log.d("Add contact", body.toString());
+        return api.addContact(body);
+    }
+
+    public static Call<ResponseBody> modifyContact(Contact contact){
+        setupAPI();
+
+        Map<String, String> body = new HashMap<>();
+        body.put("key", serverKey);
+        body.put("firstName", contact.getFirstName());
+        body.put("lastName", contact.getLastName());
+        body.put("phone", contact.getPhoneNumber());
+        body.put("email", contact.getEmail());
+        body.put("textAlert", Boolean.toString(contact.getSendTextAlert()));
+        body.put("emailAlert", Boolean.toString(contact.getSendEmailAlert()));
+        body.put("contactOf", UserRepository.getInstance().getUser().getValue().getEmail());
+
+        return api.modifyContact(body);
+    }
+
+
     public static Call<ResponseBody> addRoute(Route r) {
         setupAPI();
         String json = new Gson().toJson(r);
@@ -187,6 +240,19 @@ public abstract class Requests {
             return null;
         }
 
+    }
+
+    public static Call<ResponseBody> modifyUser(User user) {
+        setupAPI();
+
+        // Build body of request
+        Map<String, String> body = new HashMap<>();
+        body.put("key", serverKey);
+        body.put("firstName", user.getFirstName());
+        body.put("lastName", user.getLastName());
+        body.put("phone", user.getPhoneNumber());
+
+        return api.modifyUser(body);
     }
 
     private static void setupAPI() {

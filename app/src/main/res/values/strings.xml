@@ -45,7 +45,7 @@
     <string name="menu_activity_create_route">Create Route Activity</string>
     <string name="undo_waypoint">Undo Waypoint</string>
     <string name="save_and_finish">Save and Finish</string>
-    <string name="server_api_key">pxC3bE5Wzm7dWy2eaF5p</string>
+    <string name="server_api_key"></string>
     <string name="route_toggle">Snap To Route</string>
 
     <!-- Permissions -->
