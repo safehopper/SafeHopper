@@ -53,17 +53,16 @@ public class SpinnerViewAdapter extends ArrayAdapter<String> {
 
         Settings settingsData = settings.get(position);
 
+        // This will set the position of the spinner list. Figure out what position each unit or bufferzone is
+        // https://safehopper.slack.com/archives/CFXCNDEKT/p1572896977000200
+        unitSpinner.setSelection(position);
 
-        unitSpinner.setText(settingsData.getUnit());
-        bufferSpinner.setText(settingsData.getSecurityLevel());
+//        unitSpinner.setText(settingsData.getUnit());
+//        bufferSpinner.setText(settingsData.getSecurityLevel());
 
-        unitSpinner.setPromptId();
-        bufferSpinner.setPromptId();
+        unitSpinner.setPromptId(position);
+        bufferSpinner.setPromptId(position);
 
-
-
-        //unitSpinner.getResources().getS
         return view;
     }
-
 }

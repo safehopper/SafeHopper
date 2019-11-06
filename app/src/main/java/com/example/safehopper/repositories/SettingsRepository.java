@@ -30,12 +30,21 @@ public class SettingsRepository {
     }
 
     public void setSettings(List<Settings> settingsList) {
-        //dataSet.add(new Contact("andrew","delgado", "760-555-5555", "dog@yahoo.com", true,true));
 
-        for (Settings settings : settingsList) {
-            dataSet.add(settings);
-        }
-        size = dataSet.size();
+        Settings s1 = new Settings("Meters","Low");
+        Settings s2 = new Settings("Meters","Medium");
+        Settings s3 = new Settings("Meters","High");
+
+        Settings s4 = new Settings("Feet","Low");
+        Settings s5 = new Settings("Feet","Medium");
+
+        dataSet.add(s1);
+        dataSet.add(s2);
+        dataSet.add(s3);
+//        for (Settings settings : settingsList) {
+//            dataSet.add(settings);
+//        }
+//        size = dataSet.size();
     }
 
     public int getRepoSize() {
