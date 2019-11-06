@@ -44,6 +44,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
+        Log.d(TAG, mContacts.get(position).getFirstName());
+
+//        String firstName = mContacts.get(position).getFirstName();
+//        String newFirstName = firstName.replace("\"", "");
+//        mContacts.get(position).setFirstName(newFirstName);
+
         ((ViewHolder)holder).textContactName.setText(mContacts.get(position).getFirstName()+ " " + mContacts.get(position).getLastName());
         ((ViewHolder)holder).textPhoneNumber.setText(mContacts.get(position).getPhoneNumber());
         ((ViewHolder)holder).textEmail.setText(mContacts.get(position).getEmail());

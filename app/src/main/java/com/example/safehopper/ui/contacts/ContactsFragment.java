@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.safehopper.R;
 import com.example.safehopper.api_package.Requests;
@@ -127,9 +128,11 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
                         if (response.isSuccessful()) {
                             try {
                                 Log.d("DELETE CONTACT RESPONSE", response.body().string());
+                                Toast.makeText(getContext(), "Contact deleted.", Toast.LENGTH_SHORT).show();
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
+                                Toast.makeText(getContext(), "Could not delete contact.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -139,6 +142,8 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
 
                     }
                 });
+
+                mPopupWindow.dismiss();
             }
         });
     }

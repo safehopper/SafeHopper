@@ -1,9 +1,11 @@
 package com.example.safehopper.repositories;
 
-import androidx.lifecycle.MutableLiveData;
 import com.example.safehopper.models.Contact;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.lifecycle.MutableLiveData;
 
 public class ContactsRepository
 {
@@ -24,19 +26,30 @@ public class ContactsRepository
     {
         MutableLiveData<List<Contact>> data = new MutableLiveData<>();
         data.setValue(dataSet);
+
         return data;
     }
 
     public void setContacts(List<Contact> contactList) {
        dataSet = new ArrayList<>();
-       //dataSet.add(new Contact("andrew","delgado", "760-555-5555", "dog@yahoo.com", true,true));
+
 
         for (Contact contact : contactList) {
+
+            contact.setFirstName(contact.getFirstName().replace("\"", ""));
+            contact.setLastName(contact.getLastName().replace("\"", ""));
+            contact.setPhoneNumber(contact.getPhoneNumber().replace("\"", ""));
+            contact.setEmail(contact.getEmail().replace("\"", ""));
             dataSet.add(contact);
+
+
         }
         size = dataSet.size();
     }
 
+    public List<Contact> getDataSet() {
+        return dataSet;
+    }
     public int getRepoSize() {
      return size;
     }

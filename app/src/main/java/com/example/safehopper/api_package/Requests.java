@@ -54,19 +54,23 @@ public abstract class Requests {
                     if (response.isSuccessful()) {
                         JsonParser parser = new JsonParser();
                         JsonObject json = parser.parse(response.body().string()).getAsJsonObject();
+
+                        Log.d("GET CONTACT RESPONSE", json.toString());
                         JsonObject content = json.getAsJsonObject("content");
                         JsonArray contacts = content.getAsJsonArray("contacts");
                         List<Contact> contactsList = new ArrayList<Contact>();
                         for (int i = 0; i < contacts.size(); i++) {
-                            contactsList.add(new Contact(contacts.get(i).getAsJsonObject()));
-                        }
 
+                            contactsList.add(new Contact(contacts.get(i).getAsJsonObject()));
+
+                        }
+                        Log.d("GET CONTACTS", contactsList.get(0).getFirstName());
                         // MAKE CALL TO SETUP REPO HERE
                         ContactsRepository.getInstance().setContacts(contactsList);
-
                     } else {
                     }
                 } catch (IOException e) {
+                    Log.e("ERROR",e.toString());
                 }
             }
 
