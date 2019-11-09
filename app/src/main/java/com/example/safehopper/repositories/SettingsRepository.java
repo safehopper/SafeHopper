@@ -47,16 +47,16 @@ public class SettingsRepository {
 //        dataSet.add(s6);
 
 
-        //Creating a string Array to hold the spinner values
+        //Creating a string Array to select  the spinner values
 
-        String SettingsArray[][] = new String[2][];
-        SettingsArray[0]= new String[] {"Meters", "Low"};
-        SettingsArray[1]= new String[] {"Meters", "Medium"};
-        SettingsArray[2]= new String[] {"Meters", "High"};
+        String settingsArray[][] = new String[2][];
+        settingsArray[0]= new String[] {"Meters", "Low"};
+        settingsArray[1]= new String[] {"Meters", "Medium"};
+        settingsArray[2]= new String[] {"Meters", "High"};
 
-        SettingsArray[3]= new String[] {"Miles", "Low"};
-        SettingsArray[4]= new String[] {"Miles", "Medium"};
-        SettingsArray[5]= new String[] {"Miles", "High"};
+        settingsArray[3]= new String[] {"Miles", "Low"};
+        settingsArray[4]= new String[] {"Miles", "Medium"};
+        settingsArray[5]= new String[] {"Miles", "High"};
 
 //        for (Settings settings : settingsList) {
 //            dataSet.add(settings);

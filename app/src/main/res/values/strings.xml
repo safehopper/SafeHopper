@@ -59,4 +59,16 @@
     <string name="have_an_account_click_here_to_login">Have an account? Click here to login</string>
 
 
+    <string-array name="unitOptions">
+        <item>Meters</item>
+        <item>Miles</item>
+    </string-array>
+
+    <string-array name="routeBufferZoneOptions">
+        <item>Low Security</item>
+        <item>Medium Security</item>
+        <item>High Security</item>
+    </string-array>
+
+
 </resources>

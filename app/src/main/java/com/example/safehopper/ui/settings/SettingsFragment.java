@@ -28,11 +28,20 @@ public class SettingsFragment extends Fragment {
     private Spinner unitsSpinner, bufferZoneSpinner;
     private RecyclerView mRecyclerView;
 
+    private String [] unitOptions;
+    private String [] bufferZoneOptions;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
+        unitsSpinner = (Spinner) root.findViewById(R.id.units_spinner);
+        bufferZoneSpinner = (Spinner) root.findViewById(R.id.buffer_zone_spinner);
+
+        unitOptions = getResources().getStringArray(R.array.unitOptions);
+        bufferZoneOptions = getResources().getStringArray(R.array.routeBufferZoneOptions);
+
         mRecyclerView = root.findViewById(R.id.recycler_view);
 
         settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
@@ -51,17 +60,16 @@ public class SettingsFragment extends Fragment {
         */
 
         // Initialize Spinner
-        unitsSpinner = (Spinner) root.findViewById(R.id.units_spinner);
-        bufferZoneSpinner = (Spinner) root.findViewById(R.id.buffer_zone_spinner);
+
 
         // Create the options
-        List<String> unitOptions = new ArrayList<String>();
-        List<String> bufferZoneOptions = new ArrayList<String>();
-        unitOptions.add("Kilometers/Meters");
-        unitOptions.add("Miles/Feet");
-        bufferZoneOptions.add("Low Security");
-        bufferZoneOptions.add("Medium Security");
-        bufferZoneOptions.add("High Security");
+//        List<String> unitOptions = new ArrayList<String>();
+//        List<String> bufferZoneOptions = new ArrayList<String>();
+//        unitOptions.add("Kilometers/Meters");
+//        unitOptions.add("Miles/Feet");
+//        bufferZoneOptions.add("Low Security");
+//        bufferZoneOptions.add("Medium Security");
+//        bufferZoneOptions.add("High Security");
 
         // Define what the spinner items are and what they look like
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, unitOptions);
