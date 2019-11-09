@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Alert;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.repositories.UserRepository;
@@ -44,22 +46,27 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.safehopper.R.id.session_map;
+import static com.example.safehopper.R.id.start_alert;
+import static com.example.safehopper.R.id.stop_tracking;
 
 
 public class SessionActivity extends AppCompatActivity implements
-        OnMapReadyCallback, GoogleMap.OnPolylineClickListener,
-        GoogleMap.OnMapClickListener, GoogleMap.OnMyLocationButtonClickListener, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMyLocationClickListener {
+        OnMapReadyCallback, GoogleMap.OnPolylineClickListener, GoogleMap.OnMyLocationButtonClickListener, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMyLocationClickListener {
 
     private static final float  MIN_DISTANCE =    0;
     private static final long   MIN_TIME     = 2000;
     private static final int    TOLERANCE    =  100;
 
 
+    // with or without route
+    // if this is true change the the buttons on the screen to alert and stop tracking
+    private boolean sessionWithRoute = false;
+
     // Instance Variables
     private Route route = new Route();
     private Alert pathTaken = new Alert(UserRepository.getInstance().getUser().getValue().getEmail());
 
-
+    private boolean tracking = false;
     // Time outside of route
     private long timeOutSideOfRouteInit;
 
@@ -88,9 +95,11 @@ public class SessionActivity extends AppCompatActivity implements
                 .findFragmentById(session_map);
         mapFragment.getMapAsync(this);
 
-        startSessionButtonListener();
+        makeAPICall();
 
-        sessionWithRouteButtonListener();
+        sessionAndAlertButtonListener();
+
+        stopTrackingButtonListener();
 
         locationManagerStuff();
 
@@ -133,7 +142,7 @@ public class SessionActivity extends AppCompatActivity implements
         setRouteColor();
 
         // Set listeners for click events.
-        //mMap.setOnPolylineClickListener(this);
+        //mMap.setOnPolylineClickListener(this); //maybe use this to print out the name of the route they are on and what distance
         //mMap.setOnMapClickListener(this);
 
         //for location data
@@ -142,6 +151,12 @@ public class SessionActivity extends AppCompatActivity implements
         enableMyLocation();
         // getCurrentLocation();
 
+    }
+
+    public void makeAPICall(){
+        Log.d("EMAIL", UserRepository.getInstance().getUser().getValue().getEmail());
+        Requests.getRoutes(UserRepository.getInstance().getUser().getValue().getEmail());
+        Requests.getContacts(UserRepository.getInstance().getUser().getValue().getEmail());
     }
 
     private void setRouteColor(){
@@ -165,30 +180,76 @@ public class SessionActivity extends AppCompatActivity implements
         Toast.makeText(this, "RouteName: " + polyline.getTag().toString(), Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onMapClick(LatLng latLng) {
-        route.addPoint(latLng);
-        route.setDistance(findDistace(route.getRouteWaypoints()));
-        route.setImageURL("VeryCool.jpeg");
-        route.setEmail(UserRepository.getInstance().getUser().getValue().getEmail());
-        route.setRouteID();
-        refreshPolyline();
-    }
-
-    private void refreshPolyline() {
-        polyline1.setPoints(route.getRouteWaypoints());
-    }
-
-    private void startSessionButtonListener() {
-        final Button undo = findViewById(R.id.start_session);
-        undo.setOnClickListener(new View.OnClickListener() {
+    private void sessionAndAlertButtonListener() {
+        final Button sessionAndAlert = findViewById(R.id.start_alert);
+        sessionAndAlert.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Start Session without route
+
+                String buttonText = sessionAndAlert.getText().toString();
+
+                // Checks user clicked send alert button
+                if(buttonText.compareToIgnoreCase("SEND ALERT") == 0) {
+                    sendAlert = true;
+                }
+                //checks if user clicked start session button
+                else {
+                    if(buttonText.compareToIgnoreCase("START SESSION") == 0) {
+                        // Let user know a session has started
+                        Toast toast = Toast.makeText(context, "Session Started", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                        sessionWithRoute = false;
+                        sessionAndAlert.setText("SEND ALERT");
+
+                        final Button b = findViewById(stop_tracking);
+                        b.setText("STOP TRACKING");
+                    }
+                }
+            }
+        });
+    }
+
+    private void stopTrackingButtonListener() {
+        final Button stopTracking = findViewById(R.id.stop_tracking);
+        stopTracking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("stopTrackingButtonListener", "Button was pressed");
+                String buttonText = stopTracking.getText().toString();
+
+                if(buttonText.compareToIgnoreCase("START SESSION WITH ROUTE") == 0){
+
+                    Intent i = new Intent(SessionActivity.this, MainActivity.class);
+                    FragmentManager.getInstance().setGoToRoutes(true);
+                    startActivity(i);
+
+                    // TODO may have to most this to when the route gets loaded
+                    final Button b = findViewById(start_alert);
+                    b.setText("SEND ALERT");
+                }
+
+                // Stop tracking.
+                if(buttonText.compareToIgnoreCase("STOP TRACKING") == 0){
+
+                    tracking = false;
+                    stopTracking.setBackgroundResource(R.drawable.button_standard_red);
+                    stopTracking.setText("RESUME TRACKING");
+
+                }
+                //Resumes tracking
+                else{
+                    tracking = true;
+
+                    stopTracking.setBackgroundResource(R.drawable.button_standard);
+                    stopTracking.setText("STOP TRACKING");
+                }
             }
         });
     }
 
 
+    // might not need in this class
     private String findDistace(List<LatLng> path) {
         // gets the length of the path in meters and converts to feet.
         return String.valueOf(SphericalUtil.computeLength(path) * 3.28084);
@@ -200,6 +261,8 @@ public class SessionActivity extends AppCompatActivity implements
         // Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
+        Log.d("onMyLocationButtonClick", "button was clicked");
+
         getCurrentLocation();
         return false;
     }
@@ -262,7 +325,7 @@ public class SessionActivity extends AppCompatActivity implements
 
 
                             if(currentLocation != null){
-                               mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()), 15));
+                               mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()), 18));
                             }
                         }
                     }
@@ -283,31 +346,33 @@ public class SessionActivity extends AppCompatActivity implements
             @Override
             public void onLocationChanged(Location location) {
 
+                currentLocation = location;
                 isOnpath = PolyUtil.isLocationOnPath(new LatLng(location.getLatitude(), location.getLongitude()), polyline1.getPoints(), true, TOLERANCE);
-                pathTaken.addPoint(new LatLng(location.getLatitude(),location.getLongitude()));
+
+                if(tracking) pathTaken.addPoint(new LatLng(location.getLatitude(),location.getLongitude()));
 
                 setRouteColor();
-
                 // Logic for sending alerts or not.
                 if(sendAlert) {
                         // TODO: Make send alert request
                     Log.d("ALERT",pathTaken.turnToJson());
 
                 }else{
-                    // Checks if it's the users first time outside of the route
-                    if (!isOnpath && firstTimeOutOfBoundry) {
-                        timeOutSideOfRouteInit = System.currentTimeMillis();
-                        firstTimeOutOfBoundry = false;
-                        // Checks how long the user has been outside of the route.
-                    } else if (!isOnpath && !firstTimeOutOfBoundry) {
-                        long difference = System.currentTimeMillis()/1000L - timeOutSideOfRouteInit/1000L;
-                        Log.d("ALERT", String.valueOf(difference));
-                        if (difference > 10) sendAlert = true;
-                    } else {
-                        if (isOnpath) firstTimeOutOfBoundry = true;
+                    if(sessionWithRoute) {
+                        // Checks if it's the users first time outside of the route
+                        if (!isOnpath && firstTimeOutOfBoundry) {
+                            timeOutSideOfRouteInit = System.currentTimeMillis();
+                            firstTimeOutOfBoundry = false;
+                            // Checks how long the user has been outside of the route.
+                        } else if (!isOnpath && !firstTimeOutOfBoundry && tracking) {
+                            long difference = System.currentTimeMillis() / 1000L - timeOutSideOfRouteInit / 1000L;
+                            Log.d("ALERT time outside of boundary", String.valueOf(difference));
+                            if (difference > 10) sendAlert = true;
+                        } else {
+                            if (isOnpath) firstTimeOutOfBoundry = true;
+                        }
                     }
                 }
-                // TODO: figure out logic for deciding if an alert should go off.
 
                 Log.d("CURRENT-LOCATION-LM", location.getLatitude() + " : " + location.getLongitude());
                 Log.d("CURRENT-LOCATION-LM", Boolean.toString(isOnpath));
@@ -339,16 +404,7 @@ public class SessionActivity extends AppCompatActivity implements
     }
 
 
-    private void sessionWithRouteButtonListener() {
-        final Button saveFinish = findViewById(R.id.start_session_with_route);
-        saveFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("CREATE ROUTE", "IS THIS EVEN RUNNING");
-                // Start Session With Route
-            }
-        });
-    }
+
 
     // Confirmation callback, only used to change screens
     private Callback<ResponseBody> setUpDialogCallback() {
@@ -359,7 +415,7 @@ public class SessionActivity extends AppCompatActivity implements
                     Log.d("CALLBACK MAIN", "SUCCESSFUL");
 
                     Intent menuIntent = new Intent(SessionActivity.this, MainActivity.class);
-                    FragmentManager.getInstance().setGoToRoute(true);
+                    FragmentManager.getInstance().setGoToRoutes(true);
                     startActivity(menuIntent);
 
                 } else {

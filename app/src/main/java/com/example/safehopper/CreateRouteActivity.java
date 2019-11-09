@@ -40,6 +40,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.maps.android.PolyUtil;
 import com.google.maps.android.SphericalUtil;
 
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -178,7 +180,24 @@ public class CreateRouteActivity extends AppCompatActivity implements
 
     private String findDistace(List<LatLng> path) {
         // gets the length of the path in meters and converts to feet.
-        return String.valueOf(SphericalUtil.computeLength(path) * 3.28084);
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMaximumFractionDigits(1);
+        nf.setRoundingMode(RoundingMode.HALF_UP);
+
+        double distance = SphericalUtil.computeLength(path) * 3.28084;
+
+        if(distance >= (5280 * 0.1)){
+            nf.setMaximumFractionDigits(1);
+            distance = distance/5280;
+
+            String formatedDistance = nf.format(distance) + " Miles";
+            return formatedDistance;
+        }
+        else{
+            nf.setMaximumFractionDigits(0);
+            String formatedDistance = nf.format(distance) + " Feet";
+            return formatedDistance;
+        }
     }
 
 
@@ -318,7 +337,7 @@ public class CreateRouteActivity extends AppCompatActivity implements
                     Log.d("CALLBACK MAIN", "SUCCESSFUL");
 
                     Intent menuIntent = new Intent(CreateRouteActivity.this, MainActivity.class);
-                    FragmentManager.getInstance().setGoToRoute(true);
+                    FragmentManager.getInstance().setGoToRoutes(true);
                     startActivity(menuIntent);
 
                 } else {

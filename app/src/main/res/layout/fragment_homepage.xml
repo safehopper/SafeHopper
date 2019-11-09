@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <fragment
-        android:id="@+id/frg"
+        android:id="@+id/homepage_fragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -24,7 +24,7 @@
             android:layout_gravity="bottom"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="35dp"
             android:layout_weight="1"
             android:background="@drawable/button_standard"
             android:includeFontPadding="false"
@@ -38,7 +38,7 @@
             android:layout_gravity="bottom"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="35dp"
             android:layout_weight="1"
             android:background="@drawable/button_standard"
             android:includeFontPadding="false"
