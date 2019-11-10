@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Alert;
 import com.example.safehopper.models.Route;
+import com.example.safehopper.repositories.RoutesRepository;
 import com.example.safehopper.repositories.UserRepository;
 import com.example.safehopper.ui.FragmentManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -104,6 +106,26 @@ public class SessionActivity extends AppCompatActivity implements
         locationManagerStuff();
 
         getCurrentLocation();
+
+        if(getIntent().getStringExtra("RouteID") != null){
+
+            String id = getIntent().getStringExtra("RouteID");
+            Log.d("RouteID",id);
+            route = RoutesRepository.getInstance().getRoute(id);
+
+            sessionWithRoute = true;
+            setSessionWithRoute();
+        }
+    }
+
+    private void setSessionWithRoute(){
+        final Button left = findViewById(start_alert);
+        final Button right = findViewById(stop_tracking);
+
+        getSupportActionBar().setTitle(route.getName() + " " + route.getDistance());
+
+        left.setText("SEND ALERT");
+        right.setText("STOP TRACKING");
     }
 
     @Override
@@ -113,24 +135,6 @@ public class SessionActivity extends AppCompatActivity implements
 
         // Default location and zoom level for the map
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.765925, -118.127058), 15));
-
-                route.addPoint(new LatLng(33.7721     , -118.12093));
-                route.addPoint(new LatLng(33.77087    , -118.12093));
-                route.addPoint(new LatLng(33.77006    , -118.12093));
-                route.addPoint(new LatLng(33.77      , -118.12093));
-                route.addPoint(new LatLng(33.76988	, -118.12094));
-                route.addPoint(new LatLng(33.76985	, -118.12094));
-                route.addPoint(new LatLng(33.76988	, -118.12094));
-                route.addPoint(new LatLng(33.76987	, -118.12105));
-                route.addPoint(new LatLng(33.76987	, -118.12124));
-                route.addPoint(new LatLng(33.76987	, -118.12199));
-                route.addPoint(new LatLng(33.76987	, -118.12256));
-                route.addPoint(new LatLng(33.76987	, -118.12308));
-                route.addPoint(new LatLng(33.76987	, -118.12317));
-                route.addPoint(new LatLng(33.76987	, -118.12363));
-                route.addPoint(new LatLng(33.76987	, -118.12417));
-                route.addPoint(new LatLng(33.76981	, -118.12417));
-                route.addPoint(new LatLng(33.76945	, -118.12417));
 
         //adds polyline to the map
         polyline1 = mMap.addPolyline(new PolylineOptions()
@@ -142,7 +146,7 @@ public class SessionActivity extends AppCompatActivity implements
         setRouteColor();
 
         // Set listeners for click events.
-        //mMap.setOnPolylineClickListener(this); //maybe use this to print out the name of the route they are on and what distance
+        mMap.setOnPolylineClickListener(this); //maybe use this to print out the name of the route they are on and what distance
         //mMap.setOnMapClickListener(this);
 
         //for location data
@@ -177,7 +181,8 @@ public class SessionActivity extends AppCompatActivity implements
 
     @Override
     public void onPolylineClick(Polyline polyline) {
-        Toast.makeText(this, "RouteName: " + polyline.getTag().toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "RouteName: " + route.getName()
+                + " Distance: " + route.getDistance(), Toast.LENGTH_LONG).show();
     }
 
     private void sessionAndAlertButtonListener() {
@@ -356,6 +361,12 @@ public class SessionActivity extends AppCompatActivity implements
                 if(sendAlert) {
                         // TODO: Make send alert request
                     Log.d("ALERT",pathTaken.turnToJson());
+
+                    //
+                    getWindow().setStatusBarColor(ContextCompat.getColor(context,R.color.actionBarRed));
+                    //
+                    getSupportActionBar().setTitle("SENDING ALERTS");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context,R.color.redButton)));
 
                 }else{
                     if(sessionWithRoute) {

@@ -45,4 +45,13 @@ public class RoutesRepository
     {
         return size;
     }
+
+    public Route getRoute(String id) {
+        for(Route r : dataSet){
+            if(id.equals(r.getRouteID())){
+                return r;
+            }
+        }
+        return null;
+    }
 }

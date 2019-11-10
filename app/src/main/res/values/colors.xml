@@ -6,4 +6,5 @@
     <color name="regularTextColor">#555555</color>
     <color name="defaultBackgroundColor">#FAFAFA</color>
     <color name="redButton">#C61C1C</color>
+    <color name="actionBarRed">#9e1616</color>
 </resources>

@@ -27,18 +27,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private List<Route> mRoutes = new ArrayList<>();
     private Context mContext;
+    private OnRouteListener mOnRouteListener;
 
-    public RecyclerViewAdapter(Context context, List<Route> routes)
+    public RecyclerViewAdapter(Context context, List<Route> routes, OnRouteListener onRouteListener)
     {
         mRoutes = routes;
         mContext = context;
+        mOnRouteListener = onRouteListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.routelist_listitem, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view, mOnRouteListener);
         return holder;
     }
 
@@ -62,20 +64,39 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mRoutes.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         CircleImageView routeImage;
         TextView routeName;
         TextView routeMiles;
         RelativeLayout routeParentLayout;
+        OnRouteListener onRouteListener;
 
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnRouteListener onRouteListener) {
             super(itemView);
             routeImage = itemView.findViewById(R.id.route_image);
             routeName = itemView.findViewById(R.id.route_name);
             routeMiles = itemView.findViewById(R.id.route_miles);
             routeParentLayout = itemView.findViewById(R.id.routeparent_layout);
+
+            this.onRouteListener = onRouteListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(View v) {
+            onRouteListener.onRouteClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnRouteListener{
+        void onRouteClick(int position);
     }
 }
