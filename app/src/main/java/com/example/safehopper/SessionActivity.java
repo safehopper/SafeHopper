@@ -114,15 +114,19 @@ public class SessionActivity extends AppCompatActivity implements
             route = RoutesRepository.getInstance().getRoute(id);
 
             sessionWithRoute = true;
-            setSessionWithRoute();
+            routeBoilerPlateScaffolding();
         }
     }
 
-    private void setSessionWithRoute(){
+    private void routeBoilerPlateScaffolding(){
         final Button left = findViewById(start_alert);
         final Button right = findViewById(stop_tracking);
 
-        getSupportActionBar().setTitle(route.getName() + " " + route.getDistance());
+        Toast toast = Toast.makeText(context, "Session Started", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+        
+        getSupportActionBar().setTitle(route.getName().replaceAll("\"","") + " " + route.getDistance().replaceAll("\"",""));
 
         left.setText("SEND ALERT");
         right.setText("STOP TRACKING");
@@ -309,7 +313,7 @@ public class SessionActivity extends AppCompatActivity implements
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 
-    // Runs once
+    // Runs once, do you really need it.
     private void getCurrentLocation() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation()
@@ -336,7 +340,7 @@ public class SessionActivity extends AppCompatActivity implements
                     }
                 });
     }
-
+// You should probably delete this soon 11/9/19
 //    private void createLocationRequest() {
 //        LocationRequest locationRequest = LocationRequest.create();
 //        locationRequest.setInterval(1000);
