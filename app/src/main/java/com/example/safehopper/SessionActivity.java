@@ -113,7 +113,6 @@ public class SessionActivity extends AppCompatActivity implements
             Log.d("RouteID",id);
             route = RoutesRepository.getInstance().getRoute(id);
 
-            sessionWithRoute = true;
             routeBoilerPlateScaffolding();
         }
     }
@@ -121,6 +120,9 @@ public class SessionActivity extends AppCompatActivity implements
     private void routeBoilerPlateScaffolding(){
         final Button left = findViewById(start_alert);
         final Button right = findViewById(stop_tracking);
+
+        sessionWithRoute = true;
+        tracking = true;
 
         Toast toast = Toast.makeText(context, "Session Started", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -356,8 +358,8 @@ public class SessionActivity extends AppCompatActivity implements
             public void onLocationChanged(Location location) {
 
                 currentLocation = location;
-                isOnpath = PolyUtil.isLocationOnPath(new LatLng(location.getLatitude(), location.getLongitude()), polyline1.getPoints(), true, TOLERANCE);
 
+                isOnpath = PolyUtil.isLocationOnPath(new LatLng(location.getLatitude(), location.getLongitude()), polyline1.getPoints(), true, TOLERANCE);
                 if(tracking) pathTaken.addPoint(new LatLng(location.getLatitude(),location.getLongitude()));
 
                 setRouteColor();
