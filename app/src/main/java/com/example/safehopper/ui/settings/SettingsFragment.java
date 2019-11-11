@@ -16,9 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.safehopper.R;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observer;
+
 
 public class SettingsFragment extends Fragment {
 
@@ -26,10 +24,8 @@ public class SettingsFragment extends Fragment {
 
     private SettingsViewModel settingsViewModel;
     private Spinner unitsSpinner, bufferZoneSpinner;
+    private String [] unitOptions, bufferZoneOptions;
     private RecyclerView mRecyclerView;
-
-    private String [] unitOptions;
-    private String [] bufferZoneOptions;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +35,7 @@ public class SettingsFragment extends Fragment {
         unitsSpinner = (Spinner) root.findViewById(R.id.units_spinner);
         bufferZoneSpinner = (Spinner) root.findViewById(R.id.buffer_zone_spinner);
 
+        // This will display the Spinner options within the Settings page
         unitOptions = getResources().getStringArray(R.array.unitOptions);
         bufferZoneOptions = getResources().getStringArray(R.array.routeBufferZoneOptions);
 
@@ -50,14 +47,7 @@ public class SettingsFragment extends Fragment {
 
         Log.d(TAG, "onCreateView started.");
 
-        /*
-        settingsViewModel.getSettings().observe(this, new Observer<List<Settings>>() {
-            @Override
-            public void onChanged(List<Settings> settings) {
-                mAdapter.notifyDataSetChanged();
-            }
-        });
-        */
+
 
         // Initialize Spinner
 
