@@ -15,11 +15,11 @@ public abstract class FragmentManager {
         return instance;
     }
 
-    public void setGoToRoute(boolean b){
+    public void setGoToRoutes(boolean b){
         goToRoute = b;
     }
 
-    public boolean getGotToRoute(){
+    public boolean getGoToRoute(){
         return goToRoute;
     }
 }

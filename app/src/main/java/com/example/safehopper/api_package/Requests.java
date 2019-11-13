@@ -64,7 +64,6 @@ public abstract class Requests {
                             contactsList.add(new Contact(contacts.get(i).getAsJsonObject()));
 
                         }
-                        Log.d("GET CONTACTS", contactsList.get(0).getFirstName());
                         // MAKE CALL TO SETUP REPO HERE
                         ContactsRepository.getInstance().setContacts(contactsList);
                     } else {

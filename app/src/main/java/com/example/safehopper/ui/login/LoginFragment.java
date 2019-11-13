@@ -1,5 +1,6 @@
 package com.example.safehopper.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,9 +18,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.safehopper.R;
+import com.example.safehopper.SessionActivity;
 import com.example.safehopper.ui.FragmentManager;
 import com.example.safehopper.ui.createAccount.CreateAccountFragment;
-import com.example.safehopper.ui.homepage.HomepageFragment;
 import com.example.safehopper.ui.routes.RoutesFragment;
 
 public class LoginFragment extends Fragment {
@@ -43,7 +44,7 @@ public class LoginFragment extends Fragment {
         setLoginButtonOnClick(root);
 
         // This saves where we want to go
-        Log.d("MANAGER","This should be true: " + FragmentManager.getInstance().getGotToRoute());
+        Log.d("MANAGER","This should be true: " + FragmentManager.getInstance().getGoToRoute());
 
         swtichView();
 
@@ -51,10 +52,10 @@ public class LoginFragment extends Fragment {
     }
 
     private void swtichView(){
-        Log.d("MANAGER-LOGIN","This should be true: " + FragmentManager.getInstance().getGotToRoute());
-        if(FragmentManager.getInstance().getGotToRoute()) {
+        Log.d("MANAGER-LOGIN","This should be true: " + FragmentManager.getInstance().getGoToRoute());
+        if(FragmentManager.getInstance().getGoToRoute()) {
 
-            FragmentManager.getInstance().setGoToRoute(false);
+            FragmentManager.getInstance().setGoToRoutes(false);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.nav_host_fragment, new RoutesFragment());
             transaction.addToBackStack(null);
@@ -103,11 +104,14 @@ public class LoginFragment extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean == true){
-                    Toast.makeText(getContext(), "Logged In", Toast.LENGTH_SHORT).show();
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.nav_host_fragment, new HomepageFragment());
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+//                    Toast.makeText(getContext(), "Logged In", Toast.LENGTH_SHORT).show();
+//                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                    transaction.replace(R.id.nav_host_fragment, new HomepageFragment());
+//                    transaction.addToBackStack(null);
+//                    transaction.commit();
+                    // SessionsActivity will take the place of homepage fragment
+                    Intent menuIntent = new Intent(getActivity(), SessionActivity.class);
+                    startActivity(menuIntent);
                 }
             }
         });
