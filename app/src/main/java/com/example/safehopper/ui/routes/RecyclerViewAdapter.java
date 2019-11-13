@@ -13,28 +13,26 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.safehopper.R;
 import com.example.safehopper.models.Route;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private static final String TAG = "RecyclerViewAdapter";
 
-    private LiveData<List<Route>> mRoutes;
+    private List<Route> mRoutes = new ArrayList<>();
     private Context mContext;
-    private LifecycleOwner owner;
+
     private OnRouteListener mOnRouteListener;
 
-    public RecyclerViewAdapter(Context context, LifecycleOwner frag, LiveData<List<Route>> routes, OnRouteListener onRouteListener)
+    public RecyclerViewAdapter(Context context, List<Route> routes, OnRouteListener onRouteListener)
     {
         mRoutes = routes;
-        owner = frag;
-
         mContext = context;
         mOnRouteListener = onRouteListener;
     }
@@ -55,19 +53,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .error(R.drawable.ic_launcher_background);
         Glide.with(mContext)
                 .setDefaultRequestOptions(defaultOptions)
-                .load(mRoutes.getValue().get(position).getImageURL())
+                .load(mRoutes.get(position).getImageURL())
                 .into(((ViewHolder)holder).routeImage);
 
-        ((ViewHolder)holder).routeName.setText(mRoutes.getValue().get(position).getName());
-        ((ViewHolder)holder).routeMiles.setText(mRoutes.getValue().get(position).getDistance());
+        ((ViewHolder)holder).routeName.setText(mRoutes.get(position).getName());
+        ((ViewHolder)holder).routeMiles.setText(mRoutes.get(position).getDistance());
     }
 
     @Override
     public int getItemCount() {
-        return mRoutes.getValue().size();
+        return mRoutes.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
 
         OnRouteListener onRouteListener;
         CircleImageView routeImage;
@@ -86,6 +84,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.onRouteListener = onRouteListener;
 
             itemView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -93,9 +92,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             onRouteListener.onRouteLongClick(getAdapterPosition());
             return true;
         }
+
+
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(View v) {
+            onRouteListener.onRouteClick(getAdapterPosition());
+        }
     }
 
-    public interface OnRouteListener {
+
+    public interface OnRouteListener{
+        void onRouteClick(int position);
         void onRouteLongClick(int position);
     }
 }

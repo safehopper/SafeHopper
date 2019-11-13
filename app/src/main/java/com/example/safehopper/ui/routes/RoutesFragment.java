@@ -1,5 +1,6 @@
 package com.example.safehopper.ui.routes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.safehopper.R;
+import com.example.safehopper.SessionActivity;
+import com.example.safehopper.models.Route;
+import com.example.safehopper.repositories.RoutesRepository;
+
+import java.util.List;
 
 public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRouteListener{
 
@@ -51,7 +59,6 @@ public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRo
         routesViewModel.getRoutes().observe(this, new Observer<List<Route>>() {
             @Override
             public void onChanged(List<Route> routes) {
-                Log.d("CHANGED", "ROUTES ONCHANGED");
                 mAdapter.notifyDataSetChanged();
                 Log.d("ON CHANGED", RoutesRepository.getInstance().getRoutes().toString());
             }
@@ -62,6 +69,7 @@ public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRo
     }
 
     private void initRouteListItems() {
+
         Log.d("CHANGED", "ROUTES INITROUTELIST");
         mAdapter = new RecyclerViewAdapter(getContext(), this, routesViewModel.getRoutes(), this);
         RecyclerView.LayoutManager linearLayerManager = new LinearLayoutManager(getContext());
@@ -79,5 +87,15 @@ public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRo
         fragmentTransaction.replace(R.id.nav_host_fragment, modifyFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void onRouteClick(int position) {
+        // Get RouteID
+        Route r = routesViewModel.getRoutes().getValue().get(position);
+        Log.d("ROUTE_INFO", r.toString());
+
+        Intent i = new Intent(getActivity(), SessionActivity.class);
+        i.putExtra("RouteID", r.getRouteID());
+        startActivity(i);
     }
 }
