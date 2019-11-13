@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.safehopper.R;
+import com.example.safehopper.SessionActivity;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.modifyRoute.ModifyRoute;
 import com.example.safehopper.repositories.RoutesRepository;
@@ -21,13 +22,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.safehopper.R;
-import com.example.safehopper.SessionActivity;
-import com.example.safehopper.models.Route;
-import com.example.safehopper.repositories.RoutesRepository;
-
-import java.util.List;
 
 public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRouteListener{
 
@@ -71,7 +65,8 @@ public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRo
     private void initRouteListItems() {
 
         Log.d("CHANGED", "ROUTES INITROUTELIST");
-        mAdapter = new RecyclerViewAdapter(getContext(), this, routesViewModel.getRoutes(), this);
+//        mAdapter = new RecyclerViewAdapter(getContext(), this, routesViewModel.getRoutes(), this);
+        mAdapter = new RecyclerViewAdapter(getContext(), routesViewModel.getRoutes().getValue(), this);
         RecyclerView.LayoutManager linearLayerManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(linearLayerManager);
         mRecyclerView.setAdapter(mAdapter);

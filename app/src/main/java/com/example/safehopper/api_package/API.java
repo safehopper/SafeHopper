@@ -34,6 +34,9 @@ public interface API {
     @PUT("routes")
     Call<ResponseBody> modifyRoute(@Body Map<String, Object> body);
 
+    @HTTP(method = "DELETE", path = "routes", hasBody = true)
+    Call<ResponseBody> deleteRoute(@Body Map<String, Object> body);
+
     @PUT("user")
     Call<ResponseBody> modifyUser(@Body Map<String, String> body);
 

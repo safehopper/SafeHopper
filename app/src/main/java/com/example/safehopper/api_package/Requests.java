@@ -255,9 +255,9 @@ public abstract class Requests {
 
             map.put("key", serverKey);
             map.put("distance", jsonObj.get("distance"));
-            map.put("email", jsonObj.get("email"));
-            map.put("image_url", jsonObj.get("image_url"));
-            map.put("route_id", jsonObj.get("route_id"));
+            map.put("email", jsonObj.get("email").toString().replaceAll("\"",""));
+            map.put("image_url", jsonObj.get("image_url").toString().replaceAll("\"",""));
+            map.put("route_id", jsonObj.get("route_id").toString().replaceAll("\"",""));
             map.put("waypoints", jsonObj.get("waypoints"));
             map.put("route_name", jsonObj.get("route_name"));
 
@@ -269,6 +269,16 @@ public abstract class Requests {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static Call<ResponseBody> deleteRoute(String routeId){
+        setupAPI();
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("key", serverKey);
+        map.put("routeId", routeId.replaceAll("\"", ""));
+
+        return api.deleteRoute(map);
     }
 
     public static Call<ResponseBody> modifyUser(User user) {

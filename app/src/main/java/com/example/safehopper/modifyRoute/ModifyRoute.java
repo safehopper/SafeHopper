@@ -85,7 +85,7 @@ public class ModifyRoute extends Fragment {
 
                     }
                 });
-//                Toast.makeText(getContext(), "MODIFY ROUTE", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Route name modified.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -128,8 +128,25 @@ public class ModifyRoute extends Fragment {
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO: add delete request
-                        Toast.makeText(getContext(),"DELTE ROUTE", Toast.LENGTH_SHORT).show();
+                        Requests.deleteRoute(r.getRouteID()).enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if (response.isSuccessful()) {
+                                    try {
+                                        Log.d("DELETE ROUTE RESPONSE", response.body().string());
+                                    }
+                                    catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                            }
+                        });
+                        Toast.makeText(getContext(),"Route deleted.", Toast.LENGTH_SHORT).show();
                         mPopupWindow.dismiss();
                     }
                 });
