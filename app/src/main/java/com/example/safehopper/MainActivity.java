@@ -30,13 +30,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_login, R.id.nav_create_account, R.id.nav_contacts, R.id.nav_routes,
-                R.id.nav_settings, R.id.nav_homepage, R.id.nav_add_contact, R.id.nav_activity_create_route)
+                R.id.nav_settings, R.id.nav_add_contact, R.id.nav_activity_create_route, R.id.nav_activity_session)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

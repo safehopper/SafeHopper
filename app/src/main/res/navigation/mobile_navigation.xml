@@ -36,6 +36,13 @@
         tools:layout="@layout/fragment_add_contact" />
 
     <activity
+        android:id="@+id/nav_activity_session"
+        android:name="com.example.safehopper.SessionActivity"
+        android:label="@string/menu_session_activity"
+        tools:layout="@layout/session_activity"
+        />
+
+    <activity
         android:id="@+id/nav_activity_create_route"
         android:name="com.example.safehopper.CreateRouteActivity"
         android:label="@string/menu_activity_create_route"
@@ -47,10 +54,4 @@
         android:name="com.example.safehopper.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
-
-    <fragment
-        android:id="@+id/nav_homepage"
-        android:name="com.example.safehopper.ui.homepage.HomepageFragment"
-        android:label="@string/menu_homepage"
-        tools:layout="@layout/fragment_homepage" />
 </navigation>

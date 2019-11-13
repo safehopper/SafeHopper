@@ -6,23 +6,44 @@
     android:layout_height="match_parent">
 
     <fragment
-        android:id="@+id/frg"
+        android:id="@+id/homepage_fragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="36dp"
-        android:background="@drawable/button_standard"
-        android:text="@string/homepage_start_session"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/frg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <Button
+            android:id="@+id/start_session"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_standard"
+            android:includeFontPadding="false"
+            android:text="@string/homepage_start_session"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/start_session_with_route"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_standard"
+            android:includeFontPadding="false"
+            android:text="@string/session_activity_WithRoute"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

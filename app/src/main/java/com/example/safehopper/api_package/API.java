@@ -31,6 +31,9 @@ public interface API {
     @POST("routes")
     Call<ResponseBody> addRoute(@Body Map<String, Object> body);
 
+    @PUT("routes")
+    Call<ResponseBody> modifyRoute(@Body Map<String, Object> body);
+
     @PUT("user")
     Call<ResponseBody> modifyUser(@Body Map<String, String> body);
 

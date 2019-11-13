@@ -64,7 +64,6 @@ public abstract class Requests {
                             contactsList.add(new Contact(contacts.get(i).getAsJsonObject()));
 
                         }
-                        Log.d("GET CONTACTS", contactsList.get(0).getFirstName());
                         // MAKE CALL TO SETUP REPO HERE
                         ContactsRepository.getInstance().setContacts(contactsList);
                     } else {
@@ -240,6 +239,36 @@ public abstract class Requests {
             return null;
         }
 
+    }
+
+    public static Call<ResponseBody> modifyRoute(Route r){
+        setupAPI();
+        String json = new Gson().toJson(r);
+
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject(json);
+
+            jsonObj.put("key", serverKey);
+
+            Map<String, Object> map = new HashMap<>();
+
+            map.put("key", serverKey);
+            map.put("distance", jsonObj.get("distance"));
+            map.put("email", jsonObj.get("email"));
+            map.put("image_url", jsonObj.get("image_url"));
+            map.put("route_id", jsonObj.get("route_id"));
+            map.put("waypoints", jsonObj.get("waypoints"));
+            map.put("route_name", jsonObj.get("route_name"));
+
+            Log.d("REQUEST", map.toString());
+
+
+            return api.modifyRoute(map);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static Call<ResponseBody> modifyUser(User user) {
