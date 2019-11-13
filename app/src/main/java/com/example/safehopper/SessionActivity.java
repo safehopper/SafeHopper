@@ -40,6 +40,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.maps.android.PolyUtil;
 import com.google.maps.android.SphericalUtil;
 
+import java.io.IOException;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -224,11 +225,13 @@ public class SessionActivity extends AppCompatActivity implements
     }
 
     private void stopTrackingButtonListener() {
+
         final Button stopTracking = findViewById(R.id.stop_tracking);
         stopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("stopTrackingButtonListener", "Button was pressed");
+
                 String buttonText = stopTracking.getText().toString();
 
                 if(buttonText.compareToIgnoreCase("START SESSION WITH ROUTE") == 0){
