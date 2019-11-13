@@ -54,10 +54,4 @@
         android:name="com.example.safehopper.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
-
-    <fragment
-        android:id="@+id/nav_homepage"
-        android:name="com.example.safehopper.ui.homepage.HomepageFragment"
-        android:label="@string/menu_homepage"
-        tools:layout="@layout/fragment_homepage" />
 </navigation>

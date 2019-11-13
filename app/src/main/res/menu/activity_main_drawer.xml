@@ -15,11 +15,6 @@
             android:title="@string/menu_login" />
 
         <item
-            android:id="@+id/nav_homepage"
-            android:icon="@drawable/ic_home"
-            android:title="@string/menu_homepage" />
-
-        <item
             android:id="@+id/nav_routes"
             android:icon="@drawable/ic_routes"
             android:title="@string/menu_routes" />
@@ -27,7 +22,7 @@
         <item
             android:id="@+id/nav_activity_session"
             android:title="@string/menu_session_activity"
-            android:icon="@drawable/ic_create_route" />
+            android:icon="@drawable/ic_home" />
 
         <item
             android:id="@+id/nav_activity_create_route"
