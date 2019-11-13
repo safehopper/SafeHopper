@@ -51,25 +51,12 @@ public class SpinnerViewAdapter extends ArrayAdapter<String> {
         Spinner unitSpinner = (Spinner) view.findViewById(R.id.units_spinner);
         Spinner bufferSpinner = (Spinner) view.findViewById(R.id.buffer_zone_spinner);
 
-
-
-        //Settings settingsData = settings.get(position);
-
-        // This will set the position of the spinner list. Figure out what position each unit or bufferzone is
-        // https://safehopper.slack.com/archives/CFXCNDEKT/p1572896977000200
-
         unitSpinner.getSelectedItemPosition();
         bufferSpinner.getSelectedItemPosition();
 
         unitSpinner.setPromptId(position);
         bufferSpinner.setPromptId(position);
         unitSpinner.setSelection(position);
-
-
-//    unitSpinner.setText(settingsData.getUnit());
-//        bufferSpinner.setText(settingsData.getSecurityLevel());
-
-
 
         return view;
     }
