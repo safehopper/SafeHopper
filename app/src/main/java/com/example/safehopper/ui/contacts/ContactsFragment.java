@@ -107,6 +107,10 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
             mPopupWindow.setElevation(5.0f);
         }
 
+        // Closes the popup window on click outside of window
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setFocusable(true);
+
         mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
 
         Button cancelButton = (Button) deleteDialog.findViewById(R.id.cancel_delete);

@@ -8,20 +8,17 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.safehopper.R;
 import com.example.safehopper.models.Route;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
@@ -31,20 +28,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private LiveData<List<Route>> mRoutes;
     private Context mContext;
     private LifecycleOwner owner;
+    private OnRouteListener mOnRouteListener;
 
-    public RecyclerViewAdapter(Context context, LifecycleOwner frag, LiveData<List<Route>> routes)
+    public RecyclerViewAdapter(Context context, LifecycleOwner frag, LiveData<List<Route>> routes, OnRouteListener onRouteListener)
     {
         mRoutes = routes;
         owner = frag;
 
         mContext = context;
+        mOnRouteListener = onRouteListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.routelist_listitem, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view, mOnRouteListener);
         return holder;
     }
 
@@ -68,20 +67,35 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mRoutes.getValue().size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
 
+        OnRouteListener onRouteListener;
         CircleImageView routeImage;
         TextView routeName;
         TextView routeMiles;
         RelativeLayout routeParentLayout;
 
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnRouteListener onRouteListener) {
             super(itemView);
             routeImage = itemView.findViewById(R.id.route_image);
             routeName = itemView.findViewById(R.id.route_name);
             routeMiles = itemView.findViewById(R.id.route_miles);
             routeParentLayout = itemView.findViewById(R.id.routeparent_layout);
+
+            this.onRouteListener = onRouteListener;
+
+            itemView.setOnLongClickListener(this);
         }
+
+        @Override
+        public boolean onLongClick(View view) {
+            onRouteListener.onRouteLongClick(getAdapterPosition());
+            return true;
+        }
+    }
+
+    public interface OnRouteListener {
+        void onRouteLongClick(int position);
     }
 }
