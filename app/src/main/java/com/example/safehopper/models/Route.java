@@ -24,7 +24,7 @@ public class Route {
     }
 
     public Route(String newName, String newEmail, String newDistace,
-                 String newImage, List<LatLng> routeWaypoints, String newRouteID){
+                 String newImage, List<LatLng> routeWaypoints){
 
         route_name = newName;
         email = newEmail;
@@ -32,6 +32,17 @@ public class Route {
         image_url = newImage;
         waypoints = routeWaypoints;
         route_id = UUID.randomUUID().toString();
+    }
+
+    public Route(String newName, String newEmail, String newDistace,
+                 String newImage, List<LatLng> routeWaypoints, String newRouteID){
+
+        route_name = newName;
+        email = newEmail;
+        distance = newDistace;
+        image_url = newImage;
+        waypoints = routeWaypoints;
+        route_id = newRouteID;
     }
 
     public String getName() {

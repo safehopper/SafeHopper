@@ -271,6 +271,16 @@ public abstract class Requests {
         }
     }
 
+    public static Call<ResponseBody> deleteRoute(String routeId){
+        setupAPI();
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("key", serverKey);
+        map.put("routeId", routeId.replaceAll("\"", ""));
+
+        return api.deleteRoute(map);
+    }
+
     public static Call<ResponseBody> modifyUser(User user) {
         setupAPI();
 

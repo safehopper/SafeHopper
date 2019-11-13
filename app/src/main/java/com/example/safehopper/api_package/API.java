@@ -5,6 +5,7 @@ import java.util.Map;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -33,6 +34,9 @@ public interface API {
 
     @PUT("routes")
     Call<ResponseBody> modifyRoute(@Body Map<String, Object> body);
+
+    @HTTP(method = "DELETE", path = "routes", hasBody = true)
+    Call<ResponseBody> deleteRoute(@Body Map<String, Object> body);
 
     @PUT("user")
     Call<ResponseBody> modifyUser(@Body Map<String, String> body);
