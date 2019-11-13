@@ -3,6 +3,7 @@ package com.example.safehopper.modifyRoute;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.safehopper.R;
+import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.ui.routes.RoutesViewModel;
 
@@ -22,6 +24,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ModifyRoute extends Fragment {
 
@@ -59,8 +65,27 @@ public class ModifyRoute extends Fragment {
         modifyRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: add modify route request
-                Toast.makeText(getContext(), "MODIFY ROUTE", Toast.LENGTH_SHORT).show();
+                Route r = RoutesViewModel.getRoutes().getValue().get(position);
+                r.setName(mRouteName.getText().toString());
+                Requests.modifyRoute(r).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                Log.d("MODIFY ROUTE RESPONSE", response.body().string());
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+//                Toast.makeText(getContext(), "MODIFY ROUTE", Toast.LENGTH_SHORT).show();
             }
         });
 
