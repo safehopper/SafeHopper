@@ -29,6 +29,12 @@ public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRo
     private RecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

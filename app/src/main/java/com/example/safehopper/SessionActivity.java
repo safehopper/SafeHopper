@@ -88,6 +88,8 @@ public class SessionActivity extends AppCompatActivity implements
     private Context context = this;
     private boolean isOnpath = false;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
