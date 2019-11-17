@@ -459,6 +459,7 @@ public class SessionActivity extends AppCompatActivity implements
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
 
     }
+
 }
 
 
