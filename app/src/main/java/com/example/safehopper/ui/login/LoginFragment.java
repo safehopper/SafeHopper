@@ -8,7 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.safehopper.R;
+import com.example.safehopper.SessionActivity;
+import com.example.safehopper.repositories.UserRepository;
+import com.example.safehopper.ui.FragmentManager;
+import com.example.safehopper.ui.createAccount.CreateAccountFragment;
+import com.example.safehopper.ui.routes.RoutesFragment;
+import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,12 +25,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
-import com.example.safehopper.R;
-import com.example.safehopper.SessionActivity;
-import com.example.safehopper.ui.FragmentManager;
-import com.example.safehopper.ui.createAccount.CreateAccountFragment;
-import com.example.safehopper.ui.routes.RoutesFragment;
 
 public class LoginFragment extends Fragment {
 
@@ -95,6 +98,21 @@ public class LoginFragment extends Fragment {
 
     }
 
+
+    public void changeUserInfoNavBar() {
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView txt_email = (TextView) headerView.findViewById(R.id.txt_loggedin_email);
+        TextView txt_username = (TextView) headerView.findViewById(R.id.txt_loggedin_name);
+
+        String firstName = UserRepository.getInstance().getUser().getValue().getFirstName();
+        String lastName = UserRepository.getInstance().getUser().getValue().getLastName();
+
+        txt_username.setText(firstName + " " + lastName);
+        txt_email.setText(UserRepository.getInstance().getUser().getValue().getEmail());
+    }
+
     private void setLoginSubscriptions() {
         loggedIn = loginViewModel.getLoggedIn();
         unsucessfulRequest = loginViewModel.getUnsuccessfulRequest();
@@ -110,6 +128,7 @@ public class LoginFragment extends Fragment {
 //                    transaction.addToBackStack(null);
 //                    transaction.commit();
                     // SessionsActivity will take the place of homepage fragment
+                    changeUserInfoNavBar();
                     Intent menuIntent = new Intent(getActivity(), SessionActivity.class);
                     startActivity(menuIntent);
                 }

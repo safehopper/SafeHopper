@@ -241,6 +241,46 @@ public abstract class Requests {
 
     }
 
+    public static Call<ResponseBody> modifyRoute(Route r){
+        setupAPI();
+        String json = new Gson().toJson(r);
+
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject(json);
+
+            jsonObj.put("key", serverKey);
+
+            Map<String, Object> map = new HashMap<>();
+
+            map.put("key", serverKey);
+            map.put("distance", jsonObj.get("distance"));
+            map.put("email", jsonObj.get("email").toString().replaceAll("\"",""));
+            map.put("image_url", jsonObj.get("image_url").toString().replaceAll("\"",""));
+            map.put("route_id", jsonObj.get("route_id").toString().replaceAll("\"",""));
+            map.put("waypoints", jsonObj.get("waypoints"));
+            map.put("route_name", jsonObj.get("route_name"));
+
+            Log.d("REQUEST", map.toString());
+
+
+            return api.modifyRoute(map);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Call<ResponseBody> deleteRoute(String routeId){
+        setupAPI();
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("key", serverKey);
+        map.put("routeId", routeId.replaceAll("\"", ""));
+
+        return api.deleteRoute(map);
+    }
+
     public static Call<ResponseBody> modifyUser(User user) {
         setupAPI();
 

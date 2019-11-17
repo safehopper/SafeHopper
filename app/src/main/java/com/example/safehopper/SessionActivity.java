@@ -16,11 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Alert;
 import com.example.safehopper.models.Route;
@@ -42,6 +37,10 @@ import com.google.maps.android.SphericalUtil;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -224,11 +223,13 @@ public class SessionActivity extends AppCompatActivity implements
     }
 
     private void stopTrackingButtonListener() {
+
         final Button stopTracking = findViewById(R.id.stop_tracking);
         stopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("stopTrackingButtonListener", "Button was pressed");
+
                 String buttonText = stopTracking.getText().toString();
 
                 if(buttonText.compareToIgnoreCase("START SESSION WITH ROUTE") == 0){
@@ -458,6 +459,7 @@ public class SessionActivity extends AppCompatActivity implements
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
 
     }
+
 }
 
 

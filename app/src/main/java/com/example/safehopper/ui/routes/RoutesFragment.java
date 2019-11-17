@@ -7,21 +7,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.safehopper.R;
+import com.example.safehopper.SessionActivity;
+import com.example.safehopper.models.Route;
+import com.example.safehopper.modifyRoute.ModifyRoute;
+import com.example.safehopper.repositories.RoutesRepository;
+
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.safehopper.R;
-import com.example.safehopper.SessionActivity;
-import com.example.safehopper.models.Route;
-import com.example.safehopper.repositories.RoutesRepository;
-
-import java.util.List;
-
 public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRouteListener{
+
 
     private static final String TAG = "RoutesFragment";
 
@@ -60,13 +63,27 @@ public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRo
     }
 
     private void initRouteListItems() {
-        mAdapter = new RecyclerViewAdapter(getContext(), routesViewModel.getRoutes().getValue(),this);
+
+        Log.d("CHANGED", "ROUTES INITROUTELIST");
+//        mAdapter = new RecyclerViewAdapter(getContext(), this, routesViewModel.getRoutes(), this);
+        mAdapter = new RecyclerViewAdapter(getContext(), routesViewModel.getRoutes().getValue(), this);
         RecyclerView.LayoutManager linearLayerManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(linearLayerManager);
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
+    public void onRouteLongClick(int position) {
+        Route r = routesViewModel.getRoutes().getValue().get(position);
+//        Toast.makeText(getContext(), "Contact: " + c.getFirstName(), Toast.LENGTH_SHORT).show();
+        Fragment modifyFragment = new ModifyRoute(r.getName(), position);
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, modifyFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     public void onRouteClick(int position) {
         // Get RouteID
         Route r = routesViewModel.getRoutes().getValue().get(position);

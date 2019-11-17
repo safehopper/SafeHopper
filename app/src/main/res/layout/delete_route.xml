@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/modify_route_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="#00000000"
+    android:orientation="vertical">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/delroute_custom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="2dp"
+        android:background="#00000000"
+        >
+        <TextView
+            android:id="@+id/tv_route_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Are you sure you want to delete this route?"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="120dp"
+            android:padding="25sp"
+            android:background="@drawable/edittext_background"
+
+            />
+
+        <Button
+            android:id="@+id/rcancel_delete"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rconfirm_delete"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_standard"
+            android:text="Cancel"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/rconfirm_delete"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_route_del"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_standard"
+            android:text="Yes"
+            android:layout_margin="20dp"
+            android:textColor="#FFF" />
+
+    </RelativeLayout>
+</RelativeLayout>

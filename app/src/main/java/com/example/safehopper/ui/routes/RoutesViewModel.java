@@ -1,18 +1,18 @@
 package com.example.safehopper.ui.routes;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import com.example.safehopper.models.Route;
 import com.example.safehopper.repositories.RoutesRepository;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
 public class RoutesViewModel extends ViewModel
 {
     private RoutesRepository routesRepository;
-    private MutableLiveData<List<Route>> mRoutes;
+    private static MutableLiveData<List<Route>> mRoutes;
 
     public void init()
     {
@@ -23,7 +23,7 @@ public class RoutesViewModel extends ViewModel
         mRoutes = routesRepository.getRoutes();
     }
 
-    public LiveData<List<Route>> getRoutes()
+    public static LiveData<List<Route>> getRoutes()
     {
         return mRoutes;
     }

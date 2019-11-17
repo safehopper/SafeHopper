@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.safehopper.R;
@@ -19,7 +16,10 @@ import com.example.safehopper.models.Route;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
@@ -27,6 +27,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private List<Route> mRoutes = new ArrayList<>();
     private Context mContext;
+
     private OnRouteListener mOnRouteListener;
 
     public RecyclerViewAdapter(Context context, List<Route> routes, OnRouteListener onRouteListener)
@@ -64,13 +65,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mRoutes.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
 
+        OnRouteListener onRouteListener;
         CircleImageView routeImage;
         TextView routeName;
         TextView routeMiles;
         RelativeLayout routeParentLayout;
-        OnRouteListener onRouteListener;
 
 
         public ViewHolder(@NonNull View itemView, OnRouteListener onRouteListener) {
@@ -82,8 +83,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             this.onRouteListener = onRouteListener;
 
+            itemView.setOnLongClickListener(this);
             itemView.setOnClickListener(this);
         }
+
+        @Override
+        public boolean onLongClick(View view) {
+            onRouteListener.onRouteLongClick(getAdapterPosition());
+            return true;
+        }
+
 
         /**
          * Called when a view has been clicked.
@@ -96,7 +105,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
+
     public interface OnRouteListener{
         void onRouteClick(int position);
+        void onRouteLongClick(int position);
     }
 }
