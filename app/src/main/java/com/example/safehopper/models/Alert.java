@@ -8,22 +8,26 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Alert {
 
     private String email;
     private String distance;    //in feet
     private List<LatLng> waypoints = new ArrayList<>();
+    private String alertID;
 
     public Alert(String newEmail){
         email = newEmail;
+        alertID = UUID.randomUUID().toString();
     }
 
-    public Alert(String newEmail, String newDistace,List<LatLng> routeWaypoints){
+    public Alert(String newEmail, String newDistace,List<LatLng> routeWaypoints, String newAlertID){
 
         email = newEmail;
         distance = newDistace;
         waypoints = routeWaypoints;
+        alertID = newAlertID;
     }
 
     public String getDistance() {
@@ -46,7 +50,7 @@ public class Alert {
     public String turnToJson(){
 
         Gson routeObj = new Gson();
-        String json = routeObj.toJson(new Alert(email, distance, waypoints));
+        String json = routeObj.toJson(new Alert(email, distance, waypoints, alertID));
         Log.d("method: turnToJson-->Json of object",json);
 
         try {
@@ -67,7 +71,7 @@ public class Alert {
 
     @Override
     public String toString(){
-        return " distance: " + distance + " routeWaypoints: " + waypoints.toString();
+        return " distance: " + distance + " routeWaypoints: " + waypoints.toString() + "routeID: " + alertID;
     }
 
     public String getEmail() {
@@ -76,5 +80,10 @@ public class Alert {
 
     public void setEmail(String newEmail) {
         email = newEmail;
+    }
+
+    public void setUUID(String newAlertID) {
+
+        alertID = newAlertID;
     }
 }
