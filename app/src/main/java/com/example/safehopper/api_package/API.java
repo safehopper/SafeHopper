@@ -5,6 +5,7 @@ import java.util.Map;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -24,6 +25,9 @@ public interface API {
 
     @POST("alerts")
     Call<ResponseBody> sendAlert(@Body Map<String, Object> body);
+
+    @DELETE("alerts")
+    Call<ResponseBody> endAlert(@Body Map<String, String> body);
 
     @PUT("alerts")
     Call<ResponseBody> updateAlert(@Body Map<String, Object> body);

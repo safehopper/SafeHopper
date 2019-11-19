@@ -216,6 +216,17 @@ public abstract class Requests {
         return api.updateAlert(body);
     }
 
+    public static Call<ResponseBody> endAlert(Alert a){
+        setupAPI();
+
+        Map<String, String> body = new HashMap();
+
+        body.put("key", serverKey);
+        body.put("alertId", a.getUUID());
+
+        return api.endAlert(body);
+    }
+
     public static Call<ResponseBody> modifyContact(Contact contact){
         setupAPI();
 
