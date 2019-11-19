@@ -86,4 +86,8 @@ public class Alert {
 
         alertID = newAlertID;
     }
+
+    public String getUUID() {
+        return this.alertID;
+    }
 }

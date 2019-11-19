@@ -22,6 +22,12 @@ public interface API {
     @POST("routes/getroutes")
     Call<ResponseBody> getRoutes(@Body Map<String, String> body);
 
+    @POST("alerts")
+    Call<ResponseBody> sendAlert(@Body Map<String, Object> body);
+
+    @PUT("alerts")
+    Call<ResponseBody> updateAlert(@Body Map<String, Object> body);
+
     @POST("user/confirm")
     Call<ResponseBody> confirmUser(@Body Map<String, String> body);
 
