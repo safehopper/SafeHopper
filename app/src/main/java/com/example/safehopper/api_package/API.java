@@ -26,7 +26,7 @@ public interface API {
     @POST("alerts")
     Call<ResponseBody> sendAlert(@Body Map<String, Object> body);
 
-    @DELETE("alerts")
+    @HTTP(method = "DELETE", path = "alerts", hasBody = true)
     Call<ResponseBody> endAlert(@Body Map<String, String> body);
 
     @PUT("alerts")
