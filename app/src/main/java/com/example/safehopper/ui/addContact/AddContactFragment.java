@@ -13,6 +13,7 @@ import com.example.safehopper.R;
 import com.example.safehopper.api_package.API;
 import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Contact;
+import com.example.safehopper.repositories.ContactsRepository;
 import com.example.safehopper.ui.contacts.ContactsFragment;
 
 import androidx.annotation.NonNull;
@@ -70,12 +71,13 @@ public class AddContactFragment extends Fragment {
                 boolean textAlerts = mtextAlerts.isChecked();
                 boolean emailAlerts = memailAlerts.isChecked();
 
-                Contact c = new Contact(firstName, lastName, phoneNum, email, textAlerts, emailAlerts);
+                final Contact c = new Contact(firstName, lastName, phoneNum, email, textAlerts, emailAlerts);
                 Requests.addContact(c).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             try {
+                                ContactsRepository.getInstance().getDataSet().add(c);
                                 Log.d("ADD CONTACT RESPONSE", response.body().string());
                                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                                 transaction.replace(R.id.nav_host_fragment, new ContactsFragment());

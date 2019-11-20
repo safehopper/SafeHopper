@@ -56,4 +56,8 @@ public class RoutesRepository
         }
         return null;
     }
+
+    public List<Route> getDataSet() {
+        return dataSet;
+    }
 }

@@ -58,7 +58,6 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
 
         Log.d(TAG, "onCreateView started.");
 
-
         contactsViewModel.getContacts().observe(this, new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {

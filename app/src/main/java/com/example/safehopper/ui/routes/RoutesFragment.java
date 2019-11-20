@@ -61,7 +61,6 @@ public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRo
             }
         });
 
-
         Requests.getRoutes(UserRepository.getInstance().getUser().getValue().getEmail());
 
         initRouteListItems();
@@ -82,7 +81,7 @@ public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRo
     public void onRouteLongClick(int position) {
         Route r = routesViewModel.getRoutes().getValue().get(position);
 //        Toast.makeText(getContext(), "Contact: " + c.getFirstName(), Toast.LENGTH_SHORT).show();
-        Fragment modifyFragment = new ModifyRoute(r.getName(), position);
+        Fragment modifyFragment = new ModifyRoute(r.getName(), position, mAdapter);
 //        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, modifyFragment);
