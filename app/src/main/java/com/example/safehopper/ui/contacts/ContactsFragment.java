@@ -138,16 +138,19 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
                             try {
                                 Log.d("DELETE CONTACT RESPONSE", response.body().string());
                                 Toast.makeText(getContext(), "Contact deleted.", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getContext(), "Contact: " + ContactsRepository.getInstance().getDataSet().get(position).getFirstName(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getContext(), "Contact: " + ContactsRepository.getInstance().getDataSet().get(position).getFirstName(), Toast.LENGTH_SHORT).show();
+
+                                // update the repository List to remove the item and notify adapter for recycler view
                                 ContactsRepository.getInstance().getDataSet().remove(position);
                                 mAdapter.notifyItemChanged(position);
 
+                                // refreshes the page
                                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                                 transaction.replace(R.id.nav_host_fragment, new ContactsFragment());
                                 transaction.addToBackStack(null);
                                 transaction.commit();
                                 Log.d("REFRESH FRAGMENT", "finished fragment transaction");
-                                
+
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
