@@ -56,8 +56,8 @@ public class SessionActivity extends AppCompatActivity implements
         OnMapReadyCallback, GoogleMap.OnPolylineClickListener, GoogleMap.OnMyLocationButtonClickListener, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMyLocationClickListener {
 
     private static final float  MIN_DISTANCE =    0;
-    private static final long   MIN_TIME     = 2000;
-    private static final int    TOLERANCE    =  100;
+    private static final long   MIN_TIME     = 10000;
+    private static final int    TOLERANCE    =  10;
 
 
     // with or without route
@@ -88,7 +88,7 @@ public class SessionActivity extends AppCompatActivity implements
     private Context context = this;
     private boolean isOnpath = false;
 
-
+    private boolean alertsSent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,6 +212,7 @@ public class SessionActivity extends AppCompatActivity implements
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
 
+                        tracking = true;
                         sessionWithRoute = false;
                         sessionAndAlert.setText("SEND ALERT");
 
@@ -364,7 +365,10 @@ public class SessionActivity extends AppCompatActivity implements
                 currentLocation = location;
 
                 isOnpath = PolyUtil.isLocationOnPath(new LatLng(location.getLatitude(), location.getLongitude()), polyline1.getPoints(), true, TOLERANCE);
+                Log.d("CURRENT-LOCATION-LM","Is tracking: " + String.valueOf(tracking));
                 if(tracking) pathTaken.addPoint(new LatLng(location.getLatitude(),location.getLongitude()));
+
+                Log.d("pathTaken",pathTaken.turnToJson());
 
                 setRouteColor();
                 // Logic for sending alerts or not.
@@ -372,9 +376,11 @@ public class SessionActivity extends AppCompatActivity implements
                         // TODO: Make send alert request
                     Log.d("ALERT",pathTaken.turnToJson());
 
-                    //
+                    sendAndUpdateAlerts();
+
+                    // changes color of br
                     getWindow().setStatusBarColor(ContextCompat.getColor(context,R.color.actionBarRed));
-                    //
+                    // sends alert and changes color or button
                     getSupportActionBar().setTitle("SENDING ALERTS");
                     getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context,R.color.redButton)));
 
@@ -424,7 +430,46 @@ public class SessionActivity extends AppCompatActivity implements
         locationManager.requestLocationUpdates("gps", MIN_TIME, MIN_DISTANCE, locationListener);
     }
 
+    private void sendAndUpdateAlerts() {
+        if(!alertsSent && sendAlert) {
+            Requests.sendAlert(pathTaken).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        try {
+                            Log.d("SENDING ALERT", response.body().string());
+                            alertsSent = true;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+        }else{
+            if(alertsSent && sendAlert){
+                Requests.updateAlert(pathTaken).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try{
+                            Log.d("SENDING ALERT UPDATE", response.body().string());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+            }
+        }
+    }
 
 
     // Confirmation callback, only used to change screens
