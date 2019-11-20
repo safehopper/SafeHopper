@@ -201,6 +201,8 @@ public abstract class Requests {
         body.put("alertId", a.getUUID());
         body.put("waypoints", a.getRouteWaypoints());
         body.put("email", a.getEmail());
+        body.put("name",UserRepository.getInstance().getUser().getValue().getFirstName() + " "
+                +UserRepository.getInstance().getUser().getValue().getFirstName());
 
         return api.sendAlert(body);
     }

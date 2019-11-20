@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -117,6 +119,8 @@ public class SessionActivity extends AppCompatActivity implements
 
             routeBoilerPlateScaffolding();
         }
+
+        routeModeToggle();
     }
 
     private void routeBoilerPlateScaffolding(){
@@ -203,6 +207,9 @@ public class SessionActivity extends AppCompatActivity implements
                 // Checks user clicked send alert button
                 if(buttonText.compareToIgnoreCase("SEND ALERT") == 0) {
                     sendAlert = true;
+                    sendAndUpdateAlerts();
+                    final Button b = findViewById(stop_tracking);
+                    b.setText("END ALERTS");
                 }
                 //checks if user clicked start session button
                 else {
@@ -234,7 +241,37 @@ public class SessionActivity extends AppCompatActivity implements
 
                 String buttonText = stopTracking.getText().toString();
 
-                if(buttonText.compareToIgnoreCase("START SESSION WITH ROUTE") == 0){
+                // TODO this crashes the app or sends it to the login screen FIX THIS
+                if(buttonText.compareToIgnoreCase("END ALERTS") == 0){
+                    Requests.endAlert(pathTaken).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.isSuccessful()) {
+                                try {
+                                    Toast.makeText(context, "Ending Alerts", Toast.LENGTH_SHORT).show();
+                                    Log.d("ENDING ALERT", response.body().string());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Log.d("END ALERTS","RESPONSE FAILED");
+                        }
+                    });
+
+                    if(sessionWithRoute) {
+                        getSupportActionBar().setTitle(route.getName().replaceAll("\"","") + " " + route.getDistance().replaceAll("\"",""));
+                    }
+                    else{
+                        getSupportActionBar().setTitle("SafeHopper");
+                    }
+                    getWindow().setStatusBarColor(ContextCompat.getColor(context,R.color.colorPrimaryDark));
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context,R.color.colorPrimary)));
+                    sendAlert = false;
+                }else if(buttonText.compareToIgnoreCase("START SESSION WITH ROUTE") == 0){
 
                     Intent i = new Intent(SessionActivity.this, MainActivity.class);
                     FragmentManager.getInstance().setGoToRoutes(true);
@@ -243,22 +280,20 @@ public class SessionActivity extends AppCompatActivity implements
                     // TODO may have to most this to when the route gets loaded
                     final Button b = findViewById(start_alert);
                     b.setText("SEND ALERT");
-                }
-
-                // Stop tracking.
-                if(buttonText.compareToIgnoreCase("STOP TRACKING") == 0){
+                }// Stop tracking.
+                else if(buttonText.compareToIgnoreCase("STOP TRACKING") == 0){
 
                     tracking = false;
                     stopTracking.setBackgroundResource(R.drawable.button_standard_red);
                     stopTracking.setText("RESUME TRACKING");
 
-                }
-                //Resumes tracking
-                else{
+                }else if (buttonText.compareToIgnoreCase("RESUME TRACKING") == 0){//Resumes tracking
                     tracking = true;
 
                     stopTracking.setBackgroundResource(R.drawable.button_standard);
                     stopTracking.setText("STOP TRACKING");
+                } else{
+                    Log.d("DO NOTHING", "Dead End");
                 }
             }
         });
@@ -504,6 +539,17 @@ public class SessionActivity extends AppCompatActivity implements
         String text = route.getEmail();
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
 
+    }
+
+    private void routeModeToggle() {
+        final Switch s = findViewById(R.id.view_toggle);
+        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked) mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            }
+        });
     }
 
 }

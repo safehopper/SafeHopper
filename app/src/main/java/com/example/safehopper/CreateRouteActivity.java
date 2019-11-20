@@ -150,7 +150,8 @@ public class CreateRouteActivity extends AppCompatActivity implements
     public void onMapClick(LatLng latLng) {
         route.addPoint(latLng);
         route.setDistance(findDistace(route.getRouteWaypoints()));
-        route.setImageURL("VeryCool.jpeg");
+//        route.setImageURL("VeryCool.jpeg");
+        route.setImageURL("https://cdn-assets.alltrails.com/static-map/production/at-map/20792117/trail-us-california-el-dorado-east-regional-park-perimeter-loop-at-map-20792117-1534368141-414x200-1.png");
         route.setEmail(UserRepository.getInstance().getUser().getValue().getEmail());
         route.setRouteID();
 
@@ -159,11 +160,11 @@ public class CreateRouteActivity extends AppCompatActivity implements
                     .position(new LatLng( latLng.latitude,latLng.longitude))
                     .rotation((float) 0.0)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                    .title("Start")
             );
             start.setTag(0);
             initialClick = false;
         }
-
         refreshPolyline();
     }
 
