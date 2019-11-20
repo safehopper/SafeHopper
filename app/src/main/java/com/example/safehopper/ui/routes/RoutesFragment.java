@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 
 import com.example.safehopper.R;
 import com.example.safehopper.SessionActivity;
+import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.modifyRoute.ModifyRoute;
 import com.example.safehopper.repositories.RoutesRepository;
+import com.example.safehopper.repositories.UserRepository;
 
 import java.util.List;
 
@@ -50,6 +52,7 @@ public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRo
 
         routesViewModel.init();
 
+
         routesViewModel.getRoutes().observe(this, new Observer<List<Route>>() {
             @Override
             public void onChanged(List<Route> routes) {
@@ -57,6 +60,9 @@ public class RoutesFragment extends Fragment implements RecyclerViewAdapter.OnRo
                 Log.d("ON CHANGED", RoutesRepository.getInstance().getRoutes().toString());
             }
         });
+
+
+        Requests.getRoutes(UserRepository.getInstance().getUser().getValue().getEmail());
 
         initRouteListItems();
         return root;

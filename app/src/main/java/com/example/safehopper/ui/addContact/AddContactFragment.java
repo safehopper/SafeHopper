@@ -13,9 +13,11 @@ import com.example.safehopper.R;
 import com.example.safehopper.api_package.API;
 import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Contact;
+import com.example.safehopper.ui.contacts.ContactsFragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -75,6 +77,10 @@ public class AddContactFragment extends Fragment {
                         if (response.isSuccessful()) {
                             try {
                                 Log.d("ADD CONTACT RESPONSE", response.body().string());
+                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                transaction.replace(R.id.nav_host_fragment, new ContactsFragment());
+                                transaction.addToBackStack(null);
+                                transaction.commit();
                             }
                             catch (Exception e) {
                                 e.printStackTrace();

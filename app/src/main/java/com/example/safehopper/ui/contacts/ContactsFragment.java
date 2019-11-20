@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.safehopper.R;
 import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Contact;
+import com.example.safehopper.repositories.ContactsRepository;
 import com.example.safehopper.repositories.UserRepository;
 import com.example.safehopper.ui.modifyContact.modifyContact;
 
@@ -57,12 +58,16 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
 
         Log.d(TAG, "onCreateView started.");
 
+
         contactsViewModel.getContacts().observe(this, new Observer<List<Contact>>() {
             @Override
             public void onChanged(List<Contact> contacts) {
                 mAdapter.notifyDataSetChanged();
             }
         });
+
+
+        Requests.getContacts(UserRepository.getInstance().getUser().getValue().getEmail());
 
         initContactListItems();
 
@@ -89,7 +94,7 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
     }
 
     @Override
-    public void onContactLongClick(int position) {
+    public void onContactLongClick(final int position) {
         final Contact c = contactsViewModel.getContacts().getValue().get(position);
 
         mRelativeLayout = (RelativeLayout) getActivity().findViewById(R.id.contacts_layout);
@@ -133,6 +138,16 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
                             try {
                                 Log.d("DELETE CONTACT RESPONSE", response.body().string());
                                 Toast.makeText(getContext(), "Contact deleted.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Contact: " + ContactsRepository.getInstance().getDataSet().get(position).getFirstName(), Toast.LENGTH_SHORT).show();
+                                ContactsRepository.getInstance().getDataSet().remove(position);
+                                mAdapter.notifyItemChanged(position);
+
+                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                transaction.replace(R.id.nav_host_fragment, new ContactsFragment());
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+                                Log.d("REFRESH FRAGMENT", "finished fragment transaction");
+                                
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
@@ -150,5 +165,6 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
                 mPopupWindow.dismiss();
             }
         });
+
     }
 }
