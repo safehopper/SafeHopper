@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/colorAccent"
+            android:background="@drawable/toggle_background"
+            android:checked="false"
             android:text="@string/route_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

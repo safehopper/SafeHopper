@@ -89,6 +89,8 @@ public class CreateRouteActivity extends AppCompatActivity implements
 
         undoButtonListener();
 
+        routeModeToggle();
+
         saveAndFinishListener();
 
         locationManagerStuff();
@@ -188,8 +190,8 @@ public class CreateRouteActivity extends AppCompatActivity implements
         s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                //make the route snap to roads
-                //make the routes not snap to roads
+                if(isChecked) mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             }
         });
     }
