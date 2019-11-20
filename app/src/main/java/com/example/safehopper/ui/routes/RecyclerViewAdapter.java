@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.safehopper.R;
@@ -16,8 +19,6 @@ import com.example.safehopper.models.Route;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -58,6 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         ((ViewHolder)holder).routeName.setText(mRoutes.get(position).getName());
         ((ViewHolder)holder).routeMiles.setText(mRoutes.get(position).getDistance());
+        // TODO @Andrew if you have time fix this section to load the images
     }
 
     @Override

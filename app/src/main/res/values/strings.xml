@@ -46,7 +46,7 @@
     <string name="undo_waypoint">Undo Waypoint</string>
     <string name="save_and_finish">Save and Finish</string>
     <string name="server_api_key"></string>
-    <string name="route_toggle">Snap To Route</string>
+    <string name="route_toggle">Satellite</string>
 
     <!-- Permissions -->
     <string name="permission_required_toast">Location permission is required for this demo.</string>
