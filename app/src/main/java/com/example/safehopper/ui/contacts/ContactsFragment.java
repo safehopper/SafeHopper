@@ -23,6 +23,7 @@ import com.example.safehopper.ui.modifyContact.modifyContact;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -44,6 +45,7 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
 
     private RelativeLayout mRelativeLayout;
     private PopupWindow mPopupWindow;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,6 +71,8 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
         Requests.getContacts(UserRepository.getInstance().getUser().getValue().getEmail());
 
         initContactListItems();
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Contacts");
 
         return root;
     }
