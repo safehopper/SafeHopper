@@ -33,7 +33,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -72,6 +75,9 @@ public class CreateRouteActivity extends AppCompatActivity implements
 
     private RoutesViewModel routesViewModel;
 
+    private boolean initialClick = true;
+    private Marker start;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +88,8 @@ public class CreateRouteActivity extends AppCompatActivity implements
         mapFragment.getMapAsync(this);
 
         undoButtonListener();
+
+        routeModeToggle();
 
         saveAndFinishListener();
 
@@ -106,11 +114,6 @@ public class CreateRouteActivity extends AppCompatActivity implements
         // This code only shows a marker after two points.
         // Fix this in the future.
         // No justin, I will not remove this unused code. WE NEED IT IN THE FUTURE.
-
-        //        polyline1.setStartCap(
-        //                new CustomCap(
-        //                        BitmapDescriptorFactory.defaultMarker(), 10));
-
         polyline1.setTag("Set the tag of the polyline to what the user names the polyline in the future?");
 
         polyline1.setColor(Color.RED);
@@ -140,16 +143,28 @@ public class CreateRouteActivity extends AppCompatActivity implements
 
     @Override
     public void onPolylineClick(Polyline polyline) {
-        Toast.makeText(this, "RouteName: " + polyline.getTag().toString(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "RouteName: " + polyline.getTag().toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onMapClick(LatLng latLng) {
         route.addPoint(latLng);
         route.setDistance(findDistace(route.getRouteWaypoints()));
-        route.setImageURL("VeryCool.jpeg");
+//        route.setImageURL("VeryCool.jpeg");
+        route.setImageURL("https://cdn-assets.alltrails.com/static-map/production/at-map/20792117/trail-us-california-el-dorado-east-regional-park-perimeter-loop-at-map-20792117-1534368141-414x200-1.png");
         route.setEmail(UserRepository.getInstance().getUser().getValue().getEmail());
         route.setRouteID();
+
+        if(initialClick) {
+            start = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng( latLng.latitude,latLng.longitude))
+                    .rotation((float) 0.0)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                    .title("Start")
+            );
+            start.setTag(0);
+            initialClick = false;
+        }
         refreshPolyline();
     }
 
@@ -162,6 +177,10 @@ public class CreateRouteActivity extends AppCompatActivity implements
         undo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 route.removeLastPoint();
+                if(route.getRouteWaypoints().size() == 0){
+                    start.remove();
+                    initialClick = true;
+                }
                 refreshPolyline();
             }
         });
@@ -172,8 +191,8 @@ public class CreateRouteActivity extends AppCompatActivity implements
         s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                //make the route snap to roads
-                //make the routes not snap to roads
+                if(isChecked) mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             }
         });
     }

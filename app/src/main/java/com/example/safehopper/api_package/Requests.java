@@ -2,6 +2,7 @@ package com.example.safehopper.api_package;
 
 import android.util.Log;
 
+import com.example.safehopper.models.Alert;
 import com.example.safehopper.models.Contact;
 import com.example.safehopper.models.Route;
 import com.example.safehopper.models.RouteDeserializer;
@@ -191,6 +192,41 @@ public abstract class Requests {
 
         Log.d("Add contact", body.toString());
         return api.addContact(body);
+    }
+
+    public static Call<ResponseBody> sendAlert(Alert a){
+        setupAPI();
+        Map<String, Object> body = new HashMap<>();
+        body.put("key", serverKey);
+        body.put("alertId", a.getUUID());
+        body.put("waypoints", a.getRouteWaypoints());
+        body.put("email", a.getEmail());
+        body.put("name",UserRepository.getInstance().getUser().getValue().getFirstName() + " "
+                +UserRepository.getInstance().getUser().getValue().getFirstName());
+
+        return api.sendAlert(body);
+    }
+
+    public static Call<ResponseBody> updateAlert(Alert a){
+        setupAPI();
+        Map<String, Object> body = new HashMap<>();
+        body.put("key", serverKey);
+        body.put("alertId", a.getUUID());
+        body.put("waypoints", a.getRouteWaypoints());
+        body.put("email", a.getEmail());
+
+        return api.updateAlert(body);
+    }
+
+    public static Call<ResponseBody> endAlert(Alert a){
+        setupAPI();
+
+        Map<String, String> body = new HashMap();
+
+        body.put("key", serverKey);
+        body.put("alertId", a.getUUID());
+
+        return api.endAlert(body);
     }
 
     public static Call<ResponseBody> modifyContact(Contact contact){
