@@ -1,5 +1,5 @@
-<p align="center"><img width=30% src="safehopper_logo.svg"></p>
-<p align="center"><img width=70% src="logo.png"></p>
+<p align="center"><img width=30% src="./SafeHopper_ReadMe/safehopper_logo.svg"></p>
+<p align="center"><img width=70% src="./SafeHopper_ReadMe/logo.png"></p>
 
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 [![Build Status](https://travis-ci.org/anfederico/Clairvoyant.svg?branch=master)]()
