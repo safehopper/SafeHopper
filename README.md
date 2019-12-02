@@ -169,7 +169,7 @@ To use the SafeHopper app, you have to first create a SafeHopper account.
 1. Open the SafeHopper app 
 2. Click on the left top corner of the app to open the menu button.
 3. Login to your account using your user name and password that you have created in the previous step.
-   <p align="center"><img width=40% src="safehopper_Login_page.png"></p>
+   <p align="center"><img width=40% src="./SafeHopper_ReadMe/safehopper_Login_page.png"></p>
    
 4. If you don't have a SafeHopper account, redirect to step 1.1 Creating Account
 
@@ -187,13 +187,13 @@ To add a contact :
 - Tap on “Text Alerts” to send the contact a text message when there is an emergency situation.
 - Tap on “Email Alerts” to send the contact an email when there is an emergency situation.
 - If you want to alert the contact with text messages and emails tap on both of the options.
-- <p align="center"><img width=40% src="SafeHopper_Add_Contacts.png"></p>
+- <p align="center"><img width=40% src="./SafeHopper_ReadMe/SafeHopper_Add_Contacts.png"></p>
 ### 2.2 View Contact
 It is possible to view your contacts information after you’ve added them to your contacts list. To do so : 
 - Tap on the menu button on the left top corner of the home screen. 
 - Tap on "Contacts" option 
 You can view the contacts information on this page. 
- <p align="center"><img width=40% src="Safehopper_View_Contact.png"></p>
+ <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_View_Contact.png"></p>
 
 
 ### 2.3 Edit Contact
@@ -203,7 +203,7 @@ First tap on the menu on the top left.
 - Tap on any contact you would like to edit.
 - Tap on any field you would like to edit, such as “First Name”, “Last Name”, “Email Address”, "Phone Number" or the your preference on how to alert the contact. 
 - After making your desired changes, click on "Modify Contact" to save your new changes.
-<p align="center"><img width=40% src="Safehopper_Edit_Contacts.png"></p>
+<p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_Edit_Contacts.png"></p>
 
 ### 2.4 Delete Contact
 Deleting a contact will remove them from your contacts list as well as the SafeHoppers Server.
@@ -226,12 +226,12 @@ Creating a route allows you to make a path you would like to be tracked on.
 - When you are done creating your route press the “Save And Finish” button on the bottom right hand corner.
 - A text box will appear.
 - Tap on the “Route Name” field to set the name of your route.
-  <p align="center"><img width=40% src="Safehopper_Naming_New_Route.png"></p>
+  <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_Naming_New_Route.png"></p>
 
 - Tap on the “Save” button to finish creating a new route, or cancel to abort this step.
 
-  <p align="center"><img src="Safehopper_Create_Route.png" width="45%" />
-  <img src="Safehopper_Create_Route_Satellite.png" width="45%" /> 
+  <p align="center"><img src="./SafeHopper_ReadMe/Safehopper_Create_Route.png" width="45%" />
+  <img src="./SafeHopper_ReadMe/Safehopper_Create_Route_Satellite.png" width="45%" /> 
 </p>
 
 ### 3.2 View Route
@@ -241,7 +241,7 @@ In order to View the route you’ve created on the previous step:
 - tap on "Routes". 
 - You can view a list of the routes that you have previously saved. 
 - By clicking on each of them, you can open and view the previously saved routes. 
-    <p align="center"><img width=40% src="Safehopper_View_Routes.png"></p>
+    <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_View_Routes.png"></p>
 
 
 ### 3.3 Delete Route Or Modify The Name Of The Route
@@ -252,7 +252,7 @@ Deleting a route removes the route from your SafeHopper account.
 - Tap on the “Delete Route” on the bottom of the page.
 - Your route will have been deleted.
 - By clicking on the modify route, you can change the name of the route you previously saved. 
-  <p align="center"><img width=40% src="Safehopper_Delete_Modify_Route.png.png"></p>
+  <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_Delete_Modify_Route.png.png"></p>
 
 
 ## Session
@@ -262,9 +262,9 @@ Starting a session allows the SafeHopper App to track you with or without a rout
 - Open the menu from the left hand corner of the screen.
 - Tap on "Sessions" option.
 - Tap the “Start Session” button on the bottom left of the screen to start a session without a route.
-- <p align="center"><img width=40% src="Safehopper_Start_Session.png"></p>
+- <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_Start_Session.png"></p>
   - After the session has started, you can choose to "Send Alert" or to "Stop Tracking".
-  - <p align="center"><img width=40% src="Safehopper_Start_Session2.png"></p>
+  - <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_Start_Session2.png"></p>
 - Tap the “Start Session With Route” button on the bottom of the screen to start a session with a route.
   - You will be brought to the routes screen to select your desired route.
 
@@ -284,7 +284,7 @@ The route buffer zone allows you to adjust the parameters that set how far you c
 - Tap on “Route Buffer Zone” to display the options for level of security. 
 - The options are low security, medium security, and high security.  Low security has the most leeway for allowing you to stray from your route. High security has the least leeway for allowing you to stray from your route.
 - Tap on the level of security you would like on your routes.
-- <p align="center"><img width=40% src="Safehopper_Settings_Routebuffer.png"></p> 
+- <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_Settings_Routebuffer.png"></p> 
 
 ### 5.2 Units
 
@@ -293,7 +293,7 @@ You can adjust whether you want the units for distance to be displayed using the
 - Tap on the “Settings” button.
 - Tap on “Units” to display the options for the unit system. The options are “Miles/Feet” and “Kilometers/Meters.”
 - Tap on the unit system you would like displayed on your routes. 
- <p align="center"><img width=40% src="Safehopper_Settings_Units.png"></p>
+ <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_Settings_Units.png"></p>
 
 ## Built with
 ***
