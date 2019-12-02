@@ -58,7 +58,7 @@ public class SessionActivity extends AppCompatActivity implements
         OnMapReadyCallback, GoogleMap.OnPolylineClickListener, GoogleMap.OnMyLocationButtonClickListener, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMyLocationClickListener {
 
     private static final float  MIN_DISTANCE =    0;
-    private static final long   MIN_TIME     = 10000;
+    private static final long   MIN_TIME     = 5000;
     private static final int    TOLERANCE    =  10;
 
 
@@ -271,6 +271,7 @@ public class SessionActivity extends AppCompatActivity implements
                     getWindow().setStatusBarColor(ContextCompat.getColor(context,R.color.colorPrimaryDark));
                     getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context,R.color.colorPrimary)));
                     sendAlert = false;
+                    stopTracking.setText("STOP TRACKING");
                 }else if(buttonText.compareToIgnoreCase("START SESSION WITH ROUTE") == 0){
 
                     Intent i = new Intent(SessionActivity.this, MainActivity.class);
@@ -408,7 +409,10 @@ public class SessionActivity extends AppCompatActivity implements
                 setRouteColor();
                 // Logic for sending alerts or not.
                 if(sendAlert) {
-                        // TODO: Make send alert request
+
+                    final Button rightButton = findViewById(stop_tracking);
+
+                    // TODO: Make send alert request
                     Log.d("ALERT",pathTaken.turnToJson());
 
                     sendAndUpdateAlerts();
@@ -418,11 +422,12 @@ public class SessionActivity extends AppCompatActivity implements
                     // sends alert and changes color or button
                     getSupportActionBar().setTitle("SENDING ALERTS");
                     getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(context,R.color.redButton)));
+                    rightButton.setText("END ALERTS");
 
                 }else{
                     if(sessionWithRoute) {
                         // Checks if it's the users first time outside of the route
-                        if (!isOnpath && firstTimeOutOfBoundry) {
+                        if (!isOnpath && firstTimeOutOfBoundry && tracking) {
                             timeOutSideOfRouteInit = System.currentTimeMillis();
                             firstTimeOutOfBoundry = false;
                             // Checks how long the user has been outside of the route.
