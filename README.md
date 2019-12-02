@@ -252,7 +252,7 @@ Deleting a route removes the route from your SafeHopper account.
 - Tap on the “Delete Route” on the bottom of the page.
 - Your route will have been deleted.
 - By clicking on the modify route, you can change the name of the route you previously saved. 
-  <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_Delete_Modify_Route.png.png"></p>
+  <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_Delete_Modify_Route.png"></p>
 
 
 ## Session
