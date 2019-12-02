@@ -17,12 +17,16 @@ import android.widget.Toast;
 import com.example.safehopper.R;
 import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Route;
+import com.example.safehopper.repositories.RoutesRepository;
+import com.example.safehopper.ui.routes.RecyclerViewAdapter;
+import com.example.safehopper.ui.routes.RoutesFragment;
 import com.example.safehopper.ui.routes.RoutesViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -43,10 +47,13 @@ public class ModifyRoute extends Fragment {
     private RelativeLayout mRelativeLayout;
     private PopupWindow mPopupWindow;
 
-    public ModifyRoute(String routeName, int position)
+    private RecyclerViewAdapter mAdapter;
+
+    public ModifyRoute(String routeName, int position, RecyclerViewAdapter adapter)
     {
         this.routeName = routeName;
         this.position = position;
+        this.mAdapter = adapter;
     }
 
     @Override
@@ -134,6 +141,16 @@ public class ModifyRoute extends Fragment {
                                 if (response.isSuccessful()) {
                                     try {
                                         Log.d("DELETE ROUTE RESPONSE", response.body().string());
+                                        // update the repository List to remove the item and notify adapter for recycler view
+                                        RoutesRepository.getInstance().getDataSet().remove(position);
+                                        mAdapter.notifyItemChanged(position);
+
+                                        // refreshes the page
+                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                        transaction.replace(R.id.nav_host_fragment, new RoutesFragment());
+                                        transaction.addToBackStack(null);
+                                        transaction.commit();
+                                        Log.d("REFRESH FRAGMENT", "finished fragment transaction");
                                     }
                                     catch (Exception e) {
                                         e.printStackTrace();

@@ -16,12 +16,14 @@ import android.widget.Toast;
 import com.example.safehopper.R;
 import com.example.safehopper.api_package.Requests;
 import com.example.safehopper.models.Contact;
+import com.example.safehopper.repositories.ContactsRepository;
 import com.example.safehopper.repositories.UserRepository;
 import com.example.safehopper.ui.modifyContact.modifyContact;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -44,6 +46,7 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
     private RelativeLayout mRelativeLayout;
     private PopupWindow mPopupWindow;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +67,12 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
             }
         });
 
+
+        Requests.getContacts(UserRepository.getInstance().getUser().getValue().getEmail());
+
         initContactListItems();
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Contacts");
 
         return root;
     }
@@ -89,7 +97,7 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
     }
 
     @Override
-    public void onContactLongClick(int position) {
+    public void onContactLongClick(final int position) {
         final Contact c = contactsViewModel.getContacts().getValue().get(position);
 
         mRelativeLayout = (RelativeLayout) getActivity().findViewById(R.id.contacts_layout);
@@ -133,6 +141,19 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
                             try {
                                 Log.d("DELETE CONTACT RESPONSE", response.body().string());
                                 Toast.makeText(getContext(), "Contact deleted.", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getContext(), "Contact: " + ContactsRepository.getInstance().getDataSet().get(position).getFirstName(), Toast.LENGTH_SHORT).show();
+
+                                // update the repository List to remove the item and notify adapter for recycler view
+                                ContactsRepository.getInstance().getDataSet().remove(position);
+                                mAdapter.notifyItemChanged(position);
+
+                                // refreshes the page
+                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                transaction.replace(R.id.nav_host_fragment, new ContactsFragment());
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+                                Log.d("REFRESH FRAGMENT", "finished fragment transaction");
+
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
@@ -150,5 +171,6 @@ public class ContactsFragment extends Fragment implements RecyclerViewAdapter.On
                 mPopupWindow.dismiss();
             }
         });
+
     }
 }
