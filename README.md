@@ -154,11 +154,11 @@ If permission to user location has been granted , user location is retrieved and
 To use the SafeHopper app, you have to first create a SafeHopper account.
 1. Open the SafeHopper app 
 2. If you don't have a SafeHopper account, this is the time to create one
-3. Click on the top left corner to open the menu options.  <p align="center"><img width=40% src="Safehopper_Menu.png"></p>
+3. Click on the top left corner to open the menu options.  <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_Menu.png"></p>
 4. Click on the "Create Account".
 
 5. You are now redirected to a new page where you would enter your information in the required fields. This information consist of a "Email Address", "Password", "First Name", "Last Name", and a "Phone Number".
-   <p align="center"><img width=40% src="Safehopper_Create_Account.png"></p>
+   <p align="center"><img width=40% src="./SafeHopper_ReadMe/Safehopper_Create_Account.png"></p>
 6. After completing the required fields, click on "Create Account". 
    1. You'll be sent an email containing a code to authenticate your account.
 7. After this step, you have your SafeHopper Account and you are ready to login and start! 
